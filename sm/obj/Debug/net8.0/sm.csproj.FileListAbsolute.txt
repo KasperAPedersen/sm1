@@ -1,0 +1,14 @@
+C:\Users\zbc23kaped\source\repos\sm\sm\obj\Debug\net8.0\sm.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\zbc23kaped\source\repos\sm\sm\obj\Debug\net8.0\sm.AssemblyInfoInputs.cache
+C:\Users\zbc23kaped\source\repos\sm\sm\obj\Debug\net8.0\sm.AssemblyInfo.cs
+C:\Users\zbc23kaped\source\repos\sm\sm\obj\Debug\net8.0\sm.csproj.CoreCompileInputs.cache
+C:\Users\zbc23kaped\source\repos\sm\sm\bin\Debug\net8.0\sm.exe
+C:\Users\zbc23kaped\source\repos\sm\sm\bin\Debug\net8.0\sm.deps.json
+C:\Users\zbc23kaped\source\repos\sm\sm\bin\Debug\net8.0\sm.runtimeconfig.json
+C:\Users\zbc23kaped\source\repos\sm\sm\bin\Debug\net8.0\sm.dll
+C:\Users\zbc23kaped\source\repos\sm\sm\bin\Debug\net8.0\sm.pdb
+C:\Users\zbc23kaped\source\repos\sm\sm\obj\Debug\net8.0\sm.dll
+C:\Users\zbc23kaped\source\repos\sm\sm\obj\Debug\net8.0\refint\sm.dll
+C:\Users\zbc23kaped\source\repos\sm\sm\obj\Debug\net8.0\sm.pdb
+C:\Users\zbc23kaped\source\repos\sm\sm\obj\Debug\net8.0\sm.genruntimeconfig.cache
+C:\Users\zbc23kaped\source\repos\sm\sm\obj\Debug\net8.0\ref\sm.dll
