@@ -15,6 +15,5 @@ namespace sm
         public List<CObject> Children { get; set; } = new List<CObject>();
 
         internal abstract void Render();
-        internal abstract void Update(Point _pos);
     }
 }

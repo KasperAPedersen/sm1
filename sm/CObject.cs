@@ -9,20 +9,9 @@ namespace sm
 {
     internal class CObject : CContainer, IPosition, IDimensions
     {
-        public CObject(CObject? _parent, Position _pos, Dimensions _dim)
+        public CObject(CObject? _parent, Point _pos, Dimensions _dim)
         {
-            if (_dim.Width >= Console.WindowWidth) _dim = new Dimensions(_dim.Width - 4, _dim.Height);
-            if (_dim.Height >= Console.WindowHeight) _dim = new Dimensions(_dim.Width, _dim.Height - 2);
-
-            if (_parent != null )
-            {
-                _pos = new Position(new Point(_parent.Pos.Absolute.X + _pos.Relative.X + 2, _parent.Pos.Absolute.Y + _pos.Relative.Y + 1), _pos.Relative);
-                _parent.Children.Add(this);
-            }
-
-            Parent = _parent;
-            Pos = _pos;
-            Dim = _dim;
+            newObjPos(_parent, _pos, _dim);
         }
 
         internal override void Render()
@@ -30,27 +19,40 @@ namespace sm
             throw new NotImplementedException();
         }
 
-        internal override void Update(Point _pos)
+        internal void newObjPos(CObject _parent, Point _pos, Dimensions _dim)
         {
-            if (Parent != null && Pos.Absolute.X + _pos.X + Dim.Width > Parent.Dim.Width + 2) return;
-            if (Parent != null && Pos.Absolute.Y + _pos.Y + Dim.Height > Parent.Dim.Height) return;
+            // Update rel pos if parent exists
+            if (_pos.X < 2 && _parent != null) _pos = new Point(2, _pos.Y);
+            if (_pos.Y < 1 && _parent != null) _pos = new Point(_pos.X, 1);
 
-            Remove(Pos.Absolute, Dim);
-            Pos = new Position(new Point(Pos.Absolute.X + _pos.X, Pos.Absolute.Y + _pos.Y), new Point(Pos.Relative.X + _pos.X, Pos.Relative.Y + _pos.Y));
+            if (_parent == null) _dim = new Dimensions(Console.WindowWidth, Console.WindowHeight - 2);
 
-            DrawChildren();
-        }
+            if (_parent != null && _parent.Dim.Width <= _dim.Width) _dim = new Dimensions(_parent.Dim.Width - 4, _parent.Dim.Height);
+            if (_parent != null && _parent.Dim.Height <= _dim.Height) _dim = new Dimensions(_dim.Width, _parent.Dim.Height - 2);
 
-        internal void DrawChildren()
-        {
-            Render();
-            if (Children == null) return;
-
-            foreach(CObject child in Children)
+            // check for pos + width is out of parent
+            if (_parent != null)
             {
-                child.Pos = new Position(new Point(Pos.Absolute.X + child.Pos.Relative.X + 2, Pos.Absolute.Y + child.Pos.Relative.Y + 1), child.Pos.Relative);
-                child.DrawChildren();
+                if (_parent.Pos.Absolute.X + _pos.X + _dim.Width > _parent.Dim.Width)
+                {
+                    int maxWidth = _parent.Dim.Width - 4;
+                    int width = _pos.X + _dim.Width;
+                    _pos = new Point(_pos.X + (maxWidth - width) + 2, _pos.Y);
+                }
             }
+
+            // Update abs pos if parent exists
+            if (_parent != null)
+            {
+                Pos = new Position(new Point(_parent.Pos.Absolute.X + _pos.X, _parent.Pos.Absolute.Y + _pos.Y), _pos);
+            }
+            else
+            {
+                Pos = new Position(_pos, _pos);
+            }
+
+            Parent = _parent;
+            Dim = _dim;
         }
     }
 }
