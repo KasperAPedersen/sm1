@@ -8,7 +8,8 @@ CObject screen = new(null, new Position(new Point(0, 0), new Point(0,0)), new Di
 
 CBox outerBox = new(screen);
 CBox innerBox = new(outerBox);
-CBox b = new CBox(innerBox, Align.Middle, new Dimensions(20, 3));
+CBox b = new(innerBox, Align.Middle, new Dimensions(20, 3));
+CLabel l = new(innerBox, "Blah", Align.Middle);
 
 bool keepRunning = true;
 while (keepRunning)

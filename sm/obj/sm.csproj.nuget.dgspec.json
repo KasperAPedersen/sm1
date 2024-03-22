@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm\\sm.csproj": {}
+    "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\sm.csproj": {}
   },
   "projects": {
-    "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm\\sm.csproj": {
+    "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\sm.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm\\sm.csproj",
+        "projectUniqueName": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\sm.csproj",
         "projectName": "sm",
-        "projectPath": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm\\sm.csproj",
+        "projectPath": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\sm.csproj",
         "packagesPath": "C:\\Users\\zbc23kaped\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm\\obj\\",
+        "outputPath": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
