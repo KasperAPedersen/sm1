@@ -8,23 +8,23 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\zbc23kaped\\.nuget\\packages\\": {},
+    "C:\\Users\\swooo\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\sm.csproj",
+      "projectUniqueName": "C:\\Users\\swooo\\Documents\\GitHub\\sm1\\sm\\sm.csproj",
       "projectName": "sm",
-      "projectPath": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\sm.csproj",
-      "packagesPath": "C:\\Users\\zbc23kaped\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\obj\\",
+      "projectPath": "C:\\Users\\swooo\\Documents\\GitHub\\sm1\\sm\\sm.csproj",
+      "packagesPath": "C:\\Users\\swooo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\swooo\\Documents\\GitHub\\sm1\\sm\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\zbc23kaped\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\swooo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],

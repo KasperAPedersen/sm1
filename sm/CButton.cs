@@ -15,24 +15,7 @@ namespace sm
         {
             Text = _text;
 
-            switch (_align)
-            {
-                case Align.Left:
-                    _pos = new Point(0, 0);
-                    newObjPos(_parent, _pos, Dim);
-                    break;
-                case Align.Middle:
-                    int diff = (_parent.Dim.Width - Dim.Width) / 2;
-                    newObjPos(_parent, new Point(diff, 0), Dim);
-                    break;
-                case Align.Right:
-                    newObjPos(_parent, new Point((_parent.Dim.Width - Dim.Width), 0), Dim);
-                    break;
-                default:
-                    break;
-            }
-
-            Render();
+            if (newObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
         }
 
         internal override void Render()

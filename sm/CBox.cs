@@ -9,26 +9,14 @@ namespace sm
 {
     internal class CBox : CObject, IPosition, IDimensions
     {
-        public CBox(CObject _parent, Point _pos, Dimensions _dim, Align _align = Align.Left) : base(_parent, _pos, _dim)
-        {
-            switch (_align)
-            {
-                case Align.Left:
-                    _pos = new Point(0, 0);
-                    newObjPos(_parent, _pos, _dim);
-                    break;
-                case Align.Middle:
-                    int diff = (_parent.Dim.Width - Dim.Width) / 2;
-                    newObjPos(_parent, new Point(diff, 0), _dim);
-                    break;
-                case Align.Right:
-                    newObjPos(_parent, new Point((_parent.Dim.Width - Dim.Width), 0), _dim);
-                    break;
-                default:
-                    break;
-            }
 
-            Render();
+        public CBox(CObject _parent) : this(_parent, new Point(0, 0), _parent.Dim) { }
+        public CBox(CObject _parent, Point _pos, Dimensions _dim, Align _align = Align.None) : base(_parent, _pos, _dim)
+        {
+            if (Dim.Width < 3) Dim = new Dimensions(3, Dim.Height);
+            if (Dim.Height < 3) Dim = new Dimensions(Dim.Width, 3);
+
+            if (newObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
         }
 
         internal override void Render()
@@ -39,7 +27,7 @@ namespace sm
             tmp = $"{Border(Get.TopLeft)}{string.Concat(Enumerable.Repeat(Border(Get.Horizontal), Dim.Width - 2))}{Border(Get.TopRight)}";
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
 
-            for(int i = 0; i < Dim.Height; i++)
+            for(int i = 0; i < Dim.Height - 2; i++)
             {
                 tmp = $"{Border(Get.Vertical)}{string.Concat(Enumerable.Repeat(" ", Dim.Width - 2))}{Border(Get.Vertical)}";
                 Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
@@ -52,6 +40,7 @@ namespace sm
 
     enum Align
     {
+        None,
         Left,
         Middle,
         Right

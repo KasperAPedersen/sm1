@@ -12,6 +12,7 @@ namespace sm
         public CObject(CObject? _parent, Point _pos, Dimensions _dim)
         {
             newObjPos(_parent, _pos, _dim);
+            if (Parent != null) Parent.Children.Add(this);
         }
 
         internal override void Render()
@@ -19,8 +20,23 @@ namespace sm
             throw new NotImplementedException();
         }
 
-        internal void newObjPos(CObject _parent, Point _pos, Dimensions _dim)
+        internal override void Update(Point _pos)
         {
+            Remove(Pos.Absolute, Dim);
+
+            newObjPos(Parent, _pos, Dim);
+            Render();
+            foreach(CObject child in Children)
+            {
+                child.Update(_pos);
+            }
+        }
+
+        internal override bool newObjPos(CObject? _parent, Point _pos, Dimensions _dim)
+        {
+            if (_parent != null && Dim.Width > _parent.Dim.Width - 4) return false;
+            if (_parent != null && Dim.Height > _parent.Dim.Height - 2) return false;
+
             // Update rel pos if parent exists
             if (_pos.X < 2 && _parent != null) _pos = new Point(2, _pos.Y);
             if (_pos.Y < 1 && _parent != null) _pos = new Point(_pos.X, 1);
@@ -38,6 +54,15 @@ namespace sm
                     int maxWidth = _parent.Dim.Width - 4;
                     int width = _pos.X + _dim.Width;
                     _pos = new Point(_pos.X + (maxWidth - width) + 2, _pos.Y);
+                    
+                }
+
+                if(_parent.Pos.Absolute.Y + _pos.Y + _dim.Height > _parent.Dim.Height)
+                {
+                    int maxHeight = _parent.Dim.Height - 2;
+                    int height = _pos.Y + _dim.Height;
+                    _pos = new Point(_pos.X, _pos.Y + (maxHeight - height) + 1);
+                    
                 }
             }
 
@@ -53,6 +78,27 @@ namespace sm
 
             Parent = _parent;
             Dim = _dim;
+            return true;
+        }
+
+        internal override Point Aligner(Align _align, CObject _parent, Point _pos)
+        {
+            switch (_align)
+            {
+                case Align.Left:
+                    _pos = new Point(0, 0);
+                    break;
+                case Align.Middle:
+                    _pos = new Point((_parent.Dim.Width - Dim.Width) / 2, 0);
+                    break;
+                case Align.Right:
+                    _pos = new Point((_parent.Dim.Width - Dim.Width), 0);
+                    break;
+                default:
+                    break;
+            }
+
+            return _pos;
         }
     }
 }
