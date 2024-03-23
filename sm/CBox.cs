@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace sm
 {
-    internal class CBox : CObject, IPosition, IDimensions
+    internal class CBox : CObject
     {
 
         public CBox(CObject _parent) : this(_parent, new Point(0, 0), _parent.Dim) { }

@@ -11,8 +11,10 @@ CBox innerBox = new(outerBox, new Point(0, 0), new Dimensions(Console.WindowWidt
 CBox b2 = new(innerBox, new Point(0, 0), new Dimensions(30, 30));
 CButton b4 = new(innerBox, new Point(0, 0), new Dimensions(0, 0), Align.Right, "Create User");
 
-CLabel l = new(b2, new Point(0, 0), Align.Right, "blah");
-
+CLabel l = new(b2, new Point(0, 0), Align.Middle, "Inputs");
+_ = new CInput(b2, new Point(0, 5));
+_ = new CInput(b2, new Point(0, 6));
+_ = new CInput(b2, new Point(0, 7));
 
 
 bool keepRunning = true;

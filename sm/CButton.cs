@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace sm
 {
-    internal class CButton : CObject, IPosition, IDimensions
+    internal class CButton : CObject
     {
         string Text = "";
 

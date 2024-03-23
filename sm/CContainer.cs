@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace sm
 {
-    internal abstract class CContainer : CRender, IPosition, IDimensions
+    internal abstract class CContainer : CController, IPosition, IDimensions
     {
         public Position Pos { get; set; }
         public Dimensions Dim { get; set; }

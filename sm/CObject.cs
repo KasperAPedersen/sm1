@@ -7,12 +7,22 @@ using System.Threading.Tasks;
 
 namespace sm
 {
+    
     internal class CObject : CContainer, IPosition, IDimensions
     {
         public CObject(CObject? _parent, Point _pos, Dimensions _dim)
         {
+            // Correct & set CObject variables
             newObjPos(_parent, _pos, _dim);
+
+            // Set as children of _parent if _parent != null
             if (Parent != null) Parent.Children.Add(this);
+
+            if(this is IController)
+            {
+                // Add to controller list
+                controllerObjects.Add(this);
+            }
         }
 
         internal override void Render()
