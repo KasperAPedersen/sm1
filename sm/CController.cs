@@ -53,6 +53,7 @@ namespace sm
 
         internal static void Finished()
         {
+            Idle();
             foreach(CInput obj in controllerObjects)
             {
                 controllerObjectsValues.Add(obj.Text);

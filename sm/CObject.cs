@@ -64,21 +64,22 @@ namespace sm
             // check for pos + width is out of parent
             if (_parent != null)
             {
-                if (_parent.Pos.Absolute.X + _pos.X + _dim.Width > _parent.Dim.Width)
+                /*if (_parent.Pos.Absolute.X + _pos.X + _dim.Width > _parent.Dim.Width)
                 {
                     int maxWidth = _parent.Dim.Width - 4;
                     int width = _pos.X + _dim.Width;
+                    //_pos = new Point(_pos.X + (maxWidth - width) + 2, _pos.Y);
                     _pos = new Point(_pos.X + (maxWidth - width) + 2, _pos.Y);
-                    
+
                 }
 
-                if(_parent.Pos.Absolute.Y + _pos.Y + _dim.Height > _parent.Dim.Height)
+                if (_parent.Pos.Absolute.Y + _pos.Y + _dim.Height > _parent.Dim.Height)
                 {
                     int maxHeight = _parent.Dim.Height - 2;
                     int height = _pos.Y + _dim.Height;
                     _pos = new Point(_pos.X, _pos.Y + (maxHeight - height) + 1);
-                    
-                }
+
+                }*/
             }
 
             // Update abs pos if parent exists
@@ -101,13 +102,13 @@ namespace sm
             switch (_align)
             {
                 case Align.Left:
-                    _pos = new Point(0, 0);
+                    _pos = new Point(0, _pos.Y);
                     break;
                 case Align.Middle:
-                    _pos = new Point((_parent.Dim.Width - Dim.Width) / 2, 0);
+                    _pos = new Point((_parent.Dim.Width - Dim.Width) / 2, _pos.Y);
                     break;
                 case Align.Right:
-                    _pos = new Point((_parent.Dim.Width - Dim.Width), 0);
+                    _pos = new Point((_parent.Dim.Width - Dim.Width) - 2, _pos.Y);
                     break;
                 default:
                     break;

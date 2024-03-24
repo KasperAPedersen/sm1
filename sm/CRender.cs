@@ -22,10 +22,7 @@ namespace sm
         internal static void Write(Point _pos, string _text)
         {
             SetPos(_pos);
-
-            Console.ForegroundColor = ConsoleColor.White;
             Console.Write(_text);
-            Console.ForegroundColor = ConsoleColor.Black;
         }
 
         internal static void Remove(Point _pos, Dimensions _dim)
