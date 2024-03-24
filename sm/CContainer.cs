@@ -15,6 +15,7 @@ namespace sm
         public List<CObject> Children { get; set; } = new List<CObject>();
 
         internal abstract void Render();
+        internal abstract ControllerState Init();
         internal abstract bool newObjPos(CObject? _parent, Point _pos, Dimensions _dim);
         internal abstract void Update(Point _pos);
         internal abstract Point Aligner(Align _align, CObject _parent, Point _pos);

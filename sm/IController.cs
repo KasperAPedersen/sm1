@@ -8,6 +8,6 @@ namespace sm
 {
     internal interface IController
     {
-        public bool Run();
+        public string Text { get; set; }
     }
 }

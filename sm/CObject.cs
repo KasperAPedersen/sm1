@@ -30,6 +30,11 @@ namespace sm
             throw new NotImplementedException();
         }
 
+        internal override ControllerState Init()
+        {
+            throw new NotImplementedException();
+        }
+
         internal override void Update(Point _pos)
         {
             Remove(Pos.Absolute, Dim);
