@@ -41,6 +41,13 @@ namespace sm
             tmp = CStyling.Set(tmp, CStyling.Get([typeof(BorderBgColor), typeof(BorderColor), typeof(BorderStyling)], Styling));
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
         }
+
+        internal override void ChangeStyling(List<object> _styles)
+        {
+            Styling = _styles;
+            Remove(Pos.Absolute, Dim);
+            Render();
+        }
     }
 
     enum Align

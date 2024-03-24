@@ -44,13 +44,20 @@ namespace sm
             tmp += $"{string.Concat(Enumerable.Repeat(" ", diff / 2 + diffRem))}";
 
             // Border of text
-            tmp += CStyling.Set($"{Border(Get.Vertical)}", CStyling.Get([typeof(BorderBgColor), typeof(BorderColor), typeof(BorderStyling), typeof(Padding)], Styling));
+            tmp += CStyling.Set($"{Border(Get.Vertical)}", CStyling.Get([typeof(BorderBgColor), typeof(BorderColor), typeof(BorderStyling)], Styling));
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
 
             // Border of box
             tmp = $"{Border(Get.BottomLeft)}{string.Concat(Enumerable.Repeat(Border(Get.Horizontal), Dim.Width - 2))}{Border(Get.BottomRight)}";
             tmp = CStyling.Set(tmp, CStyling.Get([typeof(BorderBgColor), typeof(BorderColor), typeof(BorderStyling)], Styling));
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
+        }
+
+        internal override void ChangeStyling(List<object> _styles)
+        {
+            Styling = _styles;
+            Remove(Pos.Absolute, Dim);
+            Render();
         }
     }
 }

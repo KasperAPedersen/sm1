@@ -12,12 +12,11 @@ namespace sm
     internal class CController : CRender
     {
         // List of controller objects
-        static public List<CObject> controllerObjects { get; set; } = new List<CObject>();
-        static public List<string> controllerObjectsValues { get; set; } = new List<string>();
-        static public int controllerIndex = 0;
+        public static List<CObject> controllerObjects { get; set; } = new List<CObject>();
+        public static int controllerIndex = 0;
 
         // run controllers objects run func
-        internal static void Run(int _index)
+        internal static void Run(CForm _form, int _index)
         {
             // correct _index for next
             if (_index >= controllerObjects.Count) _index = controllerObjects.Count - 1;
@@ -31,13 +30,13 @@ namespace sm
             switch(result)
             {
                 case ControllerState.Next:
-                    Run(++_index);
+                    Run(_form, ++_index);
                     break;
                 case ControllerState.Previous:
-                    Run(--_index);
+                    Run(_form, --_index);
                     break;
                 case ControllerState.Finish:
-                    Finished();
+                    _form.Finished(GetValues());
                     return;
                 default:
                     Idle();
@@ -51,18 +50,16 @@ namespace sm
             CRender.SetPos(new Point(Console.WindowWidth - 5, Console.WindowHeight));
         }
 
-        internal static void Finished()
-        {
-            Idle();
-            foreach(CInput obj in controllerObjects)
-            {
-                controllerObjectsValues.Add(obj.Text);
-            }
-        }
-
         internal static List<string> GetValues()
         {
-            return controllerObjectsValues;
+            List<string> values = new List<string>();
+            foreach(CInput obj in controllerObjects)
+            {
+                values.Add(obj.Text);
+            }
+
+            Idle();
+            return values;
         }
     }
 

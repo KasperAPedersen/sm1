@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace sm
 {
-    internal abstract class CContainer : CController, IPosition, IDimensions
+    internal abstract class CContainer : CRender, IPosition, IDimensions
     {
         public Position Pos { get; set; }
         public Dimensions Dim { get; set; }
@@ -19,5 +19,6 @@ namespace sm
         internal abstract bool newObjPos(CObject? _parent, Point _pos, Dimensions _dim);
         internal abstract void Update(Point _pos);
         internal abstract Point Aligner(Align _align, CObject _parent, Point _pos);
+        internal abstract void ChangeStyling(List<object> _styles);
     }
 }

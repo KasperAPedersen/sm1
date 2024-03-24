@@ -17,12 +17,6 @@ namespace sm
 
             // Set as children of _parent if _parent != null
             if (Parent != null) Parent.Children.Add(this);
-
-            if(this is IController)
-            {
-                // Add to controller list
-                controllerObjects.Add(this);
-            }
         }
 
         internal override void Render()
@@ -31,6 +25,11 @@ namespace sm
         }
 
         internal override ControllerState Init()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal override void ChangeStyling(List<object> _styles)
         {
             throw new NotImplementedException();
         }
