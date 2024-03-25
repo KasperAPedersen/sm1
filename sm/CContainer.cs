@@ -13,6 +13,7 @@ namespace sm
         public Dimensions Dim { get; set; }
         public CObject? Parent { get; set; }
         public List<CObject> Children { get; set; } = new List<CObject>();
+        public bool shouldRender { get; set; } = true;
 
         internal abstract void Render();
         internal abstract ControllerState Init();

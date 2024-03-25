@@ -15,13 +15,15 @@ namespace sm
         int maxLength = 15;
 
         public CInput(CObject _parent, Point _pos, Dimensions _dim) : this(_parent, _pos, _dim, "") { }
-        public CInput(CObject _parent, Point _pos, Dimensions _dim, string _label = "", Align _align = Align.None, List<object> _styles = null) : base(_parent, _pos, _dim)
+        public CInput(CObject _parent, Point _pos, Dimensions _dim, string _label = "", Align _align = Align.None, List<object>? _styles = null) : base(_parent, _pos, _dim)
         {
+            shouldRender = false;
             Text = "";
             Label = _label;
             maxLength = _dim.Width - 4;
-            Styling = _styles;
-            if (newObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
+
+            if(_styles != null) Styling = _styles;
+            if (shouldRender && newObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
         }
 
         internal override void Render()
@@ -40,7 +42,7 @@ namespace sm
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight), tmp);
 
             // TODO STYLING AND ADD GREY COLOR TO LABEL
-            tmp = (Label != "" && Text == "") ? Label : Text;
+            tmp = (Label != "" && Text == "") ? CStyling.Set(Label, [FontColor.grey]) : Text;
             tmp = CStyling.Set(tmp, CStyling.Get([typeof(FontBgColor), typeof(FontColor), typeof(FontStyling)], Styling));
             Write(new Point(Pos.Absolute.X + 2, Pos.Absolute.Y + currentHeight++), tmp);
 

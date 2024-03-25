@@ -54,7 +54,6 @@ namespace sm
                 values.Add(obj.Text);
             }
 
-            CRender.SetPos(new Point(Console.WindowWidth - 5, Console.WindowHeight));
             return values;
         }
     }

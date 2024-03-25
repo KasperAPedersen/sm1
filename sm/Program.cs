@@ -9,6 +9,7 @@ using sm;
 
 Dimensions d = new Dimensions(Console.WindowWidth, Console.WindowHeight);
 
+
 CForm form;
 
 CObject screen = new(null, new Point(0, 0), d);
@@ -16,7 +17,12 @@ CBox outerBox = new(screen, new Point(0, 0), new Dimensions(Console.WindowWidth,
 CBox innerBox = new(outerBox, new Point(0, 0), new Dimensions(Console.WindowWidth, Console.WindowHeight), Align.None, [BorderColor.rosybrown]);
 CButton b4 = new(innerBox, new Point(0, 0), new Dimensions(0, 0), Align.Right, "Create User", [BorderColor.blue, FontColor.purple]);
 
-bool coloured = false;
+
+// Pride mode
+bool prideMode = false;
+Thread tPride = new Thread(pride);
+
+// Main loop
 bool keepRunning = true;
 while (keepRunning)
 {
@@ -31,31 +37,31 @@ while (keepRunning)
             form = new(innerBox, "User Editor", ["email", "phone", "street"]);
             break;
         case ConsoleKey.P:
-            Console.CursorVisible = false;
-            Thread tPride = new Thread(pride);
-            tPride.Start();
-            coloured = !coloured;
-            
-           
-            
-
-            
+            if(tPride.ThreadState == ThreadState.Unstarted) tPride.Start();
+            prideMode = !prideMode;
             break;
         default:
             break;
     }
 }
 
-async void pride()
+void pride()
 {
     BorderColor[] bc = [BorderColor.red, BorderColor.orange1, BorderColor.yellow, BorderColor.green, BorderColor.indianred, BorderColor.violet];
     int colorIndex = 0;
 
-    var timer = new PeriodicTimer(TimeSpan.FromSeconds(0.1));
-    while (await timer.WaitForNextTickAsync())
+    while(Thread.CurrentThread.ThreadState == ThreadState.Running)
     {
-        if (colorIndex + 1 > bc.Length) colorIndex = 0;
-        outerBox.ChangeStyling([bc[colorIndex++]]);
-        innerBox.ChangeStyling([bc[colorIndex++]]);
+        while (prideMode)
+        {
+            Console.CursorVisible = false;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Thread.Sleep(500);
+
+            if (colorIndex + 1 > bc.Length) colorIndex = 0;
+            outerBox.ChangeStyling([bc[colorIndex++]]);
+            innerBox.ChangeStyling([bc[colorIndex++]]);
+        }
     }
+    
 }

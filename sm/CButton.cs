@@ -17,7 +17,7 @@ namespace sm
             Text = _text;
             Styling = _styles;
 
-            if (newObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
+            if (shouldRender && newObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
         }
 
         internal override void Render()

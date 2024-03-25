@@ -51,7 +51,7 @@ namespace sm
             Render();
             foreach (CObject child in Children)
             {
-                child.RenderChildren();
+                if(child.shouldRender) child.RenderChildren();
             }
         }
 

@@ -35,7 +35,10 @@ namespace sm
             foreach(CObject obj in controller.controllerObjects)
             {
                 Objects.Add(obj);
+                obj.shouldRender = true;
             }
+
+            formBox.RenderChildren();
 
             // Run controller
             controller.Run(this, controller.controllerIndex);
@@ -46,6 +49,8 @@ namespace sm
             // Remove each obj
             foreach(CObject obj in Objects)
             {
+                obj.shouldRender = false;
+
                 Remove(obj.Pos.Absolute, obj.Dim);
                 if(obj is CInput)
                 {
