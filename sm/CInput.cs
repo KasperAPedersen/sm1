@@ -21,7 +21,7 @@ namespace sm
             Label = _label;
             maxLength = _dim.Width - 4;
             Styling = _styles;
-            newObjPos(Parent, Aligner(_align, Parent, _pos), Dim);
+            if (newObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
         }
 
         internal override void Render()
@@ -84,7 +84,7 @@ namespace sm
         {
             Styling = _styles;
             Remove(Pos.Absolute, Dim);
-            Render();
+            RenderChildren();
         }
     }
 }

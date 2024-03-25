@@ -46,6 +46,15 @@ namespace sm
             }
         }
 
+        internal void RenderChildren()
+        {
+            Render();
+            foreach (CObject child in Children)
+            {
+                child.RenderChildren();
+            }
+        }
+
         internal override bool newObjPos(CObject? _parent, Point _pos, Dimensions _dim)
         {
             if (_parent != null && Dim.Width > _parent.Dim.Width - 4) return false;

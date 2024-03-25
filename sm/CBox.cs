@@ -46,7 +46,7 @@ namespace sm
         {
             Styling = _styles;
             Remove(Pos.Absolute, Dim);
-            Render();
+            RenderChildren();
         }
     }
 

@@ -1,33 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.Remoting;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace sm
 {
-    internal class CController : CRender
+    internal class CControllers : CRender
     {
-        // List of controller objects
-        public static List<CObject> controllerObjects { get; set; } = new List<CObject>();
-        public static int controllerIndex = 0;
+        public List<CObject> controllerObjects { get; set; } = new List<CObject>();
+        public int controllerIndex = 0;
 
-        // run controllers objects run func
-        internal static void Run(CForm _form, int _index)
+        public CControllers() { }
+
+        internal void Add(CObject _obj)
         {
-            // correct _index for next
+            controllerObjects.Add(_obj);
+        }
+
+        internal void Run(CForm _form, int _index)
+        {
+            // Correcting index for first, last
             if (_index >= controllerObjects.Count) _index = controllerObjects.Count - 1;
+            if (_index < 0) _index = 0;
 
-            // Correct _index for previous
-            if (_index < 0 ) _index = 0;
-
+            // Get & init obj
             CObject obj = controllerObjects[_index];
             ControllerState result = obj.Init();
 
-            switch(result)
+            // switch for the controllerState result
+            switch (result)
             {
                 case ControllerState.Next:
                     Run(_form, ++_index);
@@ -39,26 +42,19 @@ namespace sm
                     _form.Finished(GetValues());
                     return;
                 default:
-                    Idle();
                     break;
             }
         }
 
-        // Idle
-        internal static void Idle()
-        {
-            CRender.SetPos(new Point(Console.WindowWidth - 5, Console.WindowHeight));
-        }
-
-        internal static List<string> GetValues()
+        internal List<string> GetValues()
         {
             List<string> values = new List<string>();
-            foreach(CInput obj in controllerObjects)
+            foreach (CInput obj in controllerObjects)
             {
                 values.Add(obj.Text);
             }
 
-            Idle();
+            CRender.SetPos(new Point(Console.WindowWidth - 5, Console.WindowHeight));
             return values;
         }
     }
