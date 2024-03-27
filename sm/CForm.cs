@@ -9,9 +9,9 @@ namespace sm
 {
     internal class CForm : CRender
     {
-        CControllers controller;
-        public List<CObject> Objects = new List<CObject>();
-        public List<string> values { get; set; } = new List<string>();
+        CControllers controller; // controller obj
+        public List<CObject> Objects = new List<CObject>(); // list of objs
+        public List<string> values { get; set; } = new List<string>(); // list of obj values
 
         public CForm(CObject _parent, string _title, string[] _labels)
         {
@@ -38,7 +38,7 @@ namespace sm
                 obj.shouldRender = true;
             }
 
-            formBox.RenderChildren();
+            formBox.RenderChildren(); // Render each child of form
 
             // Run controller
             controller.Run(this, controller.controllerIndex);
@@ -49,13 +49,13 @@ namespace sm
             // Remove each obj
             foreach(CObject obj in Objects)
             {
-                obj.shouldRender = false;
+                obj.shouldRender = false; // stop the child from rendering
 
-                Remove(obj.Pos.Absolute, obj.Dim);
-                if(obj is CInput)
+                Remove(obj.Pos.Absolute, obj.Dim); // Remove the obj
+                if(obj is CInput) // check if obj is CInput
                 {
-                    CInput o = (CInput)obj;
-                    o.Text = "";
+                    CInput o = (CInput)obj; // typecast obj to CINput
+                    o.Text = ""; // Reset text of obj
                 }
             }
 

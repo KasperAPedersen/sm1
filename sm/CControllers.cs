@@ -9,11 +9,14 @@ namespace sm
 {
     internal class CControllers : CRender
     {
-        public List<CObject> controllerObjects { get; set; } = new List<CObject>();
-        public int controllerIndex = 0;
+        public List<CObject> controllerObjects { get; set; } = new List<CObject>(); // obj list
+        public int controllerIndex = 0; // obj indexer
+
 
         public CControllers() { }
 
+
+        // Func to add the objects to obj array
         internal void Add(CObject _obj)
         {
             controllerObjects.Add(_obj);
@@ -33,13 +36,13 @@ namespace sm
             switch (result)
             {
                 case ControllerState.Next:
-                    Run(_form, ++_index);
+                    Run(_form, ++_index); // run next obj
                     break;
                 case ControllerState.Previous:
-                    Run(_form, --_index);
+                    Run(_form, --_index); // run prev obj
                     break;
                 case ControllerState.Finish:
-                    _form.Finished(GetValues());
+                    _form.Finished(GetValues()); // Save values to CForm obj
                     return;
                 default:
                     break;
@@ -48,16 +51,20 @@ namespace sm
 
         internal List<string> GetValues()
         {
+            // Create new string list
             List<string> values = new List<string>();
             foreach (CInput obj in controllerObjects)
             {
-                values.Add(obj.Text);
+                // Add every obj to string list
+                values.Add(obj.Text); 
             }
 
+            // return  string list
             return values;
         }
     }
 
+    //  controller states
     enum ControllerState
     {
         Idle,

@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\swooo\\Documents\\GitHub\\sm1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\swooo\\documents\\github\\sm1\\sm\\cinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\cinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\swooo\\documents\\github\\sm1\\sm\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\swooo\\documents\\github\\sm1\\sm\\cinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\cinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\swooo\\documents\\github\\sm1\\sm\\cform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -42,7 +42,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
@@ -70,13 +70,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "CInput.cs",
               "DocumentMoniker": "C:\\Users\\swooo\\Documents\\GitHub\\sm1\\sm\\CInput.cs",
               "RelativeDocumentMoniker": "sm\\CInput.cs",
               "ToolTip": "C:\\Users\\swooo\\Documents\\GitHub\\sm1\\sm\\CInput.cs",
               "RelativeToolTip": "sm\\CInput.cs",
-              "ViewState": "AQIAACsAAAAAAAAAAAAcwD8AAAAuAAAA",
+              "ViewState": "AQIAAEIAAAAAAAAAAAAmwFMAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-25T09:49:38.731Z",
               "EditorCaption": ""
@@ -89,9 +89,10 @@
               "RelativeDocumentMoniker": "sm\\CControllers.cs",
               "ToolTip": "C:\\Users\\swooo\\Documents\\GitHub\\sm1\\sm\\CControllers.cs",
               "RelativeToolTip": "sm\\CControllers.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAACkAAAAwAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-25T09:12:02.505Z"
+              "WhenOpened": "2024-03-25T09:12:02.505Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -101,9 +102,10 @@
               "RelativeDocumentMoniker": "sm\\CForm.cs",
               "ToolTip": "C:\\Users\\swooo\\Documents\\GitHub\\sm1\\sm\\CForm.cs",
               "RelativeToolTip": "sm\\CForm.cs",
-              "ViewState": "AQIAACoAAAAAAAAAAAAowAwAAAA7AAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACoAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-24T18:25:02.507Z"
+              "WhenOpened": "2024-03-24T18:25:02.507Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -131,13 +133,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\swooo\\Documents\\GitHub\\sm1\\sm\\Program.cs",
               "RelativeDocumentMoniker": "sm\\Program.cs",
               "ToolTip": "C:\\Users\\swooo\\Documents\\GitHub\\sm1\\sm\\Program.cs",
               "RelativeToolTip": "sm\\Program.cs",
-              "ViewState": "AQIAACkAAAAAAAAAAAAAAEMAAAA7AAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACwAAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-22T06:45:10.943Z",
               "EditorCaption": ""
