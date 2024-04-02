@@ -12,7 +12,7 @@ namespace sm
         public Position Pos { get; set; }
         public Dimensions Dim { get; set; }
         public CObject? Parent { get; set; }
-        public List<CObject> Children { get; set; } = new List<CObject>();
+        public List<CObject> Children { get; set; } = [];
         public bool shouldRender { get; set; } = true;
 
         internal abstract void Render();

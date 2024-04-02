@@ -10,43 +10,31 @@ namespace sm
     {
         internal static string Set(string text, List<object>? styles = null)
         {
-            if (styles != null)
+            if (styles == null) return text;
+
+            string tmp = "";
+            foreach (object style in styles)
             {
-                string tmp = "";
-                foreach (object style in styles)
+                switch (style)
                 {
-                    switch (style)
-                    {
-                        case FontColor fontColor:
-                        case BorderColor borderColor:
-                            tmp += $"\u001b[38;5;{(int)style}m";
-                            break;
-                        case Styling styling:
-                        case BorderStyling borderStyling:
-                        case FontStyling fontStyling:
-                            tmp += $"\u001b[{(int)style}m";
-                            break;
-                        case BgColor bgColor:
-                        case BorderBgColor borderBgColor:
-                        case FontBgColor fontBgColor:
-                            tmp += $"\u001b[48;5;{(int)style}m";
-                            break;
-                    }
+                    case FontColor fontColor:
+                    case BorderColor borderColor:
+                        tmp += $"\u001b[38;5;{(int)style}m";
+                        break;
+                    case Styling styling:
+                    case BorderStyling borderStyling:
+                    case FontStyling fontStyling:
+                        tmp += $"\u001b[{(int)style}m";
+                        break;
+                    case BgColor bgColor:
+                    case BorderBgColor borderBgColor:
+                    case FontBgColor fontBgColor:
+                        tmp += $"\u001b[48;5;{(int)style}m";
+                        break;
                 }
-                tmp += $"{text}\u001b[0m";
-                return tmp;
             }
-
-            return text;
-        }
-
-        internal static int GetStylingLength(string _text)
-        {
-            foreach(char c in _text)
-            {
-                Console.WriteLine(c);
-            }
-            return 1;
+            tmp += $"{text}\u001b[0m";
+            return tmp;
         }
 
         internal static List<object> Get(Type[]? types = null, List<object>? styles = null)
@@ -57,7 +45,7 @@ namespace sm
                 return filteredStyles;
             }
 
-            return new List<object>();
+            return [];
         }
     }
 

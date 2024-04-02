@@ -9,7 +9,7 @@ namespace sm
 {
     internal class CLabel : CObject
     {
-        List<object> Styling = new List<object>();
+        List<object> Styling = [];
         string Text = "";
 
         public CLabel(CObject _parent, Point _pos, Align _align, string _text, List<object>? _styles = null) : base(_parent, _pos, new Dimensions(_text.Length, 1))
@@ -23,6 +23,7 @@ namespace sm
 
         internal override void Render()
         {
+            Text = CStyling.Set(Text, CStyling.Get([typeof(FontBgColor), typeof(FontColor), typeof(FontStyling)], Styling));
             Write(Pos.Absolute, Text);
         }
 

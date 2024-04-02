@@ -16,7 +16,7 @@ namespace sm
             newObjPos(_parent, _pos, _dim);
 
             // Set as children of _parent if _parent != null
-            if (Parent != null) Parent.Children.Add(this);
+            Parent?.Children.Add(this);
         }
 
         internal override void Render()
@@ -124,5 +124,13 @@ namespace sm
 
             return _pos;
         }
+    }
+
+    enum Align
+    {
+        None,
+        Left,
+        Middle,
+        Right
     }
 }

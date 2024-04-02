@@ -9,10 +9,10 @@ namespace sm
 {
     internal class CInput : CObject, IController
     {
-        List<object> Styling = new List<object>();
+        List<object> Styling = [];
         public string Text { get; set; }
         public string Label { get; set; }
-        int maxLength = 15;
+        readonly int maxLength = 15;
 
         public CInput(CObject _parent, Point _pos, Dimensions _dim) : this(_parent, _pos, _dim, "") { }
         public CInput(CObject _parent, Point _pos, Dimensions _dim, string _label = "", Align _align = Align.None, List<object>? _styles = null) : base(_parent, _pos, _dim)
@@ -29,7 +29,7 @@ namespace sm
         internal override void Render()
         {
             int currentHeight = 0;
-            string tmp = "";
+            string tmp;
 
             // Top border
             tmp = Border(Get.TopLeft) + string.Concat(Enumerable.Repeat(Border(Get.Horizontal), Dim.Width - 2)) + Border(Get.TopRight);
@@ -54,6 +54,7 @@ namespace sm
 
         internal override ControllerState Init()
         {
+            Console.CursorVisible = true;
             bool keepRunning = true;
             while(keepRunning)
             {
@@ -62,16 +63,14 @@ namespace sm
                 switch(key.Key)
                 {
                     case ConsoleKey.DownArrow:
+                    case ConsoleKey.Enter:
                         return ControllerState.Next;
                     case ConsoleKey.UpArrow:
-                        return ControllerState.Previous;
                     case ConsoleKey.Escape:
-                        return ControllerState.Cancel;
+                        return ControllerState.Previous;
                     case ConsoleKey.Backspace:
                         Text = Text != "" ? Text.Remove(Text.Length - 1, 1) : "";
                         break;
-                    case ConsoleKey.Enter:
-                        return ControllerState.Finish;
                     default:
                         if(Text.Length < maxLength - 1) Text += key.KeyChar;
                         break;

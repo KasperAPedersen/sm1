@@ -9,14 +9,14 @@ namespace sm
 {
     internal class CBox : CObject
     {
-        List<object> Styling = new List<object>();
+        List<object> Styling;
         public CBox(CObject _parent) : this(_parent, new Point(0, 0), _parent.Dim) { }
-        public CBox(CObject _parent, Point _pos, Dimensions _dim, Align _align = Align.None, List<object> _styles = null) : base(_parent, _pos, _dim)
+        public CBox(CObject _parent, Point _pos, Dimensions _dim, Align _align = Align.None, List<object>? _styles = null) : base(_parent, _pos, _dim)
         {
             if (Dim.Width < 3) Dim = new Dimensions(3, Dim.Height);
             if (Dim.Height < 3) Dim = new Dimensions(Dim.Width, 3);
 
-            Styling = _styles;
+            Styling = _styles ?? [];
 
             if (shouldRender && newObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
         }
@@ -24,7 +24,7 @@ namespace sm
         internal override void Render()
         {
             int currentHeight = 0;
-            string tmp = "";
+            string tmp;
 
             tmp = $"{Border(Get.TopLeft)}{string.Concat(Enumerable.Repeat(Border(Get.Horizontal), Dim.Width - 2))}{Border(Get.TopRight)}";
             tmp = CStyling.Set(tmp, CStyling.Get([typeof(BorderBgColor), typeof(BorderColor), typeof(BorderStyling)], Styling));
@@ -48,13 +48,5 @@ namespace sm
             Remove(Pos.Absolute, Dim);
             RenderChildren();
         }
-    }
-
-    enum Align
-    {
-        None,
-        Left,
-        Middle,
-        Right
     }
 }

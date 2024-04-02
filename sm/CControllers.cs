@@ -9,14 +9,11 @@ namespace sm
 {
     internal class CControllers : CRender
     {
-        public List<CObject> controllerObjects { get; set; } = new List<CObject>(); // obj list
-        public int controllerIndex = 0; // obj indexer
-
+        public List<CObject> controllerObjects { get; set; } = [];
+        public int controllerIndex = 0;
 
         public CControllers() { }
 
-
-        // Func to add the objects to obj array
         internal void Add(CObject _obj)
         {
             controllerObjects.Add(_obj);
@@ -24,25 +21,25 @@ namespace sm
 
         internal void Run(CForm _form, int _index)
         {
-            // Correcting index for first, last
             if (_index >= controllerObjects.Count) _index = controllerObjects.Count - 1;
             if (_index < 0) _index = 0;
 
-            // Get & init obj
             CObject obj = controllerObjects[_index];
             ControllerState result = obj.Init();
 
-            // switch for the controllerState result
             switch (result)
             {
                 case ControllerState.Next:
-                    Run(_form, ++_index); // run next obj
+                    Run(_form, ++_index);
                     break;
                 case ControllerState.Previous:
-                    Run(_form, --_index); // run prev obj
+                    Run(_form, --_index);
                     break;
                 case ControllerState.Finish:
-                    _form.Finished(GetValues()); // Save values to CForm obj
+                    _form.Finished(GetValues());
+                    return;
+                case ControllerState.Cancel:
+                    _form.Cancelled();
                     return;
                 default:
                     break;
@@ -51,20 +48,26 @@ namespace sm
 
         internal List<string> GetValues()
         {
-            // Create new string list
-            List<string> values = new List<string>();
-            foreach (CInput obj in controllerObjects)
+            List<string> values = [];
+            foreach (object obj in controllerObjects)
             {
-                // Add every obj to string list
-                values.Add(obj.Text); 
+                if (obj is CInput)
+                {
+                    CInput o = (CInput)obj;
+                    values.Add(o.Text);
+                }
+
+                if (obj is CComboBox)
+                {
+                    CComboBox o = (CComboBox)obj;
+                    values.Add(o.Text);
+                }
             }
 
-            // return  string list
             return values;
         }
     }
 
-    //  controller states
     enum ControllerState
     {
         Idle,
