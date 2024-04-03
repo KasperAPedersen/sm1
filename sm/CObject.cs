@@ -29,7 +29,7 @@ namespace sm
             throw new NotImplementedException();
         }
 
-        internal override void ChangeStyling(List<object> _styles)
+        internal override void ChangeStyling(CStyle _style)
         {
             throw new NotImplementedException();
         }

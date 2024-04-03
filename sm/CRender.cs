@@ -34,6 +34,11 @@ namespace sm
             }
         }
 
+        internal static string BuildString(string _text, int width)
+        {
+            return string.Concat(Enumerable.Repeat(_text, width));
+        }
+
         internal static string Border(Get _part)
         {
             return _part switch

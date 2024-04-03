@@ -12,7 +12,7 @@ namespace sm
         CObject Parent;
         readonly CControllers controller;
         public List<CObject> Objects = [];
-        public bool IsFinished {  get; set; }
+        public bool IsFinished { get; set; }
         public List<string> values { get; set; } = [];
         CBox formBox;
 
@@ -21,17 +21,17 @@ namespace sm
             controller = new CControllers();
             Parent = _parent;
 
-            formBox = new(_parent, new Point(0, 0), new Dimensions(35, 30), Align.Middle, [BorderColor.lime]);
-            CLabel title = new(formBox, new Point(0, 0), Align.Middle, _title, []);
+            formBox = new(_parent, new Point(0, 0), new Dimensions(35, 30), new CStyleBuilder().AddBorder(Color.lime).Build(), Align.Middle);
+            CLabel title = new(formBox, new Point(0, 0), Align.Middle, _title, new CStyleBuilder().Build());
             Objects.Add(formBox);
             Objects.Add(title);
-            
+
             int labelHeight = 0;
-            if(_inputLabels != null)
+            if (_inputLabels != null)
             {
                 for (int i = 0; i < _inputLabels.Length; i++)
                 {
-                    controller.Add(new CInput(formBox, new Point(0, labelHeight += 3), new Dimensions(formBox.Dim.Width, 3), _inputLabels[i], Align.Middle, [BorderColor.yellow3_1]));
+                    controller.Add(new CInput(formBox, new Point(0, labelHeight += 3), new Dimensions(formBox.Dim.Width, 3), _inputLabels[i], new CStyleBuilder().AddBorder(Color.yellow3_1).Build(), Align.Middle));
                 }
             }
 
@@ -39,19 +39,19 @@ namespace sm
             {
                 for (int i = 0; i < _comboLabes.Count; i++)
                 {
-                    controller.Add(new CComboBox(formBox, new Point(0, labelHeight += 3), new Dimensions(formBox.Dim.Width, 3), ["Mr.", "Mrs."], Align.Middle, [BorderColor.yellow3_1]));
+                    controller.Add(new CComboBox(formBox, new Point(0, labelHeight += 3), new Dimensions(formBox.Dim.Width, 3), ["Mr.", "Mrs."], new CStyleBuilder().AddFont(Color.yellow3_1).AddBorders([Color.yellow3_1, Styling.Blink]).Build(), Align.Middle));
                 }
             }
 
-            for(int i = 0; i < controller.controllerObjects.Count; i++)
+            for (int i = 0; i < controller.controllerObjects.Count; i++)
             {
                 CObject obj = controller.controllerObjects[i];
                 Objects.Add(obj);
                 obj.shouldRender = true;
 
-                if(obj is CInput)
+                if (obj is CInput)
                 {
-                    for(int o = 0; o < _inputLabelsValue.Count; o++)
+                    for (int o = 0; o < _inputLabelsValue.Count; o++)
                     {
                         if (_inputLabelsValue[o] == null) break;
 
@@ -65,8 +65,8 @@ namespace sm
                 }
             }
 
-            controller.Add(new CButton(formBox, new Point(0, formBox.Dim.Height - 4), new Dimensions(formBox.Dim.Width / 2 - 2, 3), Align.Left, "Confirm"));
-            controller.Add(new CButton(formBox, new Point(0, formBox.Dim.Height - 4), new Dimensions(formBox.Dim.Width / 2 - 2, 3), Align.Right, "Cancel"));
+            controller.Add(new CButton(formBox, new Point(0, formBox.Dim.Height - 4), new Dimensions(formBox.Dim.Width / 2 - 2, 3), Align.Left, "Confirm", new CStyleBuilder().Build()));
+            controller.Add(new CButton(formBox, new Point(0, formBox.Dim.Height - 4), new Dimensions(formBox.Dim.Width / 2 - 2, 3), Align.Right, "Cancel", new CStyleBuilder().Build()));
 
             formBox.RenderChildren();
 
@@ -75,7 +75,7 @@ namespace sm
 
         internal void Finished(List<string> _values)
         {
-            foreach(CObject obj in Objects)
+            foreach (CObject obj in Objects)
             {
                 obj.shouldRender = false;
 

@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\ctable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\ctable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -15,24 +19,20 @@
       "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\ccombobox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\cinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\cinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\crender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\crender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\cbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\cbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\ccontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\ccontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\ccontrollers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\ccontrollers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\cbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\cbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,19 +42,32 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "CComboBox.cs",
-              "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CComboBox.cs",
-              "RelativeDocumentMoniker": "sm\\CComboBox.cs",
-              "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CComboBox.cs",
-              "RelativeToolTip": "sm\\CComboBox.cs",
-              "ViewState": "AQIAAGEAAAAAAAAAAAAYwHAAAAA0AAAA",
+              "Title": "CForm.cs",
+              "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CForm.cs",
+              "RelativeDocumentMoniker": "sm\\CForm.cs",
+              "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CForm.cs",
+              "RelativeToolTip": "sm\\CForm.cs",
+              "ViewState": "AQIAACAAAAAAAAAAAAAgwCkAAADoAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-02T10:20:47.848Z",
+              "WhenOpened": "2024-04-03T11:14:52.488Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CTable.cs",
+              "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CTable.cs",
+              "RelativeDocumentMoniker": "sm\\CTable.cs",
+              "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CTable.cs",
+              "RelativeToolTip": "sm\\CTable.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-03T11:10:08.638Z",
               "EditorCaption": ""
             },
             {
@@ -65,87 +78,74 @@
               "RelativeDocumentMoniker": "sm\\CInput.cs",
               "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CInput.cs",
               "RelativeToolTip": "sm\\CInput.cs",
-              "ViewState": "AQIAADsAAAAAAAAAAAAswEUAAAA4AAAA",
+              "ViewState": "AQIAAEIAAAAAAAAAAAAowFAAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-02T06:25:37.199Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CForm.cs",
-              "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CForm.cs",
-              "RelativeDocumentMoniker": "sm\\CForm.cs",
-              "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CForm.cs",
-              "RelativeToolTip": "sm\\CForm.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAQwBcAAAAlAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-02T06:24:37.503Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "CControllers.cs",
-              "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CControllers.cs",
-              "RelativeDocumentMoniker": "sm\\CControllers.cs",
-              "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CControllers.cs",
-              "RelativeToolTip": "sm\\CControllers.cs",
-              "ViewState": "AQIAABQAAAAAAAAAAAAmwCYAAAAwAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-02T06:22:10.886Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "CButton.cs",
-              "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CButton.cs",
-              "RelativeDocumentMoniker": "sm\\CButton.cs",
-              "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CButton.cs",
-              "RelativeToolTip": "sm\\CButton.cs",
-              "ViewState": "AQIAAE4AAAAAAAAAAAAowFgAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-02T06:20:35.311Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CTable.cs",
-              "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CTable.cs",
-              "RelativeDocumentMoniker": "sm\\CTable.cs",
-              "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CTable.cs",
-              "RelativeToolTip": "sm\\CTable.cs",
-              "ViewState": "AQIAAGoAAAAAAAAAAAAkwHsAAAArAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-02T06:16:52.629Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "CContainer.cs",
-              "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CContainer.cs",
-              "RelativeDocumentMoniker": "sm\\CContainer.cs",
-              "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CContainer.cs",
-              "RelativeToolTip": "sm\\CContainer.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAywA8AAAAUAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-23T13:28:05.933Z",
+              "WhenOpened": "2024-04-03T11:08:49.204Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "CComboBox.cs",
+              "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CComboBox.cs",
+              "RelativeDocumentMoniker": "sm\\CComboBox.cs",
+              "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CComboBox.cs",
+              "RelativeToolTip": "sm\\CComboBox.cs",
+              "ViewState": "AQIAACoAAAAAAAAAAAAowEEAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-03T11:03:51.721Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CButton.cs",
+              "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CButton.cs",
+              "RelativeDocumentMoniker": "sm\\CButton.cs",
+              "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CButton.cs",
+              "RelativeToolTip": "sm\\CButton.cs",
+              "ViewState": "AQIAAFEAAAAAAAAAAAAowEAAAABKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-03T11:02:19.192Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CBox.cs",
+              "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CBox.cs",
+              "RelativeDocumentMoniker": "sm\\CBox.cs",
+              "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CBox.cs",
+              "RelativeToolTip": "sm\\CBox.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAC0AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-03T11:00:20.523Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CRender.cs",
+              "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CRender.cs",
+              "RelativeDocumentMoniker": "sm\\CRender.cs",
+              "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CRender.cs",
+              "RelativeToolTip": "sm\\CRender.cs",
+              "ViewState": "AQIAABsAAAAAAAAAAAAYwCYAAABCAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-03T10:59:47.931Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\Program.cs",
               "RelativeDocumentMoniker": "sm\\Program.cs",
               "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\Program.cs",
               "RelativeToolTip": "sm\\Program.cs",
-              "ViewState": "AQIAACMAAAAAAAAAAAAAADIAAAAjAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-22T06:45:10.943Z",
+              "WhenOpened": "2024-04-03T10:55:58.254Z",
               "EditorCaption": ""
             }
           ]

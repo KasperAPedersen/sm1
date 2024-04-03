@@ -4,18 +4,19 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace sm
 {
     internal class CLabel : CObject
     {
-        List<object> Styling = [];
+        CStyle Style;
         string Text = "";
 
-        public CLabel(CObject _parent, Point _pos, Align _align, string _text, List<object>? _styles = null) : base(_parent, _pos, new Dimensions(_text.Length, 1))
+        public CLabel(CObject _parent, Point _pos, Align _align, string _text, CStyle _style) : base(_parent, _pos, new Dimensions(_text.Length, 1))
         {
             Text = _text;
-            if(_styles != null) Styling = _styles;
+            Style = _style;
 
             if (shouldRender && newObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
 
@@ -23,13 +24,13 @@ namespace sm
 
         internal override void Render()
         {
-            Text = CStyling.Set(Text, CStyling.Get([typeof(FontBgColor), typeof(FontColor), typeof(FontStyling)], Styling));
+            Text = Style.Set(Text, Style.Font);
             Write(Pos.Absolute, Text);
         }
 
-        internal override void ChangeStyling(List<object> _styles)
+        internal override void ChangeStyling(CStyle _style)
         {
-            Styling = _styles;
+            Style = _style;
             Remove(Pos.Absolute, Dim);
             RenderChildren();
         }

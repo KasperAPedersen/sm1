@@ -11,66 +11,73 @@ namespace sm
 {
     internal class CComboBox : CObject, IController
     {
-        List<object> Styling = [];
+        CStyle Style { get; set; }
+
         List<string> Content;
-        public string Text { get; set; } = "Mr.";
+        public string Text { get; set; } = "";
         bool Expanded = false;
         int selectIndex = 0;
 
-        public CComboBox(CObject _parent, Point _pos, Dimensions _dim, List<string> _content, Align _align = Align.None, List<object>? _styles = null) : base(_parent, _pos, _dim)
+        public CComboBox(CObject _parent, Point _pos, Dimensions _dim, List<string> _content, CStyle _style, Align _align = Align.None) : base(_parent, _pos, _dim)
         {
             Dim = new Dimensions(Dim.Width, 3);
             shouldRender = false;
             Content = _content;
+            Style = _style;
 
-            if (_styles != null) Styling = _styles;
-            
             if (shouldRender && newObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
         }
 
         internal override void Render()
         {
             Remove(Pos.Absolute, Dim);
-            
+
             if (Text.Length > Dim.Width - 8) Text = Text.Substring(0, Dim.Width - 8);
 
-            if(selectIndex < 0) selectIndex = Content.Count - 1;
+            if (selectIndex < 0) selectIndex = Content.Count - 1;
             if (selectIndex > Content.Count - 1) selectIndex = 0;
 
             int currentHeight = 0;
             string tmp;
 
-            tmp = $"{Border(Get.TopLeft)}{string.Concat(Enumerable.Repeat(Border(Get.Horizontal), Dim.Width - 6))}{Border(Get.HorizontalDown)}";
-            tmp += $"{string.Concat(Enumerable.Repeat(Border(Get.Horizontal), 3))}{Border(Get.TopRight)}";
+            tmp = $"{Border(Get.TopLeft)}{BuildString(Border(Get.Horizontal), Dim.Width - 6)}{Border(Get.HorizontalDown)}";
+            tmp += $"{BuildString(Border(Get.Horizontal), 3)}{Border(Get.TopRight)}";
+            tmp = Style.Set(tmp, Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
 
-            string pad = string.Concat(Enumerable.Repeat(" ", ((Dim.Width - 6) - Text.Length) / 2));
+            string pad = BuildString(" ", ((Dim.Width - 6) - Text.Length) / 2);
             int padRem = ((Dim.Width - 6) - Text.Length) % 2;
-            tmp = $"{Border(Get.Vertical)}{pad}{Text}{pad}{(padRem > 0 ? string.Concat(Enumerable.Repeat(" ", padRem)) : "")}{Border(Get.Vertical)}";
+            tmp = $"{Border(Get.Vertical)}{pad}{Text}{pad}{(padRem > 0 ? BuildString(" ", padRem) : "")}{Border(Get.Vertical)}";
             tmp += $" {Border(Get.ArrowDown)} {Border(Get.Vertical)}";
+            tmp = Style.Set(tmp, Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
 
-            tmp = $"{Border(Get.BottomLeft)}{string.Concat(Enumerable.Repeat(Border(Get.Horizontal), Dim.Width - 6))}{Border(Get.HorizontalUp)}";
-            tmp += $"{string.Concat(Enumerable.Repeat(Border(Get.Horizontal), 3))}{Border(Get.BottomRight)}";
+            tmp = $"{Border(Get.BottomLeft)}{BuildString(Border(Get.Horizontal), Dim.Width - 6)}{Border(Get.HorizontalUp)}";
+            tmp += $"{BuildString(Border(Get.Horizontal), 3)}{Border(Get.BottomRight)}";
+            tmp = Style.Set(tmp, Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight), tmp);
 
             if (!Expanded) return;
 
-            tmp = $"{Border(Get.VerticalLeft)}{string.Concat(Enumerable.Repeat(Border(Get.Horizontal), Dim.Width - 6))}{Border(Get.HorizontalUp)}";
-            tmp += $"{string.Concat(Enumerable.Repeat(Border(Get.Horizontal), 3))}{Border(Get.VerticalRight)}";
+            tmp = $"{Border(Get.VerticalLeft)}{BuildString(Border(Get.Horizontal), Dim.Width - 6)}{Border(Get.HorizontalUp)}";
+            tmp += $"{BuildString(Border(Get.Horizontal), 3)}{Border(Get.VerticalRight)}";
+            tmp = Style.Set(tmp, Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
-
-            for(int i = 0; i < Content.Count; i++)
+            
+            for (int i = 0; i < Content.Count; i++)
             {
-                pad = string.Concat(Enumerable.Repeat(" ", ((Dim.Width - 2) - Content[i].Length) / 2));
+                pad = BuildString(" ", ((Dim.Width - 2) - Content[i].Length) / 2);
                 padRem = ((Dim.Width - 2) - Content[i].Length) % 2;
-                tmp = $"{Border(Get.Vertical)}{pad}{(selectIndex == i ? CStyling.Set(Content[i], [FontColor.red]) : Content[i])}{pad}{(padRem > 0 ? string.Concat(Enumerable.Repeat(" ", padRem)) : "")}{Border(Get.Vertical)}";
+                tmp = $"{Style.Set(Border(Get.Vertical), Style.Border)}";
+                tmp += $"{pad}{(selectIndex == i ? Style.Set(Content[i], [Color.red]) : Content[i])}{pad}{(padRem > 0 ? BuildString(" ", padRem) : "")}";
+                tmp += $"{Style.Set(Border(Get.Vertical), Style.Border)}";
                 Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
             }
 
-            tmp = $"{Border(Get.BottomLeft)}{string.Concat(Enumerable.Repeat(Border(Get.Horizontal), Dim.Width - 2))}{Border(Get.BottomRight)}";
+            tmp = $"{Border(Get.BottomLeft)}{BuildString(Border(Get.Horizontal), Dim.Width - 2)}{Border(Get.BottomRight)}";
+            tmp = Style.Set(tmp, Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
-            
+
             Dim = new Dimensions(Dim.Width, currentHeight);
         }
 
@@ -81,11 +88,11 @@ namespace sm
             Render();
 
             bool keepRunning = true;
-            while(keepRunning)
+            while (keepRunning)
             {
                 SetPos(new Point(Pos.Absolute.X + Text.Length + 2, Pos.Absolute.Y + 1));
                 ConsoleKeyInfo key = Console.ReadKey();
-                switch(key.Key)
+                switch (key.Key)
                 {
                     case ConsoleKey.DownArrow:
                         if (!Expanded) return ControllerState.Next;
@@ -94,14 +101,14 @@ namespace sm
                         Render();
                         break;
                     case ConsoleKey.UpArrow:
-                        if(!Expanded) return ControllerState.Previous;
+                        if (!Expanded) return ControllerState.Previous;
 
                         selectIndex--;
                         Render();
                         break;
                     case ConsoleKey.Escape:
-                        
-                        if(!Expanded) return ControllerState.Cancel;
+
+                        if (!Expanded) return ControllerState.Cancel;
 
                         Expanded = false;
                         Render();
@@ -120,9 +127,9 @@ namespace sm
             return ControllerState.Idle;
         }
 
-        internal override void ChangeStyling(List<object> _styles)
+        internal override void ChangeStyling(CStyle _style)
         {
-            Styling = _styles;
+            Style = _style;
             Remove(Pos.Absolute, Dim);
             RenderChildren();
         }

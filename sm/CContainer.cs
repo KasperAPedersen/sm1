@@ -20,6 +20,6 @@ namespace sm
         internal abstract bool newObjPos(CObject? _parent, Point _pos, Dimensions _dim);
         internal abstract void Update(Point _pos);
         internal abstract Point Aligner(Align _align, CObject _parent, Point _pos);
-        internal abstract void ChangeStyling(List<object> _styles);
+        internal abstract void ChangeStyling(CStyle _style);
     }
 }

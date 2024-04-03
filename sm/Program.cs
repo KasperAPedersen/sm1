@@ -7,27 +7,26 @@ using System.Xml.Linq;
 using System.Threading;
 using sm;
 using System.Text;
+using Color = sm.Color;
 
 Console.OutputEncoding = Encoding.UTF8;
 
 Dimensions d = new(Console.WindowWidth, Console.WindowHeight);
-
+CObject screen = new(null, new Point(0, 0), d);
 
 CForm form;
 
-CObject screen = new(null, new Point(0, 0), d);
-CBox outerBox = new(screen, new Point(0, 0), new Dimensions(Console.WindowWidth, Console.WindowHeight), Align.None, [BorderColor.red]);
-CBox innerBox = new(outerBox, new Point(0, 0), new Dimensions(Console.WindowWidth, Console.WindowHeight), Align.None, [BorderColor.rosybrown]);
-CLabel title = new(innerBox, new Point(0, 0), Align.Left, "CRUDapp");
-CButton b4 = new(innerBox, new Point(0, 0), new Dimensions(0, 0), Align.Right, "Create User", [BorderColor.blue, FontColor.purple]);
-CTable table = new(innerBox, new Point(0, 5), new Dimensions(Console.WindowWidth - 25, Console.WindowHeight), Align.Middle, [], ["Fornavn", "Efternavn", "EmailAdr", "Mobil", "Adresse", "Titel", "Edit", "Slet"], []);
+CBox outerBox = new(screen, new Point(0, 0), new Dimensions(Console.WindowWidth, Console.WindowHeight), new CStyleBuilder().AddBorder(Color.red).Build(), Align.None);
+CBox innerBox = new(outerBox, new Point(0, 0), new Dimensions(Console.WindowWidth, Console.WindowHeight), new CStyleBuilder().AddBorder(Color.rosybrown).Build(), Align.None);
+CLabel title = new(innerBox, new Point(0, 0), Align.Left, "CRUDapp", new CStyleBuilder().Build());
+CButton b4 = new(innerBox, new Point(0, 0), new Dimensions(0, 0), Align.Right, "Create User", new CStyleBuilder().AddBorder(Color.blue).AddFont(Color.purple).Build());
+CTable table = new(innerBox, new Point(0, 5), new Dimensions(Console.WindowWidth - 25, Console.WindowHeight), new CStyleBuilder().AddBorder(Color.white).AddFont(Color.white).Build(), Align.Middle, ["Fornavn", "Efternavn", "EmailAdr", "Mobil", "Adresse", "Titel", "Edit", "Slet"], []);
 
 
 int prideTimer = 700;
 bool prideMode = false;
 Thread tPride = new(pride);
 
-// Main loop
 bool keepRunning = true;
 while (keepRunning)
 {
@@ -35,13 +34,15 @@ while (keepRunning)
     switch (Console.ReadKey().Key)
     {
         case ConsoleKey.C:
-            b4.ChangeStyling([BorderColor.blue, FontColor.red]);
-            form = new(innerBox, "User Creation", ["fName", "lName", "email", "phone", "street"], [],  [["Mr.", "Mrs.", "Ms."]]);
-            if(form.IsFinished) table.Add(form.GetValues());
-            b4.ChangeStyling([BorderColor.blue, FontColor.purple]);
+            b4.ChangeStyling(new CStyleBuilder().AddBorder(Color.blue).AddFont(Color.red).Build());
+            form = new(innerBox, "User Creation", ["fName", "lName", "email", "phone", "street"], [], [["Mr.", "Mrs.", "Ms."]]);
+            if (form.IsFinished) table.Add(form.GetValues());
+            b4.ChangeStyling(new CStyleBuilder().AddBorder(Color.blue).AddFont(Color.purple).Build());
             break;
         case ConsoleKey.Enter:
-            switch(table.selectIndex)
+            if (table.Content.Count <= 0) continue;
+
+            switch (table.selectIndex)
             {
                 case 6:
                     form = new(innerBox, "User Editor", ["fName", "lName", "email", "phone", "street"], table.GetValues(), [["Mr.", "Mrs.", "Ms."]]);
@@ -55,7 +56,7 @@ while (keepRunning)
             }
             break;
         case ConsoleKey.P:
-            if(tPride.ThreadState == ThreadState.Unstarted) tPride.Start();
+            if (tPride.ThreadState == ThreadState.Unstarted) tPride.Start();
             prideMode = !prideMode;
             break;
         case ConsoleKey.OemPlus:
@@ -87,9 +88,9 @@ while (keepRunning)
 
 void pride()
 {
-    BorderColor[] bc = [BorderColor.red, BorderColor.orange1, BorderColor.yellow, BorderColor.green, BorderColor.indianred, BorderColor.violet];
+    Color[] bc = [Color.red, Color.orange1, Color.yellow, Color.green, Color.indianred, Color.violet];
     int colorIndex = 0;
-    
+
     while (Thread.CurrentThread.ThreadState == ThreadState.Running)
     {
         while (prideMode)
@@ -99,9 +100,9 @@ void pride()
             Thread.Sleep(prideTimer);
 
             if (colorIndex + 1 > bc.Length) colorIndex = 0;
-            outerBox.ChangeStyling([bc[colorIndex++]]);
-            innerBox.ChangeStyling([bc[colorIndex++]]);
-            b4.ChangeStyling([bc[colorIndex++]]);
+            outerBox.ChangeStyling(new CStyleBuilder().AddBorder(bc[colorIndex++]).Build());
+            innerBox.ChangeStyling(new CStyleBuilder().AddBorder(bc[colorIndex++]).Build());
+            b4.ChangeStyling(new CStyleBuilder().AddBorder(bc[colorIndex++]).Build());
         }
     }
 }

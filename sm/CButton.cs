@@ -9,13 +9,13 @@ namespace sm
 {
     internal class CButton : CObject, IController
     {
-        List<object> Styling;
+        CStyle Style;
         public string Text { get; set; }
 
-        public CButton(CObject _parent, Point _pos, Dimensions _dim, Align _align, string _text, List<object>?_styles = null) : base(_parent, _pos, new Dimensions(_dim.Width < _text.Length + 2 ? _text.Length + 2 : _dim.Width, _dim.Height < 3 ? 3 : _dim.Height))
+        public CButton(CObject _parent, Point _pos, Dimensions _dim, Align _align, string _text, CStyle _style) : base(_parent, _pos, new Dimensions(_dim.Width < _text.Length + 2 ? _text.Length + 2 : _dim.Width, _dim.Height < 3 ? 3 : _dim.Height))
         {
             Text = _text;
-            Styling = _styles ?? [];
+            Style = _style;
 
             if (shouldRender && newObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
         }
@@ -26,8 +26,8 @@ namespace sm
             string tmp;
 
             // Border of box 
-            tmp = $"{Border(Get.TopLeft)}{string.Concat(Enumerable.Repeat(Border(Get.Horizontal), Dim.Width - 2))}{Border(Get.TopRight)}";
-            tmp = CStyling.Set(tmp, CStyling.Get([typeof(BorderBgColor), typeof(BorderColor), typeof(BorderStyling)], Styling));
+            tmp = $"{Border(Get.TopLeft)}{BuildString(Border(Get.Horizontal), Dim.Width - 2)}{Border(Get.TopRight)}";
+            tmp = Style.Set(tmp, Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
 
             int maxWidth = Dim.Width - 2;
@@ -35,34 +35,34 @@ namespace sm
             int diffRem = diff % 2;
 
             // Border of text
-            tmp = CStyling.Set($"{Border(Get.Vertical)}", CStyling.Get([typeof(BorderBgColor), typeof(BorderColor), typeof(BorderStyling)], Styling));
-            tmp += $"{string.Concat(Enumerable.Repeat(" ", diff / 2))}";
+            tmp = Style.Set(Border(Get.Vertical), Style.Border);
+            tmp += BuildString(" ", diff / 2);
 
             // Text styling
-            tmp += CStyling.Set(Text, CStyling.Get([typeof(FontBgColor), typeof(FontColor), typeof(FontStyling)], Styling));
-            tmp += $"{string.Concat(Enumerable.Repeat(" ", diff / 2 + diffRem))}";
+            tmp += Style.Set(Text, Style.Font);
+            tmp += BuildString(" ", diff / 2 + diffRem);
 
             // Border of text
-            tmp += CStyling.Set($"{Border(Get.Vertical)}", CStyling.Get([typeof(BorderBgColor), typeof(BorderColor), typeof(BorderStyling)], Styling));
+            tmp += Style.Set(Border(Get.Vertical), Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
 
             // Border of box
-            tmp = $"{Border(Get.BottomLeft)}{string.Concat(Enumerable.Repeat(Border(Get.Horizontal), Dim.Width - 2))}{Border(Get.BottomRight)}";
-            tmp = CStyling.Set(tmp, CStyling.Get([typeof(BorderBgColor), typeof(BorderColor), typeof(BorderStyling)], Styling));
+            tmp = $"{Border(Get.BottomLeft)}{BuildString(Border(Get.Horizontal), Dim.Width - 2)}{Border(Get.BottomRight)}";
+            tmp = Style.Set(tmp, Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
         }
 
-        internal override void ChangeStyling(List<object> _styles)
+        internal override void ChangeStyling(CStyle _style)
         {
-            Styling = _styles;
+            Style = _style;
             Remove(Pos.Absolute, Dim);
             RenderChildren();
         }
 
         internal override ControllerState Init()
         {
-            List<object> OldStyling = Styling;
-            ChangeStyling([FontColor.red]);
+            CStyle OldStyling = Style;
+            ChangeStyling(new CStyleBuilder().AddFont(Color.red).Build());
             Console.CursorVisible = false;
             bool keepRunning = true;
             while (keepRunning)
