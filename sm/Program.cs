@@ -22,7 +22,6 @@ CLabel title = new(innerBox, new Point(0, 0), Align.Left, "CRUDapp", new CStyleB
 CButton b4 = new(innerBox, new Point(0, 0), new Dimensions(0, 0), Align.Right, "Create User", new CStyleBuilder().AddBorder(Color.blue).AddFont(Color.purple).Build());
 CTable table = new(innerBox, new Point(0, 5), new Dimensions(Console.WindowWidth - 25, Console.WindowHeight), new CStyleBuilder().AddBorder(Color.white).AddFont(Color.white).Build(), Align.Middle, ["Fornavn", "Efternavn", "EmailAdr", "Mobil", "Adresse", "Titel", "Edit", "Slet"], []);
 
-
 int prideTimer = 700;
 bool prideMode = false;
 Thread tPride = new(pride);

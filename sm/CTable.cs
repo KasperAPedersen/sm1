@@ -16,6 +16,9 @@ namespace sm
         public List<List<string>> Content { get; } = [];
         int currentHeight = 0;
 
+        int maxPerPage = 26;
+        int currentPage = 0;
+
         public int contentIndex { get; set; } = 0;
         public int selectIndex { get; set; } = 6;
 
@@ -36,8 +39,21 @@ namespace sm
             if (selectIndex > 7) selectIndex = 6;
             if (selectIndex < 6) selectIndex = 7;
 
-            if (contentIndex > Content.Count - 1) contentIndex = 0;
-            if (contentIndex < 0) contentIndex = Content.Count - 1;
+            if (contentIndex > Content.Count - 1)
+            {
+                contentIndex = 0;
+                currentPage = 0;
+            }
+
+            if (contentIndex < 0)
+            {
+                contentIndex = Content.Count - 1;
+                currentPage = Content.Count / maxPerPage;
+            }
+
+            if (contentIndex > (currentPage + 1) * maxPerPage - 1) currentPage++;
+            if (contentIndex < ((currentPage + 1) * maxPerPage) - maxPerPage && currentPage > 0) currentPage--;
+
 
             Remove(Pos.Absolute, Dim);
 
@@ -70,8 +86,11 @@ namespace sm
             }
 
             // Content
-            for (int i = 0; i < Content.Count; i++)
+            for (int i = (currentPage + 1) * maxPerPage - maxPerPage; i < Content.Count; i++)
             {
+                if (i > (currentPage + 1) * maxPerPage - 1) break;
+                if (i > Content.Count || i < 0) break;
+
                 if (currentHeight + 3 < Dim.Height)
                 {
                     for (int o = 0; o < Headers.Count; o++)
@@ -89,7 +108,6 @@ namespace sm
                         tmp += contentIndex == i && selectIndex == o ? Style.Set(contentText, [Color.red]) : Style.Set(contentText, Style.Font);
                         tmp += BuildString(" ", (tabWidth - 1 - contentText.Length) / 2);
                         tmp += o == Headers.Count - 1 ? Style.Set(Border(Get.Vertical), Style.Border) : "";
-                        tmp = Style.Set(tmp, Style.Border);
                         Write(new Point(Pos.Absolute.X + (o * tabWidth), Pos.Absolute.Y + currentHeight), tmp);
                     }
                     currentHeight++;
@@ -106,7 +124,11 @@ namespace sm
                 Write(new Point(Pos.Absolute.X + (i * tabWidth), Pos.Absolute.Y + currentHeight), tmp);
             }
 
-            tmp = $"{Border(Get.Vertical)}{BuildString(" ", tabWidth * Headers.Count - 1)}{Border(Get.Vertical)}";
+            string footerText = $"Page {currentPage + 1}/{((Content.Count / maxPerPage + (Content.Count % maxPerPage == 0 ? 0 : 1)) == 0 ? 1 : Content.Count / maxPerPage + (Content.Count % maxPerPage == 0 ? 0 : 1))}";
+            int footerTextPadRem = (tabWidth * Headers.Count - 1 - footerText.Length) % 2;
+            string footerTextPad = BuildString(" ", (tabWidth * Headers.Count - 1 - footerText.Length) / 2);
+            
+            tmp = $"{Border(Get.Vertical)}{footerTextPad}{footerText}{footerTextPad}{(footerTextPadRem != 0 ? BuildString(" ", footerTextPadRem) : "")}{Border(Get.Vertical)}";
             tmp = Style.Set(tmp, Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + ++currentHeight), tmp);
 
