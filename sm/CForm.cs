@@ -21,7 +21,7 @@ namespace sm
             controller = new CControllers();
             Parent = _parent;
 
-            formBox = new(_parent, new Point(0, 0), new Dimensions(35, 30), new CStyleBuilder().AddBorder(Color.lime).Build(), Align.Middle);
+            formBox = new(_parent, new Point(0, 0), new Dimensions(35, 45), new CStyleBuilder().AddBorder(Color.lime).Build(), Align.Middle);
             CLabel title = new(formBox, new Point(0, 0), Align.Middle, _title, new CStyleBuilder().Build());
             Objects.Add(formBox);
             Objects.Add(title);

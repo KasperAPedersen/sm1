@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -11,6 +12,14 @@ namespace sm
 {
     internal class CTable : CObject
     {
+        public static string server = "localhost";
+        public static string db = "oop2";
+        public static string uname = "root";
+        public static string pword = "";
+
+        public MySqlConnection connection = new MySqlConnection($"SERVER={server};DATABASE={db};UID={uname};PWD={pword};");
+
+
         CStyle Style;
         List<string> Headers = [];
         public List<List<string>> Content { get; } = [];
@@ -20,7 +29,7 @@ namespace sm
         int currentPage = 0;
 
         public int contentIndex { get; set; } = 0;
-        public int selectIndex { get; set; } = 6;
+        public int selectIndex { get; set; } = 11;
 
         public CTable(CObject _parent, Point _pos, Dimensions _dim, CStyle _style, Align _align = Align.None, List<string>? _headers = null, List<List<string>>? _content = null) : base(_parent, _pos, _dim)
         {
@@ -32,12 +41,14 @@ namespace sm
             if (_content != null) Content = _content;
 
             if (shouldRender && newObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
+
+            fetch();
         }
 
         internal override void Render()
         {
-            if (selectIndex > 7) selectIndex = 6;
-            if (selectIndex < 6) selectIndex = 7;
+            if (selectIndex > 11) selectIndex = 10;
+            if (selectIndex < 10) selectIndex = 11;
 
             if (contentIndex > Content.Count - 1)
             {
@@ -55,7 +66,7 @@ namespace sm
             if (contentIndex < ((currentPage + 1) * maxPerPage) - maxPerPage && currentPage > 0) currentPage--;
 
 
-            Remove(Pos.Absolute, Dim);
+            Remove(Pos.Absolute, new Dimensions(Dim.Width + 1, Dim.Height));
 
             string tmp;
             int tabWidth = Dim.Width / Headers.Count;
@@ -151,7 +162,25 @@ namespace sm
 
         internal void Delete()
         {
+            string fName = Content[contentIndex][0];
+            string lName = Content[contentIndex][1];
+            string addr = Content[contentIndex][2];
+
+            connection.Open();
+            string query = $"DELETE FROM customer WHERE FirstName = '{fName}' AND LastName = '{lName}' AND Street = '{addr}'";
+
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            cmd.ExecuteReader();
+
+            connection.Close();
+
             Content.RemoveAt(contentIndex);
+            Render();
+        }
+
+        internal void Reset()
+        {
+            Content.Clear();
             Render();
         }
 
@@ -165,6 +194,44 @@ namespace sm
             Style = _style;
             Remove(Pos.Absolute, Dim);
             RenderChildren();
+        }
+
+        internal void fetch()
+        {
+            Reset();
+
+            connection.Open();
+            string query = "SELECT customer.FirstName, customer.LastName, customer.Street, city.City, city.Postal, " +
+                            "education.EducationName, customer.EducationEnd, job.JobName, customer.JobStart, customer.JobEnd " +
+                            "FROM customer, city, education, job " +
+                            "WHERE city.PostalID = customer.PostalID AND " +
+                            "education.EducationID = customer.EducationID AND job.JobID = customer.JobID";
+
+            MySqlCommand cmd = new MySqlCommand(query, connection);
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            string[] queryNames = ["FirstName", "LastName", "Street", "City", "Postal", "EducationName", "EducationEnd", "JobName", "JobStart", "JobEnd"];
+
+            while (reader.Read())
+            {
+                List<string> tmp = [];
+
+                foreach (string s in queryNames)
+                {
+                    string text = reader[s].ToString();
+                    if (text.Length > 10)
+                    {
+                        text = text.Substring(0, 11);
+
+                    }
+                    tmp.Add(text);
+                }
+
+                Content.Add(tmp);
+            }
+
+            connection.Close();
+            Render();
         }
     }
 }
