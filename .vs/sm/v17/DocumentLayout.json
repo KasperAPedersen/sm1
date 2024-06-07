@@ -1,34 +1,14 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\",
+  "WorkspaceRootPath": "C:\\Users\\kaspe\\Desktop\\sm1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\ctable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\ctable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\kaspe\\desktop\\sm1\\sm\\cstyle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\cstyle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\kaspe\\desktop\\sm1\\sm\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\crender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\crender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\cobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\cobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\ccontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\ccontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\cform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\cform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\iposition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\iposition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,123 +18,30 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:131:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:132:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:133:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "CTable.cs",
-              "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CTable.cs",
-              "RelativeDocumentMoniker": "sm\\CTable.cs",
-              "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CTable.cs",
-              "RelativeToolTip": "sm\\CTable.cs",
-              "ViewState": "AQIAAJIAAAAAAAAAAAAUwJgAAAAiAAAA",
+              "Title": "CStyle.cs",
+              "DocumentMoniker": "C:\\Users\\kaspe\\Desktop\\sm1\\sm\\CStyle.cs",
+              "RelativeDocumentMoniker": "sm\\CStyle.cs",
+              "ToolTip": "C:\\Users\\kaspe\\Desktop\\sm1\\sm\\CStyle.cs",
+              "RelativeToolTip": "sm\\CStyle.cs",
+              "ViewState": "AQIAAEcAAAAAAAAAAAAswC4AAABFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T11:13:38.156Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "CForm.cs",
-              "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CForm.cs",
-              "RelativeDocumentMoniker": "sm\\CForm.cs",
-              "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CForm.cs",
-              "RelativeToolTip": "sm\\CForm.cs",
-              "ViewState": "AQIAAEUAAAAAAAAAAAAUwFoAAAAgAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T11:12:42Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "IPosition.cs",
-              "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\IPosition.cs",
-              "RelativeDocumentMoniker": "sm\\IPosition.cs",
-              "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\IPosition.cs",
-              "RelativeToolTip": "sm\\IPosition.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T07:44:28.139Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CContainer.cs",
-              "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CContainer.cs",
-              "RelativeDocumentMoniker": "sm\\CContainer.cs",
-              "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CContainer.cs",
-              "RelativeToolTip": "sm\\CContainer.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAYAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T07:32:10.633Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CRender.cs",
-              "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CRender.cs",
-              "RelativeDocumentMoniker": "sm\\CRender.cs",
-              "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CRender.cs",
-              "RelativeToolTip": "sm\\CRender.cs",
-              "ViewState": "AQIAADQAAAAAAAAAAAAMwBwAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T07:32:05.072Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "CObject.cs",
-              "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CObject.cs",
-              "RelativeDocumentMoniker": "sm\\CObject.cs",
-              "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CObject.cs",
-              "RelativeToolTip": "sm\\CObject.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T07:32:01.276Z",
+              "WhenOpened": "2024-06-07T21:19:34.598Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\kaspe\\Desktop\\sm1\\sm\\Program.cs",
               "RelativeDocumentMoniker": "sm\\Program.cs",
-              "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\Program.cs",
+              "ToolTip": "C:\\Users\\kaspe\\Desktop\\sm1\\sm\\Program.cs",
               "RelativeToolTip": "sm\\Program.cs",
-              "ViewState": "AQIAACQAAAAAAAAAAAAAADAAAAAjAAAA",
+              "ViewState": "AQIAABIAAAAAAAAAAAAAABcAAAByAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-03T10:55:58.254Z",
               "EditorCaption": ""
