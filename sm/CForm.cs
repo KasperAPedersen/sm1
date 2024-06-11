@@ -39,7 +39,14 @@ namespace sm
             {
                 for (int i = 0; i < _comboLabes.Count; i++)
                 {
-                    controller.Add(new CComboBox(formBox, new Point(0, labelHeight += 3), new Dimensions(formBox.Dim.Width, 3), ["Mr.", "Mrs."], new CStyleBuilder().AddFont(Color.yellow3_1).AddBorders([Color.yellow3_1, Styling.Blink]).Build(), Align.Middle));
+                    List<string> tmp = new List<string>();
+
+                    foreach(string s in _comboLabes[i])
+                    {
+                        tmp.Add(s);
+                    }
+
+                    controller.Add(new CComboBox(formBox, new Point(0, labelHeight += 3), new Dimensions(formBox.Dim.Width, 3), tmp, new CStyleBuilder().AddFont(Color.yellow3_1).AddBorders([Color.yellow3_1, Styling.Blink]).Build(), Align.Middle));
                 }
             }
 

@@ -6,20 +6,13 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using ZstdSharp.Unsafe;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace sm
 {
     internal class CTable : CObject
     {
-        public static string server = "localhost";
-        public static string db = "oop2";
-        public static string uname = "root";
-        public static string pword = "";
-
-        public MySqlConnection connection = new MySqlConnection($"SERVER={server};DATABASE={db};UID={uname};PWD={pword};");
-
-
         CStyle Style;
         List<string> Headers = [];
         public List<List<string>> Content { get; } = [];
@@ -150,8 +143,32 @@ namespace sm
 
         internal void Add(List<string> _content)
         {
-            Content.Add(_content);
-            Render();
+            // (first) (last) (street) (udd slut) (job start) (job slut) (postnr) (udd) (job)
+
+            string fName = _content[0];
+            string lName = _content[1];
+            string street = _content[2];
+            string eduEnd = _content[3];
+            string jobStart = _content[4];
+            string jobEnd = _content[5];
+            string postal = _content[6];
+            string edu = _content[7];
+            string job = _content[8];
+
+            string jobIndex = CDatabase.GetJobIndex(job).ToString();
+
+
+            Console.Title = postal;
+
+            CDatabase.Init();
+            CDatabase.Write($"INSERT INTO customer (FirstName, LastName, Street, PostalID) VALUES ('{fName}','{lName}','{street}','{postal}')");
+            CDatabase.Close();
+
+
+            
+            fetch();
+            //Content.Add(_content);
+            //Render();
         }
 
         internal void Edit(List<string> _content)
@@ -164,15 +181,23 @@ namespace sm
         {
             string fName = Content[contentIndex][0];
             string lName = Content[contentIndex][1];
-            string addr = Content[contentIndex][2];
+            int customerID = -1;
 
-            connection.Open();
-            string query = $"DELETE FROM customer WHERE FirstName = '{fName}' AND LastName = '{lName}' AND Street = '{addr}'";
+            CDatabase.Init();
 
-            MySqlCommand cmd = new MySqlCommand(query, connection);
-            cmd.ExecuteReader();
+            MySqlDataReader reader = CDatabase.Read($"SELECT id FROM customer WHERE FirstName = '{fName}' AND LastName = '{lName}'");
+            
+            while (reader.Read())
+            {
+                customerID = (int)reader["id"];
+            }
 
-            connection.Close();
+            CDatabase.Close();
+            CDatabase.Init();
+
+            CDatabase.Write($"DELETE FROM customer WHERE id = {customerID}; DELETE FROM education WHERE customerid = {customerID}; DELETE FROM employment WHERE customerid = {customerID}");
+
+            CDatabase.Close();
 
             Content.RemoveAt(contentIndex);
             Render();
@@ -200,17 +225,19 @@ namespace sm
         {
             Reset();
 
-            connection.Open();
-            string query = "SELECT customer.FirstName, customer.LastName, customer.Street, city.City, city.Postal, " +
-                            "education.EducationName, customer.EducationEnd, job.JobName, customer.JobStart, customer.JobEnd " +
-                            "FROM customer, city, education, job " +
-                            "WHERE city.PostalID = customer.PostalID AND " +
-                            "education.EducationID = customer.EducationID AND job.JobID = customer.JobID";
+            CDatabase.Init();
 
-            MySqlCommand cmd = new MySqlCommand(query, connection);
-            MySqlDataReader reader = cmd.ExecuteReader();
+            MySqlDataReader reader = CDatabase.Read(
+                "SELECT customer.id, customer.FirstName, customer.LastName, customer.Street, " +
+                "city.CityName, city.PostalCode, " +
+                "schools.schoolsName, education.educationEnd, " +
+                "jobs.JobName, employment.EmploymentStart, employment.EmploymentEnd " +
+                "FROM customer, city, schools, education, jobs, employment " +
+                "WHERE city.PostalCode = customer.PostalID AND education.customerid = customer.id " +
+                "AND schools.educationID = education.educationName AND employment.customerid = customer.id " +
+                "AND jobs.JobID = employment.EmploymentName");
 
-            string[] queryNames = ["FirstName", "LastName", "Street", "City", "Postal", "EducationName", "EducationEnd", "JobName", "JobStart", "JobEnd"];
+            string[] queryNames = ["FirstName", "LastName", "Street", "CityName", "PostalCode", "schoolsName", "educationEnd", "JobName", "EmploymentStart", "EmploymentEnd"];
 
             while (reader.Read())
             {
@@ -230,7 +257,8 @@ namespace sm
                 Content.Add(tmp);
             }
 
-            connection.Close();
+            CDatabase.Close();
+
             Render();
         }
     }

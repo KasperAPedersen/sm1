@@ -60,7 +60,7 @@ namespace sm
                 SetPos(new Point(Pos.Absolute.X + Text.Length + 2, Pos.Absolute.Y + 1));
                 ConsoleKeyInfo key = Console.ReadKey();
                 switch (key.Key)
-                {
+                { 
                     case ConsoleKey.DownArrow:
                     case ConsoleKey.Enter:
                         return ControllerState.Next;

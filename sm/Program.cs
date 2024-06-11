@@ -9,6 +9,8 @@ using sm;
 using System.Text;
 using Color = sm.Color;
 using Mysqlx.Session;
+using MySql.Data.MySqlClient;
+using Mysqlx.Notice;
 
 Console.OutputEncoding = Encoding.UTF8;
 
@@ -24,6 +26,7 @@ CButton b4 = new(innerBox, new Point(0, 0), new Dimensions(0, 0), Align.Right, "
 CTable table = new(innerBox, new Point(0, 5), new Dimensions(Console.WindowWidth, Console.WindowHeight), new CStyleBuilder().AddBorder(Color.white).AddFont(Color.white).Build(), Align.Middle, ["Fornavn", "Efternavn", "Adresse", "By", "Postnr", "Udd.", "Udd. Slut", "Job", "Job Start", "Job Slut", "Edit", "Slet"], []);
 
 
+
 bool keepRunning = true;
 while (keepRunning)
 {
@@ -32,8 +35,11 @@ while (keepRunning)
     {
         case ConsoleKey.C:
             b4.ChangeStyling(new CStyleBuilder().AddBorder(Color.blue).AddFont(Color.red).Build());
-            form = new(innerBox, "User Creation", ["First", "Last", "Adresse", "By", "Post Nr", "Udd.", "Udd. Slut", "Job", "Job Start", "Job Slut"], [], []);
+            
+
+            form = new(innerBox, "User Creation", ["First", "Last", "Adresse", "Udd. Slut", "Job Start", "Job Slut"], [], [CDatabase.GetPostalCodes(), CDatabase.GetSchools(), CDatabase.GetJobs()]);
             if (form.IsFinished) table.Add(form.GetValues());
+            
             b4.ChangeStyling(new CStyleBuilder().AddBorder(Color.blue).AddFont(Color.purple).Build());
             break;
         case ConsoleKey.Enter:
