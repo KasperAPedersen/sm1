@@ -143,8 +143,6 @@ namespace sm
 
         internal void Add(List<string> _content)
         {
-            // (first) (last) (street) (udd slut) (job start) (job slut) (postnr) (udd) (job)
-
             string fName = _content[0];
             string lName = _content[1];
             string street = _content[2];
@@ -152,23 +150,20 @@ namespace sm
             string jobStart = _content[4];
             string jobEnd = _content[5];
             string postal = _content[6];
-            string edu = _content[7];
-            string job = _content[8];
 
-            string jobIndex = CDatabase.GetJobIndex(job).ToString();
-
-
-            Console.Title = postal;
-
-            CDatabase.Init();
-            CDatabase.Write($"INSERT INTO customer (FirstName, LastName, Street, PostalID) VALUES ('{fName}','{lName}','{street}','{postal}')");
-            CDatabase.Close();
-
+            string jobIndex = CDatabase.GetJobIndex(_content[8]).ToString();
+            string eduIndex = CDatabase.GetEducationIndex(_content[7]).ToString();
+            int customerID = 0;
 
             
+            List<List<string>> result = CDatabase.Read1($"SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'customer';", ["AUTO_INCREMENT"]);
+            customerID = Int32.Parse(result[0][0]);
+
+            CDatabase.Write1($"INSERT INTO customer (FirstName, LastName, Street, PostalID) VALUES ('{fName}','{lName}','{street}','{postal}');" +
+                $"INSERT INTO education (customerid, educationName, educationEnd) VALUES ('{customerID}','{eduIndex}','{eduEnd}');" +
+                $"INSERT INTO employment (customerid, EmploymentName, EmploymentStart, EmploymentEnd) VALUES ('{customerID}','{jobIndex}','{jobStart}', '{jobEnd}')");
+
             fetch();
-            //Content.Add(_content);
-            //Render();
         }
 
         internal void Edit(List<string> _content)
@@ -183,21 +178,10 @@ namespace sm
             string lName = Content[contentIndex][1];
             int customerID = -1;
 
-            CDatabase.Init();
-
-            MySqlDataReader reader = CDatabase.Read($"SELECT id FROM customer WHERE FirstName = '{fName}' AND LastName = '{lName}'");
+            List<List<string>> result = CDatabase.Read1($"SELECT id FROM customer WHERE FirstName = '{fName}' AND LastName = '{lName}';", ["id"]);
+            customerID = Int32.Parse(result[0][0]);
             
-            while (reader.Read())
-            {
-                customerID = (int)reader["id"];
-            }
-
-            CDatabase.Close();
-            CDatabase.Init();
-
-            CDatabase.Write($"DELETE FROM customer WHERE id = {customerID}; DELETE FROM education WHERE customerid = {customerID}; DELETE FROM employment WHERE customerid = {customerID}");
-
-            CDatabase.Close();
+            CDatabase.Write1($"DELETE FROM customer WHERE id = {customerID}; DELETE FROM education WHERE customerid = {customerID}; DELETE FROM employment WHERE customerid = {customerID}");
 
             Content.RemoveAt(contentIndex);
             Render();
@@ -225,39 +209,28 @@ namespace sm
         {
             Reset();
 
-            CDatabase.Init();
-
-            MySqlDataReader reader = CDatabase.Read(
-                "SELECT customer.id, customer.FirstName, customer.LastName, customer.Street, " +
+            List<List<string>> result = CDatabase.Read1("SELECT customer.id, customer.FirstName, customer.LastName, customer.Street, " +
                 "city.CityName, city.PostalCode, " +
                 "schools.schoolsName, education.educationEnd, " +
                 "jobs.JobName, employment.EmploymentStart, employment.EmploymentEnd " +
                 "FROM customer, city, schools, education, jobs, employment " +
                 "WHERE city.PostalCode = customer.PostalID AND education.customerid = customer.id " +
                 "AND schools.educationID = education.educationName AND employment.customerid = customer.id " +
-                "AND jobs.JobID = employment.EmploymentName");
+                "AND jobs.JobID = employment.EmploymentName", ["FirstName", "LastName", "Street", "CityName", "PostalCode", "schoolsName", "educationEnd", "JobName", "EmploymentStart", "EmploymentEnd"]);
 
-            string[] queryNames = ["FirstName", "LastName", "Street", "CityName", "PostalCode", "schoolsName", "educationEnd", "JobName", "EmploymentStart", "EmploymentEnd"];
 
-            while (reader.Read())
-            {
-                List<string> tmp = [];
+            for(int i = 0; i < result.Count; i++) {
 
-                foreach (string s in queryNames)
+                List<string> tmp = result[i];
+                for(int o = 0; o < result[i].Count; o++)
                 {
-                    string text = reader[s].ToString();
-                    if (text.Length > 10)
+                    if (tmp[o].Length > 10)
                     {
-                        text = text.Substring(0, 11);
-
+                        tmp[o] = tmp[o].Substring(0, 11);
                     }
-                    tmp.Add(text);
                 }
-
                 Content.Add(tmp);
             }
-
-            CDatabase.Close();
 
             Render();
         }

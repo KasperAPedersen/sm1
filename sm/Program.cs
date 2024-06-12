@@ -37,7 +37,7 @@ while (keepRunning)
             b4.ChangeStyling(new CStyleBuilder().AddBorder(Color.blue).AddFont(Color.red).Build());
             
 
-            form = new(innerBox, "User Creation", ["First", "Last", "Adresse", "Udd. Slut", "Job Start", "Job Slut"], [], [CDatabase.GetPostalCodes(), CDatabase.GetSchools(), CDatabase.GetJobs()]);
+            form = new(innerBox, "User Creation", ["First", "Last", "Adresse", "Udd. Slut (YYYY-MM-DD)", "Job Start (YYYY-MM-DD)", "Job Slut (YYYY-MM-DD)"], [], [CDatabase.GetPostalCodes(), CDatabase.GetSchools(), CDatabase.GetJobs()]);
             if (form.IsFinished) table.Add(form.GetValues());
             
             b4.ChangeStyling(new CStyleBuilder().AddBorder(Color.blue).AddFont(Color.purple).Build());
@@ -48,7 +48,7 @@ while (keepRunning)
             switch (table.selectIndex)
             {
                 case 10:
-                    form = new(innerBox, "User Editor", ["First", "Last", "Adresse", "By", "Post Nr", "Udd.", "Udd. Slut", "Job", "Job Start", "Job Slut"], table.GetValues(), []);
+                    form = new(innerBox, "User Editor", ["First", "Last", "Adresse", "Udd. Slut (YYYY-MM-DD)", "Job Start (YYYY-MM-DD)", "Job Slut (YYYY-MM-DD)"], [], [CDatabase.GetPostalCodes(), CDatabase.GetSchools(), CDatabase.GetJobs()]);
                     if (form.IsFinished) table.Edit(form.GetValues());
                     break;
                 case 11:
