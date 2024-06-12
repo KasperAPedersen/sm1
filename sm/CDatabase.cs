@@ -74,44 +74,41 @@ namespace sm
 
         public static List<string> GetPostalCodes()
         {
-            List<string> postalCodes = new List<string>();
-            CDatabase.Init();
-            MySqlDataReader reader = CDatabase.Read($"SELECT PostalCode FROM city");
-
-            while (reader.Read())
+            List<List<string>> results = Read1("SELECT PostalCode FROM city", ["PostalCode"]);
+            
+            List<string> tmp = new List<string>();
+            foreach (List<string> s in results)
             {
-                postalCodes.Add(reader["PostalCode"].ToString());
+                tmp.Add(s[0]);
             }
-            CDatabase.Close();
-            return postalCodes;
+
+            return tmp;
         }
 
         public static List<string> GetSchools()
         {
-            List<string> schoolNames = new List<string>();
-            CDatabase.Init();
-            MySqlDataReader reader = CDatabase.Read($"SELECT schoolsName FROM schools");
+            List<List<string>> results = Read1("SELECT schoolsName FROM schools", ["schoolsName"]);
 
-            while (reader.Read())
+            List<string> tmp = new List<string>();
+            foreach (List<string> s in results)
             {
-                schoolNames.Add(reader["schoolsName"].ToString());
+                tmp.Add(s[0]);
             }
-            CDatabase.Close();
-            return schoolNames;
+
+            return tmp;
         }
 
         public static List<string> GetJobs()
         {
-            List<string> jobs = new List<string>();
-            CDatabase.Init();
-            MySqlDataReader reader = CDatabase.Read($"SELECT JobName FROM jobs");
+            List<List<string>> results = Read1("SELECT JobName FROM jobs", ["JobName"]);
 
-            while (reader.Read())
+            List<string> tmp = new List<string>();
+            foreach (List<string> s in results)
             {
-                jobs.Add(reader["JobName"].ToString());
+                tmp.Add(s[0]);
             }
-            CDatabase.Close();
-            return jobs;
+
+            return tmp;
         }
 
         public static int GetJobIndex(string job)

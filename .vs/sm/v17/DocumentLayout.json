@@ -7,12 +7,12 @@
       "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\ctable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\cinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\cinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\cdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\cdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\cinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\cinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\cform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -94,7 +94,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "CInput.cs",
               "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CInput.cs",
               "RelativeDocumentMoniker": "sm\\CInput.cs",
@@ -102,18 +102,17 @@
               "RelativeToolTip": "sm\\CInput.cs",
               "ViewState": "AQIAAC0AAAAAAAAAAAAiwDgAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T10:35:06.306Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-11T10:35:06.306Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "CDatabase.cs",
               "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CDatabase.cs",
               "RelativeDocumentMoniker": "sm\\CDatabase.cs",
               "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CDatabase.cs",
               "RelativeToolTip": "sm\\CDatabase.cs",
-              "ViewState": "AQIAACkAAAAAAAAAAAAwwDcAAAA2AAAA",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAowFgAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-07T05:44:10.931Z",
               "EditorCaption": ""
@@ -126,7 +125,7 @@
               "RelativeDocumentMoniker": "sm\\CTable.cs",
               "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CTable.cs",
               "RelativeToolTip": "sm\\CTable.cs",
-              "ViewState": "AQIAAKgAAAAAAAAAAAAmwOYAAAARAAAA",
+              "ViewState": "AQIAAEMAAAAAAAAAAAAcwFUAAABJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-06T11:13:38.156Z",
               "EditorCaption": ""
@@ -141,8 +140,7 @@
               "RelativeToolTip": "sm\\CForm.cs",
               "ViewState": "AQIAAEQAAAAAAAAAAAAwwEoAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T11:12:42Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-06T11:12:42Z"
             },
             {
               "$type": "Document",
@@ -202,8 +200,7 @@
               "RelativeToolTip": "sm\\Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T10:55:58.254Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-03T10:55:58.254Z"
             }
           ]
         }
