@@ -16,15 +16,15 @@ namespace sm
     internal class CTable : CObject
     {
         CStyle Style;
-        List<string> Headers = [];
+        readonly List<string> Headers = [];
         public List<List<string>> Content { get; } = [];
         int currentHeight = 0;
 
-        int maxPerPage = 26;
+        readonly int maxPerPage = 26;
         int currentPage = 0;
 
-        public int contentIndex { get; set; } = 0;
-        public int selectIndex { get; set; } = 11;
+        public int ContentIndex { get; set; } = 0;
+        public int SelectIndex { get; set; } = 11;
 
         public CTable(CObject _parent, Point _pos, Dimensions _dim, CStyle _style, Align _align = Align.None, List<string>? _headers = null, List<List<string>>? _content = null) : base(_parent, _pos, _dim)
         {
@@ -37,7 +37,7 @@ namespace sm
 
             if (shouldRender && newObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
 
-            fetch();
+            Fetch();
         }
 
         internal override void Render()
@@ -92,11 +92,11 @@ namespace sm
                         if (o == Headers.Count - 2) contentText = "Edit";
                         if (o == Headers.Count - 1) contentText = "Slet";
 
-                        if (contentIndex == i && selectIndex == o) contentText = $"> {contentText}";
+                        if (ContentIndex == i && SelectIndex == o) contentText = $"> {contentText}";
                         tmp = Border(Get.Vertical);
                         tmp = Style.Set(tmp, Style.Border);
                         tmp += BuildString(" ", (tabWidth - contentText.Length) / 2);
-                        tmp += contentIndex == i && selectIndex == o ? Style.Set(contentText, [Color.red]) : Style.Set(contentText, Style.Font);
+                        tmp += ContentIndex == i && SelectIndex == o ? Style.Set(contentText, [Color.red]) : Style.Set(contentText, Style.Font);
                         tmp += BuildString(" ", (tabWidth - 1 - contentText.Length) / 2);
                         tmp += o == Headers.Count - 1 ? Style.Set(Border(Get.Vertical), Style.Border) : "";
                         Write(new Point(Pos.Absolute.X + (o * tabWidth), Pos.Absolute.Y + currentHeight), tmp);
@@ -149,27 +149,26 @@ namespace sm
                 $"INSERT INTO education (customerid, educationName, educationEnd) VALUES ('{customerID}','{eduIndex}','{eduEnd}');" +
                 $"INSERT INTO employment (customerid, EmploymentName, EmploymentStart, EmploymentEnd) VALUES ('{customerID}','{jobIndex}','{jobStart}', '{jobEnd}')");
 
-            fetch();
+            Fetch();
         }
 
         internal void Edit(List<string> _content)
         {
-            Content[contentIndex] = _content;
+            Content[ContentIndex] = _content;
             Render();
         }
 
         internal void Delete()
         {
-            string fName = Content[contentIndex][0];
-            string lName = Content[contentIndex][1];
-            int customerID = -1;
+            string fName = Content[ContentIndex][0];
+            string lName = Content[ContentIndex][1];
 
             List<List<string>> result = CDatabase.Read1($"SELECT id FROM customer WHERE FirstName = '{fName}' AND LastName = '{lName}';", ["id"]);
-            customerID = Int32.Parse(result[0][0]);
+            int customerID = Int32.Parse(result[0][0] ?? "-1");
             
             CDatabase.Write1($"DELETE FROM customer WHERE id = {customerID}; DELETE FROM education WHERE customerid = {customerID}; DELETE FROM employment WHERE customerid = {customerID}");
 
-            Content.RemoveAt(contentIndex);
+            Content.RemoveAt(ContentIndex);
             Render();
         }
 
@@ -181,7 +180,7 @@ namespace sm
 
         internal List<string> GetValues()
         {
-            return Content[contentIndex];
+            return Content[ContentIndex];
         }
 
         internal override void ChangeStyling(CStyle _style)
@@ -191,7 +190,7 @@ namespace sm
             RenderChildren();
         }
 
-        internal void fetch()
+        internal void Fetch()
         {
             Reset();
 
@@ -212,7 +211,7 @@ namespace sm
                 {
                     if (tmp[o].Length > 10)
                     {
-                        tmp[o] = tmp[o].Substring(0, 11);
+                        tmp[o] = tmp[o][..11];
                     }
                 }
                 Content.Add(tmp);
@@ -221,26 +220,24 @@ namespace sm
             Render();
         }
 
-        internal void updateSelectIndex()
+        internal void UpdateSelectIndex()
         {
-            if (selectIndex > 11) selectIndex = 10;
-            if (selectIndex < 10) selectIndex = 11;
+            if (SelectIndex > 11) SelectIndex = 10;
+            if (SelectIndex < 10) SelectIndex = 11;
 
             int tabWidth = Dim.Width / Headers.Count;
-
-            string tmp = "";
             for (int i = (currentPage + 1) * maxPerPage - maxPerPage; i < Content.Count; i++)
             {
-                int cIndex = contentIndex - (maxPerPage * currentPage);
+                int cIndex = ContentIndex - (maxPerPage * currentPage);
 
                 for(int o = 10; o <= 11; o++)
                 {
                     string contentText = o == 10 ? "Edit" : "Slet";
-                    if (o == selectIndex) contentText = $"> {contentText}";
+                    if (o == SelectIndex) contentText = $"> {contentText}";
 
-                    tmp = Border(Get.Vertical);
+                    string tmp = Border(Get.Vertical);
                     tmp += BuildString(" ", (tabWidth - contentText.Length) / 2);
-                    tmp += o == selectIndex ? Style.Set(contentText, [Color.red]) : Style.Set(contentText, [Color.white]);
+                    tmp += o == SelectIndex ? Style.Set(contentText, [Color.red]) : Style.Set(contentText, [Color.white]);
                     tmp += BuildString(" ", (tabWidth - 1 - contentText.Length) / 2);
                     tmp += Border(Get.Vertical);
                     tmp = Style.Set(tmp, [Color.white]);
@@ -250,16 +247,14 @@ namespace sm
             }
         }
 
-        internal void updateActiveContentRow(int newIndex)
+        internal void UpdateActiveContentRow(int newIndex)
         {
-            string tmp = "";
             int tabWidth = Dim.Width / Headers.Count;
             for (int o = 10; o <= 11; o++)
             {
                 string contentText = o == 10 ? "Edit" : "Slet";
 
-
-                tmp = Border(Get.Vertical);
+                string tmp = Border(Get.Vertical);
                 tmp += BuildString(" ", (tabWidth - contentText.Length) / 2);
                 tmp += contentText;
                 tmp += BuildString(" ", (tabWidth - 1 - contentText.Length) / 2);
@@ -267,37 +262,37 @@ namespace sm
 
                 tmp = Style.Set(tmp, [Color.white]);
 
-                Write(new Point(Pos.Absolute.X + (o * tabWidth), Pos.Absolute.Y + 3 + (contentIndex >= maxPerPage ? contentIndex - (maxPerPage * currentPage) : contentIndex)), tmp);
+                Write(new Point(Pos.Absolute.X + (o * tabWidth), Pos.Absolute.Y + 3 + (ContentIndex >= maxPerPage ? ContentIndex - (maxPerPage * currentPage) : ContentIndex)), tmp);
             }
 
-            contentIndex = newIndex;
+            ContentIndex = newIndex;
 
-            if (contentIndex > Content.Count - 1)
+            if (ContentIndex > Content.Count - 1)
             {
-                contentIndex = 0;
+                ContentIndex = 0;
                 currentPage = 0;
                 Render();
             }
 
-            if (contentIndex < 0)
+            if (ContentIndex < 0)
             {
-                contentIndex = Content.Count - 1;
+                ContentIndex = Content.Count - 1;
                 currentPage = Content.Count / maxPerPage;
                 Render();
             }
 
-            if (contentIndex > (currentPage + 1) * maxPerPage - 1)
+            if (ContentIndex > (currentPage + 1) * maxPerPage - 1)
             {
                 currentPage++;
                 Render();
             }
-            if (contentIndex < ((currentPage + 1) * maxPerPage) - maxPerPage && currentPage > 0)
+            if (ContentIndex < ((currentPage + 1) * maxPerPage) - maxPerPage && currentPage > 0)
             {
                 currentPage--;
                 Render();
             }
 
-            updateSelectIndex();
+            UpdateSelectIndex();
         }
     }
 }
