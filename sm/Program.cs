@@ -59,20 +59,24 @@ while (keepRunning)
             }
             break;
         case ConsoleKey.RightArrow:
-            table.updateSelectIndex(table.selectIndex++);
+            table.selectIndex++;
+            table.updateSelectIndex();
             //table.Render();
             break;
         case ConsoleKey.LeftArrow:
-            table.updateSelectIndex(table.selectIndex--);
+            table.selectIndex--;
+            table.updateSelectIndex();
             //table.Render();
             break;
         case ConsoleKey.UpArrow:
-            table.contentIndex--;
-            table.Render();
+            table.updateActiveContentRow(table.contentIndex - 1);
+            /*table.contentIndex--;
+            table.Render();*/
             break;
         case ConsoleKey.DownArrow:
-            table.contentIndex++;
-            table.Render();
+            table.updateActiveContentRow(table.contentIndex + 1);
+            /*table.contentIndex++;
+            table.Render();*/
             break;
         default:
             break;

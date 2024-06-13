@@ -64,9 +64,10 @@
               "RelativeDocumentMoniker": "sm\\CRender.cs",
               "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CRender.cs",
               "RelativeToolTip": "sm\\CRender.cs",
-              "ViewState": "AQIAAAIAAAAAAAAAAAArwBIAAAAMAAAA",
+              "ViewState": "AQIAABMAAAAAAAAAAAAgwCYAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-12T11:42:36.498Z"
+              "WhenOpened": "2024-06-12T11:42:36.498Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -78,7 +79,8 @@
               "RelativeToolTip": "sm\\CDatabase.cs",
               "ViewState": "AQIAACoAAAAAAAAAAADgvzoAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-12T10:39:58.762Z"
+              "WhenOpened": "2024-06-12T10:39:58.762Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -88,7 +90,7 @@
               "RelativeDocumentMoniker": "sm\\CTable.cs",
               "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CTable.cs",
               "RelativeToolTip": "sm\\CTable.cs",
-              "ViewState": "AQIAAJUAAAAAAAAAAAAAAKkAAAAAAAAA",
+              "ViewState": "AQIAAA8BAAAAAAAAAAAQwOsAAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-12T08:38:06.674Z",
               "EditorCaption": ""
@@ -101,9 +103,10 @@
               "RelativeDocumentMoniker": "sm\\Program.cs",
               "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\Program.cs",
               "RelativeToolTip": "sm\\Program.cs",
-              "ViewState": "AQIAADEAAAAAAAAAAAAUwEkAAAAMAAAA",
+              "ViewState": "AQIAADEAAAAAAAAAAAAmwEIAAAAgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T10:55:58.254Z"
+              "WhenOpened": "2024-04-03T10:55:58.254Z",
+              "EditorCaption": ""
             }
           ]
         }
