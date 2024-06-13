@@ -59,12 +59,12 @@ while (keepRunning)
             }
             break;
         case ConsoleKey.RightArrow:
-            table.selectIndex++;
-            table.Render();
+            table.updateSelectIndex(table.selectIndex++);
+            //table.Render();
             break;
         case ConsoleKey.LeftArrow:
-            table.selectIndex--;
-            table.Render();
+            table.updateSelectIndex(table.selectIndex--);
+            //table.Render();
             break;
         case ConsoleKey.UpArrow:
             table.contentIndex--;

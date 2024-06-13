@@ -1,8 +1,10 @@
 ﻿using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Math.EC;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,8 +42,6 @@ namespace sm
 
         internal override void Render()
         {
-            if (selectIndex > 11) selectIndex = 10;
-            if (selectIndex < 10) selectIndex = 11;
 
             if (contentIndex > Content.Count - 1)
             {
@@ -55,8 +55,14 @@ namespace sm
                 currentPage = Content.Count / maxPerPage;
             }
 
-            if (contentIndex > (currentPage + 1) * maxPerPage - 1) currentPage++;
-            if (contentIndex < ((currentPage + 1) * maxPerPage) - maxPerPage && currentPage > 0) currentPage--;
+            if (contentIndex > (currentPage + 1) * maxPerPage - 1)
+            {
+                currentPage++;
+            }
+            if (contentIndex < ((currentPage + 1) * maxPerPage) - maxPerPage && currentPage > 0)
+            {
+                currentPage--;
+            }
 
 
             Remove(Pos.Absolute, new Dimensions(Dim.Width + 1, Dim.Height));
@@ -233,6 +239,38 @@ namespace sm
             }
 
             Render();
+        }
+
+        internal void updateSelectIndex(int index)
+        {
+            if (selectIndex > 11) selectIndex = 10;
+            if (selectIndex < 10) selectIndex = 11;
+
+            int tabWidth = Dim.Width / Headers.Count;
+
+            string tmp = "";
+            for (int i = (currentPage + 1) * maxPerPage - maxPerPage; i < Content.Count; i++)
+            {
+                if (i > (currentPage + 1) * maxPerPage - 1) break;
+                if (i > Content.Count || i < 0) break;
+
+                int cIndex = contentIndex - (maxPerPage * currentPage);
+
+                for(int o = 10; o <= 11; o++)
+                {
+                    string contentText = o == 10 ? "Edit" : "Slet";
+
+                    if (o == selectIndex) contentText = $"> {contentText}";
+
+                    tmp = Border(Get.Vertical);
+                    tmp += BuildString(" ", (tabWidth - contentText.Length) / 2);
+                    tmp += o == selectIndex ? Style.Set(contentText, [Color.red]) : contentText;
+                    tmp += BuildString(" ", (tabWidth - 1 - contentText.Length) / 2);
+                    tmp += Border(Get.Vertical);
+
+                    Write(new Point(Pos.Absolute.X + (o * tabWidth), Pos.Absolute.Y + cIndex + 3), tmp);
+                }
+            }
         }
     }
 }

@@ -17,10 +17,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\cdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\cdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\cbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\cbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -68,7 +64,7 @@
               "RelativeDocumentMoniker": "sm\\CRender.cs",
               "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CRender.cs",
               "RelativeToolTip": "sm\\CRender.cs",
-              "ViewState": "AQIAAD0AAAAAAAAAAAAcwEYAAAAVAAAA",
+              "ViewState": "AQIAAAIAAAAAAAAAAAArwBIAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-12T11:42:36.498Z",
               "EditorCaption": ""
@@ -81,9 +77,10 @@
               "RelativeDocumentMoniker": "sm\\CDatabase.cs",
               "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CDatabase.cs",
               "RelativeToolTip": "sm\\CDatabase.cs",
-              "ViewState": "AQIAAGwAAAAAAAAAAAAUwH4AAAAAAAAA",
+              "ViewState": "AQIAACoAAAAAAAAAAADgvzoAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-12T10:39:58.762Z"
+              "WhenOpened": "2024-06-12T10:39:58.762Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -93,22 +90,10 @@
               "RelativeDocumentMoniker": "sm\\CTable.cs",
               "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CTable.cs",
               "RelativeToolTip": "sm\\CTable.cs",
-              "ViewState": "AQIAANQAAAAAAAAAAADwv+QAAAA5AAAA",
+              "ViewState": "AQIAAGUAAAAAAAAAAAAAAHwAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-12T08:38:06.674Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CBox.cs",
-              "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CBox.cs",
-              "RelativeDocumentMoniker": "sm\\CBox.cs",
-              "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CBox.cs",
-              "RelativeToolTip": "sm\\CBox.cs",
-              "ViewState": "AQIAABcAAAAAAAAAAAA9wCwAAAA7AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-12T08:24:10.214Z"
             },
             {
               "$type": "Document",
@@ -118,7 +103,7 @@
               "RelativeDocumentMoniker": "sm\\Program.cs",
               "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\Program.cs",
               "RelativeToolTip": "sm\\Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAAAAAA",
+              "ViewState": "AQIAADEAAAAAAAAAAAAUwEkAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-03T10:55:58.254Z",
               "EditorCaption": ""
