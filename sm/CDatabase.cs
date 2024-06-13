@@ -10,12 +10,12 @@ namespace sm
 {
     internal static class CDatabase
     {
-        private static string server = "localhost";
-        private static string name = "oop2";
-        private static string user = "root";
-        private static string pword = "";
+        private static readonly string server = "localhost";
+        private static readonly string name = "oop2";
+        private static readonly string user = "root";
+        private static readonly string pword = "";
 
-        static MySqlConnection connection = new MySqlConnection($"SERVER={server};DATABASE={name};UID={user};PWD={pword};Convert Zero Datetime=True");
+        static readonly MySqlConnection connection = new($"SERVER={server};DATABASE={name};UID={user};PWD={pword};Convert Zero Datetime=True");
 
         public static void Init()
         {
@@ -29,7 +29,7 @@ namespace sm
 
         public static void Write(string _query)
         {
-            MySqlCommand cmd = new MySqlCommand(_query, connection);
+            MySqlCommand cmd = new(_query, connection);
             cmd.ExecuteReader();
 
         }
@@ -37,7 +37,7 @@ namespace sm
         public static void Write1(string _query)
         {
             connection.Open();
-            MySqlCommand cmd = new MySqlCommand(_query, connection);
+            MySqlCommand cmd = new(_query, connection);
             cmd.ExecuteReader();
             connection.Close();
 
@@ -46,14 +46,14 @@ namespace sm
         public static List<List<string>> Read1(string _query, List<string> _returns)
         {
             connection.Open();
-            MySqlCommand cmd = new MySqlCommand(_query, connection);
+            MySqlCommand cmd = new(_query, connection);
             MySqlDataReader reader = cmd.ExecuteReader();
 
-            List<List<string>> tmp1 = new List<List<string>>();
+            List<List<string>> tmp1 = [];
 
             while (reader.Read())
             {
-                List<string> tmp = new List<string>();
+                List<string> tmp = [];
                 foreach (string s in _returns)
                 {
                     tmp.Add(reader[s]?.ToString() ?? "Not found");
@@ -66,7 +66,7 @@ namespace sm
 
         public static MySqlDataReader Read(string _query)
         {
-            MySqlCommand cmd = new MySqlCommand(_query, connection);
+            MySqlCommand cmd = new(_query, connection);
             MySqlDataReader reader = cmd.ExecuteReader();
 
             return reader;
@@ -75,8 +75,8 @@ namespace sm
         public static List<string> GetPostalCodes()
         {
             List<List<string>> results = Read1("SELECT PostalCode FROM city", ["PostalCode"]);
-            
-            List<string> tmp = new List<string>();
+
+            List<string> tmp = [];
             foreach (List<string> s in results)
             {
                 tmp.Add(s[0]);
@@ -89,7 +89,7 @@ namespace sm
         {
             List<List<string>> results = Read1("SELECT schoolsName FROM schools", ["schoolsName"]);
 
-            List<string> tmp = new List<string>();
+            List<string> tmp = [];
             foreach (List<string> s in results)
             {
                 tmp.Add(s[0]);
@@ -102,7 +102,7 @@ namespace sm
         {
             List<List<string>> results = Read1("SELECT JobName FROM jobs", ["JobName"]);
 
-            List<string> tmp = new List<string>();
+            List<string> tmp = [];
             foreach (List<string> s in results)
             {
                 tmp.Add(s[0]);

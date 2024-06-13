@@ -17,12 +17,12 @@ namespace sm
         public CInput(CObject _parent, Point _pos, Dimensions _dim, CStyle _style) : this(_parent, _pos, _dim, "", _style) { }
         public CInput(CObject _parent, Point _pos, Dimensions _dim, string _label, CStyle _style, Align _align = Align.None) : base(_parent, _pos, _dim)
         {
-            shouldRender = false;
+            ShouldRender = false;
             if (_label != null) Label = _label;
             maxLength = _dim.Width - 4;
 
             Style = _style;
-            if (shouldRender && newObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
+            if (ShouldRender && NewObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
         }
 
         internal override void Render()

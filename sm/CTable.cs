@@ -35,7 +35,7 @@ namespace sm
             if (_headers != null) Headers = _headers;
             if (_content != null) Content = _content;
 
-            if (shouldRender && newObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
+            if (ShouldRender && NewObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
 
             Fetch();
         }
@@ -169,6 +169,7 @@ namespace sm
             CDatabase.Write1($"DELETE FROM customer WHERE id = {customerID}; DELETE FROM education WHERE customerid = {customerID}; DELETE FROM employment WHERE customerid = {customerID}");
 
             Content.RemoveAt(ContentIndex);
+            UpdateActiveContentRow(ContentIndex);
             Render();
         }
 

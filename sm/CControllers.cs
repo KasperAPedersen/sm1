@@ -9,22 +9,22 @@ namespace sm
 {
     internal class CControllers : CRender
     {
-        public List<CObject> controllerObjects { get; set; } = [];
+        public List<CObject> ControllerObjects { get; set; } = [];
         public int controllerIndex = 0;
 
         public CControllers() { }
 
         internal void Add(CObject _obj)
         {
-            controllerObjects.Add(_obj);
+            ControllerObjects.Add(_obj);
         }
 
         internal void Run(CForm _form, int _index)
         {
-            if (_index >= controllerObjects.Count) _index = controllerObjects.Count - 1;
+            if (_index >= ControllerObjects.Count) _index = ControllerObjects.Count - 1;
             if (_index < 0) _index = 0;
 
-            CObject obj = controllerObjects[_index];
+            CObject obj = ControllerObjects[_index];
             ControllerState result = obj.Init();
 
             switch (result)
@@ -49,7 +49,7 @@ namespace sm
         internal List<string> GetValues()
         {
             List<string> values = [];
-            foreach (object obj in controllerObjects)
+            foreach (object obj in ControllerObjects)
             {
                 if (obj is CInput)
                 {

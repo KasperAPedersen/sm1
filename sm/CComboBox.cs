@@ -13,7 +13,7 @@ namespace sm
     {
         CStyle Style { get; set; }
 
-        List<string> Content;
+        readonly List<string> Content;
         public string Text { get; set; } = "";
         bool Expanded = false;
         int selectIndex = 0;
@@ -21,18 +21,18 @@ namespace sm
         public CComboBox(CObject _parent, Point _pos, Dimensions _dim, List<string> _content, CStyle _style, Align _align = Align.None) : base(_parent, _pos, _dim)
         {
             Dim = new Dimensions(Dim.Width, 3);
-            shouldRender = false;
+            ShouldRender = false;
             Content = _content;
             Style = _style;
 
-            if (shouldRender && newObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
+            if (ShouldRender && NewObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
         }
 
         internal override void Render()
         {
             Remove(Pos.Absolute, Dim);
 
-            if (Text.Length > Dim.Width - 8) Text = Text.Substring(0, Dim.Width - 8);
+            if (Text.Length > Dim.Width - 8) Text = Text[..(Dim.Width - 8)];
 
             if (selectIndex < 0) selectIndex = Content.Count - 1;
             if (selectIndex > Content.Count - 1) selectIndex = 0;

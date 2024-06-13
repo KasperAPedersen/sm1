@@ -13,7 +13,7 @@ namespace sm
         public CObject(CObject? _parent, Point _pos, Dimensions _dim)
         {
             // Correct & set CObject variables
-            newObjPos(_parent, _pos, _dim);
+            NewObjPos(_parent, _pos, _dim);
 
             // Set as children of _parent if _parent != null
             Parent?.Children.Add(this);
@@ -38,7 +38,7 @@ namespace sm
         {
             Remove(Pos.Absolute, Dim);
 
-            newObjPos(Parent, _pos, Dim);
+            NewObjPos(Parent, _pos, Dim);
             Render();
             foreach(CObject child in Children)
             {
@@ -51,11 +51,11 @@ namespace sm
             Render();
             foreach (CObject child in Children)
             {
-                if(child.shouldRender) child.RenderChildren();
+                if(child.ShouldRender) child.RenderChildren();
             }
         }
 
-        internal override bool newObjPos(CObject? _parent, Point _pos, Dimensions _dim)
+        internal override bool NewObjPos(CObject? _parent, Point _pos, Dimensions _dim)
         {
             if (_parent != null && Dim.Width > _parent.Dim.Width - 4) return false;
             if (_parent != null && Dim.Height > _parent.Dim.Height - 2) return false;

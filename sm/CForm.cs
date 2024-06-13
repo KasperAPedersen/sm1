@@ -9,12 +9,12 @@ namespace sm
 {
     internal class CForm : CRender
     {
-        CObject Parent;
+        readonly CObject Parent;
         readonly CControllers controller;
         public List<CObject> Objects = [];
         public bool IsFinished { get; set; }
-        public List<string> values { get; set; } = [];
-        CBox formBox;
+        public List<string> Values { get; set; } = [];
+        readonly CBox formBox;
 
         public CForm(CObject _parent, string _title, string[]? _inputLabels = null, List<string>? _inputLabelsValue = null, List<List<string>>? _comboLabes = null)
         {
@@ -39,7 +39,7 @@ namespace sm
             {
                 for (int i = 0; i < _comboLabes.Count; i++)
                 {
-                    List<string> tmp = new List<string>();
+                    List<string> tmp = [];
 
                     foreach(string s in _comboLabes[i])
                     {
@@ -50,22 +50,22 @@ namespace sm
                 }
             }
 
-            for (int i = 0; i < controller.controllerObjects.Count; i++)
+            for (int i = 0; i < controller.ControllerObjects.Count; i++)
             {
-                CObject obj = controller.controllerObjects[i];
+                CObject obj = controller.ControllerObjects[i];
                 Objects.Add(obj);
-                obj.shouldRender = true;
+                obj.ShouldRender = true;
 
-                if (obj is CInput)
+                if (obj is CInput input)
                 {
-                    for (int o = 0; o < _inputLabelsValue.Count; o++)
+                    for (int o = 0; o < _inputLabelsValue?.Count; o++)
                     {
                         if (_inputLabelsValue[o] == null) break;
 
                         if (o == i)
                         {
 
-                            CInput ob = (CInput)obj;
+                            CInput ob = input;
                             ob.Text = _inputLabelsValue[o];
                         }
                     }
@@ -84,7 +84,7 @@ namespace sm
         {
             foreach (CObject obj in Objects)
             {
-                obj.shouldRender = false;
+                obj.ShouldRender = false;
 
                 if (obj is CInput)
                 {
@@ -101,7 +101,7 @@ namespace sm
 
             Remove(formBox.Pos.Absolute, formBox.Dim);
 
-            values = _values;
+            Values = _values;
             Parent.RenderChildren();
             IsFinished = true;
         }
@@ -110,7 +110,7 @@ namespace sm
         {
             foreach (CObject obj in Objects)
             {
-                obj.shouldRender = false;
+                obj.ShouldRender = false;
 
                 if (obj is CInput)
                 {
@@ -131,7 +131,7 @@ namespace sm
 
         internal List<string> GetValues()
         {
-            return values;
+            return Values;
         }
     }
 }
