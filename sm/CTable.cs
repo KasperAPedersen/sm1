@@ -154,8 +154,32 @@ namespace sm
 
         internal void Edit(List<string> _content)
         {
-            Content[ContentIndex] = _content;
-            Render();
+            string fName = _content[0];
+            string lName = _content[1];
+            string street = _content[2];
+            string eduEnd = _content[3];
+            string jobStart = _content[4];
+            string jobEnd = _content[5];
+            string postal = _content[6];
+
+            string jobIndex = CDatabase.GetJobIndex(_content[8]).ToString();
+            string eduIndex = CDatabase.GetEducationIndex(_content[7]).ToString();
+
+            //
+            string oldFName = Content[ContentIndex][0];
+            string oldLName = Content[ContentIndex][1];
+            //
+
+
+            List<List<string>> result = CDatabase.Read1($"SELECT id FROM customer WHERE FirstName = '{oldFName}' AND LastName = '{oldLName}'", ["id"]);
+            int customerID = Int32.Parse(result[0][0]);
+
+            // UPDATE customer SET FirstName = "e", LastName = "f" WHERE id = 54
+            CDatabase.Write1($"UPDATE customer SET FirstName = '{fName}', LastName = '{lName}', Street = '{street}', PostalID = '{postal}' WHERE id = {customerID};" +
+                $"UPDATE education SET educationEnd = '{eduEnd}' WHERE customerid = {customerID};" +
+                $"UPDATE employment SET EmploymentStart = '{jobStart}', EmploymentEnd = '{jobEnd}' WHERE customerid = {customerID};");
+
+            Fetch();
         }
 
         internal void Delete()

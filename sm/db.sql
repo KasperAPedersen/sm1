@@ -1,51 +1,61 @@
-DROP DATABASE IF EXISTS OOP2; -- Deletes db oop2, if exists
-CREATE DATABASE OOP2; -- Creates new database oop2
-USE OOP2; -- Use database oop2
-
--- Create tables
-CREATE TABLE City (
-    PostalID int AUTO_INCREMENT PRIMARY KEY,
-    Postal int,
-    City varchar(255)
+DROP DATABASE IF EXISTS OOP2;
+CREATE DATABASE OOP2;
+USE OOP2;
+ 
+CREATE TABLE city (
+  PostalCode INT PRIMARY KEY,
+  CityName VARCHAR(255)
 );
-
-CREATE TABLE Education (
-    EducationID int AUTO_INCREMENT PRIMARY KEY,
-    EducationName varchar(255)
+ 
+CREATE TABLE schools (
+  educationID INT AUTO_INCREMENT PRIMARY KEY,
+  schoolsName VARCHAR(255)
 );
-
-CREATE TABLE Job (
-    JobID int AUTO_INCREMENT PRIMARY KEY,
-    JobName varchar(255)
+ 
+CREATE TABLE education (
+  customerid INT,
+  educationName int,
+  educationEnd DATE,
+  FOREIGN KEY (educationName) REFERENCES schools(educationID)
 );
-
+ 
+CREATE TABLE jobs (
+  JobID INT AUTO_INCREMENT PRIMARY KEY,
+  JobName VARCHAR(255)
+);
+ 
+CREATE TABLE employment (
+  customerid INT,
+  EmploymentName int,
+  EmploymentStart DATE,
+  EmploymentEnd DATE,
+  FOREIGN KEY (EmploymentName) REFERENCES jobs(JobID)
+);
+ 
 CREATE TABLE customer (
-    PersonID int AUTO_INCREMENT PRIMARY KEY,
-    FirstName varchar(255),
-    LastName varchar(255),
-    Street varchar(255),
-    PostalID int,
-    FOREIGN KEY (PostalID) REFERENCES City(PostalID),
-    EducationID int,
-    FOREIGN KEY (EducationID) REFERENCES Education(EducationID),
-    EducationEnd date,
-    JobID int,
-    FOREIGN KEY (JobID) REFERENCES Job(JobID),
-    JobStart date,
-    JobEnd date
+  id int AUTO_INCREMENT PRIMARY KEY,
+  FirstName VARCHAR(255),
+  LastName VARCHAR(255),
+  Street VARCHAR(255),
+  PostalID INT,
+  FOREIGN KEY (PostalID) REFERENCES city(PostalCode)
 );
+ 
+-- Insert data into the tables
+INSERT INTO city (PostalCode, CityName) VALUES (2300, 'København');
+INSERT INTO city (PostalCode, CityName) VALUES (2630, 'Taastrup');
+INSERT INTO city (PostalCode, CityName) VALUES (2770, 'Kastrup');
+INSERT INTO schools (schoolsName) VALUES ('Københavns universitet');
+INSERT INTO schools (schoolsName) VALUES ('Aalborg universitet');
+INSERT INTO schools (schoolsName) VALUES ('ZBC');
+INSERT INTO jobs (JobName) VALUES ('Programmør');
+INSERT INTO jobs (JobName) VALUES ('Supporter');
 
--- Insert template rows
-INSERT INTO Job (JobName) VALUES ('Data technician'), ('Developer'), ('Supporter');
-INSERT INTO Education (EducationName) VALUES ('Data technician'), ('Computer Science'), ('IT Supporter'), ('IT Infrastucture');
-INSERT INTO City (Postal, City) VALUES (2770, 'Kastrup'), (4100, 'Ringsted'), (2300, 'København'), (2630, 'Taastrup');
+INSERT INTO `education` (`customerid`, `educationName`, `educationEnd`) VALUES ('1', '1', '2024-06-15');
+INSERT INTO `education` (`customerid`, `educationName`, `educationEnd`) VALUES ('2', '3', '2021-01-02');
 
--- Insert test users
-INSERT INTO customer (FirstName, LastName, Street, PostalID, EducationID, EducationEnd, JobID, JobStart, JobEnd) VALUES 
-                     ('John', 'Doe', 'Johndoestreet 13', 2, 1, '2020-01-24', 1, '2020/02/13', '2024/06/06');
+INSERT INTO `employment` (`customerid`, `EmploymentName`, `EmploymentStart`, `EmploymentEnd`) VALUES ('1', '1', '2024-06-14', '2024-06-29');
+INSERT INTO `employment` (`customerid`, `EmploymentName`, `EmploymentStart`, `EmploymentEnd`) VALUES ('2', '2', '2024-06-28', '2024-06-30');
 
-INSERT INTO customer (FirstName, LastName, Street, PostalID, EducationID, EducationEnd, JobID, JobStart, JobEnd) VALUES 
-                     ('Carsten', 'Hansen', 'abcvej 25', 3, 2, '1979-09-14', 2, '2013/07/09', '2022/01/17');
-
-INSERT INTO customer (FirstName, LastName, Street, PostalID, EducationID, EducationEnd, JobID, JobStart, JobEnd) VALUES 
-                     ('Bent', 'Bentesen', 'nnnnnn 13', 1, 3, '2001-11-19', 3, '2009/09/01', '2023/09/11');
+INSERT INTO `customer` (`FirstName`, `LastName`, `Street`, `PostalID`) VALUES ('Kasper', 'Pedersen', 'gade 13', '2770');
+INSERT INTO `customer` (`FirstName`, `LastName`, `Street`, `PostalID`) VALUES ('John', 'Larsen', 'vej 14', '2630');
