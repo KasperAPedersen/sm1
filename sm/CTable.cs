@@ -159,11 +159,10 @@ namespace sm
 
             string jobIndex = CDatabase.GetJobIndex(_content[8]).ToString();
             string eduIndex = CDatabase.GetEducationIndex(_content[7]).ToString();
-            int customerID = 0;
 
             
             List<List<string>> result = CDatabase.Read1($"SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'customer';", ["AUTO_INCREMENT"]);
-            customerID = Int32.Parse(result[0][0]);
+            int customerID = Int32.Parse(result[0][0] ?? "0");
 
             CDatabase.Write1($"INSERT INTO customer (FirstName, LastName, Street, PostalID) VALUES ('{fName}','{lName}','{street}','{postal}');" +
                 $"INSERT INTO education (customerid, educationName, educationEnd) VALUES ('{customerID}','{eduIndex}','{eduEnd}');" +
