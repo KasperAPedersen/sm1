@@ -21,7 +21,7 @@ namespace sm
             controller = new CControllers();
             Parent = _parent;
 
-            formBox = new(_parent, new Point(0, 0), new Dimensions(35, 45), new CStyleBuilder().AddBorder(Color.lime).Build(), Align.Middle);
+            formBox = new(_parent, new Point(0, 0), new Dimensions(35, 45), new CStyleBuilder().AddBorder(Color.red).Build(), Align.Middle);
             CLabel title = new(formBox, new Point(0, 0), Align.Middle, _title, new CStyleBuilder().Build());
             Objects.Add(formBox);
             Objects.Add(title);
@@ -31,7 +31,7 @@ namespace sm
             {
                 for (int i = 0; i < _inputLabels.Length; i++)
                 {
-                    controller.Add(new CInput(formBox, new Point(0, labelHeight += 3), new Dimensions(formBox.Dim.Width, 3), _inputLabels[i], new CStyleBuilder().AddBorder(Color.yellow3_1).Build(), Align.Middle));
+                    controller.Add(new CInput(formBox, new Point(0, labelHeight += 3), new Dimensions(formBox.Dim.Width, 3), _inputLabels[i], new CStyleBuilder().AddBorder(Color.white).Build(), Align.Middle));
                 }
             }
 
@@ -46,7 +46,7 @@ namespace sm
                         tmp.Add(s);
                     }
 
-                    controller.Add(new CComboBox(formBox, new Point(0, labelHeight += 3), new Dimensions(formBox.Dim.Width, 3), tmp, new CStyleBuilder().AddFont(Color.yellow3_1).AddBorders([Color.yellow3_1, Styling.Blink]).Build(), Align.Middle));
+                    controller.Add(new CComboBox(formBox, new Point(0, labelHeight += 3), new Dimensions(formBox.Dim.Width, 3), tmp, new CStyleBuilder().AddFont(Color.white).AddBorders([Color.white]).Build(), Align.Middle));
                 }
             }
 

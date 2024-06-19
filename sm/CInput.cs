@@ -30,22 +30,18 @@ namespace sm
             int currentHeight = 0;
             string tmp;
 
-            // Top border
             tmp = Border(Get.TopLeft) + BuildString(Border(Get.Horizontal), Dim.Width - 2) + Border(Get.TopRight);
             tmp = Style.Set(tmp, Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
 
-            // Content line
             tmp = Border(Get.Vertical) + BuildString(" ", Dim.Width - 2) + Border(Get.Vertical);
             tmp = Style.Set(tmp, Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight), tmp);
 
-            // TODO STYLING AND ADD GREY COLOR TO LABEL
             tmp = (Label != "" && Text == "") ? Style.Set(Label, [Color.grey]) : Text;
             tmp = Style.Set(tmp, Style.Font);
             Write(new Point(Pos.Absolute.X + 2, Pos.Absolute.Y + currentHeight++), tmp);
 
-            // Bottom border
             tmp = Border(Get.BottomLeft) + BuildString(Border(Get.Horizontal), Dim.Width - 2) + Border(Get.BottomRight);
             tmp = Style.Set(tmp, Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
@@ -57,7 +53,7 @@ namespace sm
             bool keepRunning = true;
             while (keepRunning)
             {
-                SetPos(new Point(Pos.Absolute.X + Text.Length + 2, Pos.Absolute.Y + 1));
+                Console.SetCursorPosition(Pos.Absolute.X + Text.Length + 2, Pos.Absolute.Y + 1);
                 ConsoleKeyInfo key = Console.ReadKey();
                 switch (key.Key)
                 { 

@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,128 +16,76 @@ namespace sm
         private static readonly string user = "root";
         private static readonly string pword = "";
 
-        static readonly MySqlConnection connection = new($"SERVER={server};DATABASE={name};UID={user};PWD={pword};Convert Zero Datetime=True");
+        private static readonly string conn = $"SERVER={server};DATABASE={name};UID={user};PWD={pword};Convert Zero Datetime=True;Pooling=True;";
 
-        public static void Init()
+        public static async Task<List<string[]>> Exec(string _query)
         {
-            connection.Open();
-        }
+            using MySqlConnection connection = new(conn);
 
-        public static void Close()
-        {
-            connection.Close();
-        }
+            await connection.OpenAsync();
 
-        public static void Write(string _query)
-        {
-            MySqlCommand cmd = new(_query, connection);
-            cmd.ExecuteReader();
+            using MySqlCommand cmd = new(_query, connection);
 
-        }
+            DbDataReader reader = await cmd.ExecuteReaderAsync();
+            List<string[]> result = [];
 
-        public static void Write1(string _query)
-        {
-            connection.Open();
-            MySqlCommand cmd = new(_query, connection);
-            cmd.ExecuteReader();
-            connection.Close();
-
-        }
-
-        public static List<List<string>> Read1(string _query, List<string> _returns)
-        {
-            connection.Open();
-            MySqlCommand cmd = new(_query, connection);
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-            List<List<string>> tmp1 = [];
-
-            while (reader.Read())
+            while (await reader.ReadAsync())
             {
-                List<string> tmp = [];
-                foreach (string s in _returns)
+                string[] row = new string[reader.FieldCount];
+                for (int i = 0; i < reader.FieldCount; i++)
                 {
-                    tmp.Add(reader[s]?.ToString() ?? "Not found");
+                    row[i] = reader[i].ToString() ?? "";
                 }
-                tmp1.Add(tmp);
-            }
-            connection.Close();
-            return tmp1;
-        }
-
-        public static MySqlDataReader Read(string _query)
-        {
-            MySqlCommand cmd = new(_query, connection);
-            MySqlDataReader reader = cmd.ExecuteReader();
-
-            return reader;
-        }
-
-        public static List<string> GetPostalCodes()
-        {
-            List<List<string>> results = Read1("SELECT PostalCode FROM city", ["PostalCode"]);
-
-            List<string> tmp = [];
-            foreach (List<string> s in results)
-            {
-                tmp.Add(s[0]);
+                result.Add(row);
             }
 
-            return tmp;
+            await reader.CloseAsync();
+            return result;
         }
 
-        public static List<string> GetSchools()
+        public static async Task<List<string>> GetPostalCodes()
         {
-            List<List<string>> results = Read1("SELECT schoolsName FROM schools", ["schoolsName"]);
-
-            List<string> tmp = [];
-            foreach (List<string> s in results)
-            {
-                tmp.Add(s[0]);
-            }
-
-            return tmp;
+            List<string[]> results = await Exec("SELECT PostalCode FROM city");
+            return results.Select(s => s[0]).ToList();
         }
 
-        public static List<string> GetJobs()
+        public static async Task<List<string>> GetSchools()
         {
-            List<List<string>> results = Read1("SELECT JobName FROM jobs", ["JobName"]);
-
-            List<string> tmp = [];
-            foreach (List<string> s in results)
-            {
-                tmp.Add(s[0]);
-            }
-
-            return tmp;
+            List<string[]> results = await Exec("SELECT schoolsName FROM schools");
+            return results.Select(s => s[0]).ToList();
         }
 
-        public static int GetJobIndex(string job)
+        public static async Task<List<string>> GetJobs()
         {
-            int tmp = 0;
-            CDatabase.Init();
-            MySqlDataReader reader = CDatabase.Read($"SELECT JobID FROM jobs WHERE JobName = '{job}'");
-
-            while (reader.Read())
-            {
-                tmp = (int)reader["JobID"];
-            }
-            CDatabase.Close();
-            return tmp;
+            List<string[]> results = await Exec("SELECT JobName FROM jobs");
+            return results.Select(s => s[0]).ToList();
         }
 
-        public static int GetEducationIndex(string edu)
+        public static async Task<string> GetJobIndex(string job)
         {
-            int tmp = 0;
-            CDatabase.Init();
-            MySqlDataReader reader = CDatabase.Read($"SELECT educationID FROM schools WHERE schoolsName = '{edu}'");
+            List<string[]> results = await Exec($"SELECT JobID FROM jobs WHERE JobName = '{job}'");
+            return results[0][0] ?? "0";
+        }
 
-            while (reader.Read())
-            {
-                tmp = (int)reader["educationID"];
-            }
-            CDatabase.Close();
-            return tmp;
+        public static async Task<string> GetEducationIndex(string edu)
+        {
+            List<string[]> results = await Exec($"SELECT educationID FROM schools WHERE schoolsName = '{edu}'");
+            return results[0][0] ?? "0";
+        }
+
+        public static async void AddPostal(string postal, string city)
+        {
+            await Exec($"INSERT INTO city (PostalCode, CityName) VALUES ('{postal}', '{city}');");
+        }
+
+        public static async void AddJob(string job)
+        {
+            await Exec($"INSERT INTO jobs (JobName) VALUES ('{job}');");
+        }
+
+        public static async void AddEducation(string edu)
+        {
+            await Exec($"INSERT INTO schools (schoolsName) VALUES ('{edu}');");
         }
     }
 }

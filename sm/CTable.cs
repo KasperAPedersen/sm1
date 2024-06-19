@@ -1,20 +1,11 @@
-﻿using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Math.EC;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using ZstdSharp.Unsafe;
-using static System.Net.Mime.MediaTypeNames;
+﻿using System.Drawing;
+using System.Globalization;
 
 namespace sm
 {
     internal class CTable : CObject
     {
+        public bool isFocused = false;
         CStyle Style;
         readonly List<string> Headers = [];
         public List<List<string>> Content { get; } = [];
@@ -42,10 +33,6 @@ namespace sm
 
         internal override void Render()
         {
-
-            
-
-
             Remove(Pos.Absolute, new Dimensions(Dim.Width + 1, Dim.Height));
 
             string tmp;
@@ -89,14 +76,26 @@ namespace sm
                         string contentText;
                         contentText = (o > Content[i].Count - 1) ? (Headers.Count - 2).ToString() : Content[i][o];
 
+                        if (contentText.Length > 10)
+                        {
+                            contentText = contentText[..11];
+                        }
+
+                        if (o == 6 || o == 8 || o == 9)
+                        {
+                            DateTime dt = DateTime.ParseExact(contentText.Trim(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                            contentText = dt.ToString("d MMM yyyy", CultureInfo.InvariantCulture);
+                        }
+
                         if (o == Headers.Count - 2) contentText = "Edit";
                         if (o == Headers.Count - 1) contentText = "Slet";
 
-                        if (ContentIndex == i && SelectIndex == o) contentText = $"> {contentText}";
+                        if (ContentIndex == i && SelectIndex == o && isFocused) contentText = $"> {contentText}";
+
                         tmp = Border(Get.Vertical);
                         tmp = Style.Set(tmp, Style.Border);
                         tmp += BuildString(" ", (tabWidth - contentText.Length) / 2);
-                        tmp += ContentIndex == i && SelectIndex == o ? Style.Set(contentText, [Color.red]) : Style.Set(contentText, Style.Font);
+                        tmp += ContentIndex == i && SelectIndex == o && isFocused ? Style.Set(contentText, [Color.red]) : Style.Set(contentText, Style.Font);
                         tmp += BuildString(" ", (tabWidth - 1 - contentText.Length) / 2);
                         tmp += o == Headers.Count - 1 ? Style.Set(Border(Get.Vertical), Style.Border) : "";
                         Write(new Point(Pos.Absolute.X + (o * tabWidth), Pos.Absolute.Y + currentHeight), tmp);
@@ -128,66 +127,68 @@ namespace sm
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + ++currentHeight), tmp);
         }
 
-        internal void Add(List<string> _content)
+        internal async void Add(List<string> _content)
         {
             string fName = _content[0];
             string lName = _content[1];
             string street = _content[2];
-            string eduEnd = _content[3];
-            string jobStart = _content[4];
-            string jobEnd = _content[5];
+            string eduEnd = ConvertDate(_content[3]);
+            string jobStart = ConvertDate(_content[4]);
+            string jobEnd = ConvertDate(_content[5]);
             string postal = _content[6];
 
-            string jobIndex = CDatabase.GetJobIndex(_content[8]).ToString();
-            string eduIndex = CDatabase.GetEducationIndex(_content[7]).ToString();
+            string jobIndex = await CDatabase.GetJobIndex(_content[8]);
+            string eduIndex = await CDatabase.GetEducationIndex(_content[7]);
 
-            
-            List<List<string>> result = CDatabase.Read1($"SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'customer';", ["AUTO_INCREMENT"]);
+            List<string[]> result = await CDatabase.Exec("SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'customer';");
             int customerID = Int32.Parse(result[0][0] ?? "0");
 
-            CDatabase.Write1($"INSERT INTO customer (FirstName, LastName, Street, PostalID) VALUES ('{fName}','{lName}','{street}','{postal}');" +
-                $"INSERT INTO education (customerid, educationName, educationEnd) VALUES ('{customerID}','{eduIndex}','{eduEnd}');" +
-                $"INSERT INTO employment (customerid, EmploymentName, EmploymentStart, EmploymentEnd) VALUES ('{customerID}','{jobIndex}','{jobStart}', '{jobEnd}')");
+            await CDatabase.Exec($"INSERT INTO customer (FirstName, LastName, Street, PostalID) VALUES ('{fName}','{lName}','{street}','{postal}');");
+            await CDatabase.Exec($"INSERT INTO education (customerid, educationName, educationEnd) VALUES ('{customerID}','{eduIndex}','{eduEnd}');");
+            await CDatabase.Exec($"INSERT INTO employment (customerid, EmploymentName, EmploymentStart, EmploymentEnd) VALUES ('{customerID}','{jobIndex}','{jobStart}', '{jobEnd}')");
 
             Fetch();
         }
 
-        internal void Edit(List<string> _content)
+        internal async void Edit(List<string> _content)
         {
             string fName = _content[0];
             string lName = _content[1];
             string street = _content[2];
-            string eduEnd = _content[3];
-            string jobStart = _content[4];
-            string jobEnd = _content[5];
+            string eduEnd = ConvertDate(_content[3]);
+            string jobStart = ConvertDate(_content[4]);
+            string jobEnd = ConvertDate(_content[5]);
             string postal = _content[6];
 
-            string jobIndex = CDatabase.GetJobIndex(_content[8]).ToString();
-            string eduIndex = CDatabase.GetEducationIndex(_content[7]).ToString();
+            string jobIndex = await CDatabase.GetJobIndex(_content[8]);
+            string eduIndex = await CDatabase.GetEducationIndex(_content[7]);
 
             string oldFName = Content[ContentIndex][0];
             string oldLName = Content[ContentIndex][1];
 
-
-            List<List<string>> result = CDatabase.Read1($"SELECT id FROM customer WHERE FirstName = '{oldFName}' AND LastName = '{oldLName}'", ["id"]);
+            List<string[]> result = await CDatabase.Exec($"SELECT id FROM customer WHERE FirstName = '{oldFName}' AND LastName = '{oldLName}'");
             int customerID = Int32.Parse(result[0][0]);
 
-            CDatabase.Write1($"UPDATE customer SET FirstName = '{fName}', LastName = '{lName}', Street = '{street}', PostalID = '{postal}' WHERE id = {customerID};" +
-                $"UPDATE education SET educationName = {eduIndex}, educationEnd = '{eduEnd}' WHERE customerid = {customerID};" +
-                $"UPDATE employment SET EmploymentName = {jobIndex}, EmploymentStart = '{jobStart}', EmploymentEnd = '{jobEnd}' WHERE customerid = {customerID};");
+            await CDatabase.Exec($"UPDATE customer SET FirstName = '{fName}', LastName = '{lName}', Street = '{street}', PostalID = '{postal}' WHERE id = {customerID};");
+            await CDatabase.Exec($"UPDATE education SET educationName = {eduIndex}, educationEnd = '{eduEnd}' WHERE customerid = {customerID};");
+            await CDatabase.Exec($"UPDATE employment SET EmploymentName = {jobIndex}, EmploymentStart = '{jobStart}', EmploymentEnd = '{jobEnd}' WHERE customerid = {customerID};");
 
             Fetch();
         }
 
-        internal void Delete()
+        internal async void Delete()
         {
             string fName = Content[ContentIndex][0];
             string lName = Content[ContentIndex][1];
 
-            List<List<string>> result = CDatabase.Read1($"SELECT id FROM customer WHERE FirstName = '{fName}' AND LastName = '{lName}';", ["id"]);
+            List<string[]> result = await CDatabase.Exec($"SELECT id FROM customer WHERE FirstName = '{fName}' AND LastName = '{lName}';");
             int customerID = Int32.Parse(result[0][0] ?? "-1");
-            
-            CDatabase.Write1($"DELETE FROM customer WHERE id = {customerID}; DELETE FROM education WHERE customerid = {customerID}; DELETE FROM employment WHERE customerid = {customerID}");
+
+            await CDatabase.Exec($"DELETE FROM customer WHERE id = {customerID};");
+            await CDatabase.Exec($"DELETE FROM education WHERE customerid = {customerID};");
+            await CDatabase.Exec($"DELETE FROM employment WHERE customerid = {customerID};");
+
+
 
             Content.RemoveAt(ContentIndex);
             UpdateActiveContentRow(ContentIndex);
@@ -212,32 +213,20 @@ namespace sm
             RenderChildren();
         }
 
-        internal void Fetch()
+        internal async void Fetch()
         {
             Reset();
 
-            List<List<string>> result = CDatabase.Read1("SELECT customer.id, customer.FirstName, customer.LastName, customer.Street, " +
+            List<string[]> res = await CDatabase.Exec("SELECT customer.FirstName, customer.LastName, customer.Street, " +
                 "city.CityName, city.PostalCode, " +
                 "schools.schoolsName, education.educationEnd, " +
                 "jobs.JobName, employment.EmploymentStart, employment.EmploymentEnd " +
                 "FROM customer, city, schools, education, jobs, employment " +
                 "WHERE city.PostalCode = customer.PostalID AND education.customerid = customer.id " +
                 "AND schools.educationID = education.educationName AND employment.customerid = customer.id " +
-                "AND jobs.JobID = employment.EmploymentName", ["FirstName", "LastName", "Street", "CityName", "PostalCode", "schoolsName", "educationEnd", "JobName", "EmploymentStart", "EmploymentEnd"]);
+                "AND jobs.JobID = employment.EmploymentName");
 
-
-            for(int i = 0; i < result.Count; i++) {
-
-                List<string> tmp = result[i];
-                for(int o = 0; o < result[i].Count; o++)
-                {
-                    if (tmp[o].Length > 10)
-                    {
-                        tmp[o] = tmp[o][..11];
-                    }
-                }
-                Content.Add(tmp);
-            }
+            foreach (string[] s in res) Content.Add([..s]);
 
             Render();
         }
@@ -315,6 +304,18 @@ namespace sm
             }
 
             UpdateSelectIndex();
+        }
+
+        internal static string ConvertDate(string date)
+        {
+            string[] tmp = date.Split('/');
+
+            if (tmp.Length < 3) return date;
+            
+            for (int i = 0; i < tmp.Length; i++) tmp[i] = tmp[i].Trim();
+            date = $"{tmp[2]}-{tmp[1]}-{tmp[0]}";
+            
+            return date;
         }
     }
 }

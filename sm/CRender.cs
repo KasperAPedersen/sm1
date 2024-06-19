@@ -12,16 +12,12 @@ namespace sm
         internal static int CWidth = Console.WindowWidth;
         internal static int CHeight = Console.WindowHeight;
 
-        internal static void SetPos(Point _pos)
+        internal static void Write(Point _pos, string _text)
         {
             if (_pos.X >= CWidth) _pos.X = CWidth - 1;
             if (_pos.Y >= CHeight) _pos.Y = CHeight - 1;
-            Console.SetCursorPosition(_pos.X, _pos.Y);
-        }
 
-        internal static void Write(Point _pos, string _text)
-        {
-            SetPos(_pos);
+            Console.SetCursorPosition(_pos.X, _pos.Y);
             Console.Write(_text);
         }
 
@@ -29,8 +25,11 @@ namespace sm
         {
             for (int i = 0; i < _dim.Height; i++)
             {
-                SetPos(new Point(_pos.X, _pos.Y + i));
-                Console.Write(string.Concat(Enumerable.Repeat(" ", _dim.Width)));
+                int y = _pos.Y + i;
+                if (y >= CHeight) y = CHeight - 1;
+
+                Console.SetCursorPosition(_pos.X, y);
+                Console.Write(new string(' ', _dim.Width));
             }
         }
 

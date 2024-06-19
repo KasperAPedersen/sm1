@@ -24,22 +24,22 @@ namespace sm
         internal override void Render()
         {
             int currentHeight = 0;
-            string tmp;
+            string borderTop = $"{Border(Get.TopLeft)}{BuildString(Border(Get.Horizontal), Dim.Width - 2)}{Border(Get.TopRight)}";
+            string borderMiddle = $"{Border(Get.Vertical)}{BuildString(" ", Dim.Width - 2)}{Border(Get.Vertical)}";
+            string borderBottom = $"{Border(Get.BottomLeft)}{BuildString(Border(Get.Horizontal), Dim.Width - 2)}{Border(Get.BottomRight)}";
 
-            tmp = $"{Border(Get.TopLeft)}{BuildString(Border(Get.Horizontal), Dim.Width - 2)}{Border(Get.TopRight)}";
-            tmp = Style.Set(tmp, Style.Border);
-            Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
+            string styledBorderTop = Style.Set(borderTop, Style.Border);
+            string styledBorderMiddle = Style.Set(borderMiddle, Style.Border);
+            string styledBorderBottom = Style.Set(borderBottom, Style.Border);
+
+            Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), styledBorderTop);
 
             for (int i = 0; i < Dim.Height - 2; i++)
             {
-                tmp = $"{Border(Get.Vertical)}{BuildString(" ", Dim.Width - 2)}{Border(Get.Vertical)}";
-                tmp = Style.Set(tmp, Style.Border);
-                Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
+                Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), styledBorderMiddle);
             }
 
-            tmp = $"{Border(Get.BottomLeft)}{BuildString(Border(Get.Horizontal), Dim.Width - 2)}{Border(Get.BottomRight)}";
-            tmp = Style.Set(tmp, Style.Border);
-            Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
+            Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), styledBorderBottom);
         }
 
         internal override void ChangeStyling(CStyle _style)

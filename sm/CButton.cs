@@ -25,7 +25,6 @@ namespace sm
             int currentHeight = 0;
             string tmp;
 
-            // Border of box 
             tmp = $"{Border(Get.TopLeft)}{BuildString(Border(Get.Horizontal), Dim.Width - 2)}{Border(Get.TopRight)}";
             tmp = Style.Set(tmp, Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
@@ -34,19 +33,15 @@ namespace sm
             int diff = maxWidth - Text.Length;
             int diffRem = diff % 2;
 
-            // Border of text
             tmp = Style.Set(Border(Get.Vertical), Style.Border);
             tmp += BuildString(" ", diff / 2);
 
-            // Text styling
             tmp += Style.Set(Text, Style.Font);
             tmp += BuildString(" ", diff / 2 + diffRem);
 
-            // Border of text
             tmp += Style.Set(Border(Get.Vertical), Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
 
-            // Border of box
             tmp = $"{Border(Get.BottomLeft)}{BuildString(Border(Get.Horizontal), Dim.Width - 2)}{Border(Get.BottomRight)}";
             tmp = Style.Set(tmp, Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
@@ -67,7 +62,7 @@ namespace sm
             bool keepRunning = true;
             while (keepRunning)
             {
-                SetPos(new Point(Pos.Absolute.X + Text.Length + 2, Pos.Absolute.Y + 1));
+                Console.SetCursorPosition(Pos.Absolute.X + Text.Length + 2, Pos.Absolute.Y + 1);
                 ConsoleKeyInfo key = Console.ReadKey();
                 switch (key.Key)
                 {

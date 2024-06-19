@@ -90,7 +90,7 @@ namespace sm
             bool keepRunning = true;
             while (keepRunning)
             {
-                SetPos(new Point(Pos.Absolute.X + Text.Length + 2, Pos.Absolute.Y + 1));
+                Console.SetCursorPosition(Pos.Absolute.X + Text.Length + 2, Pos.Absolute.Y + 1);
                 ConsoleKeyInfo key = Console.ReadKey();
                 switch (key.Key)
                 {
