@@ -45,8 +45,8 @@ namespace sm
 
         public static async Task<List<string>> GetPostalCodes()
         {
-            List<string[]> results = await Exec("SELECT PostalCode FROM city");
-            return results.Select(s => s[0]).ToList();
+            List<string[]> results = await Exec("SELECT PostalCode, CityName FROM city");
+            return results.Select(s => $"{s[0]} {s[1]}").ToList();
         }
 
         public static async Task<List<string>> GetSchools()

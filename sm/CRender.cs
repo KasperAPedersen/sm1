@@ -54,6 +54,8 @@ namespace sm
                 Get.VerticalRight => "┤",
                 Get.Cross => "┼",
                 Get.ArrowDown => "↓",
+                Get.ArrowRight => "→",
+                Get.ArrowLeft => "←",
                 _ => throw new InvalidOperationException("Unknown Global.Border part."),
             };
         }
@@ -71,7 +73,9 @@ namespace sm
             VerticalLeft,
             VerticalRight,
             Cross,
-            ArrowDown
+            ArrowDown,
+            ArrowRight,
+            ArrowLeft
         }
     }
 }

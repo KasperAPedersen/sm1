@@ -95,7 +95,7 @@ namespace sm
                         tmp = Border(Get.Vertical);
                         tmp = Style.Set(tmp, Style.Border);
                         tmp += BuildString(" ", (tabWidth - contentText.Length) / 2);
-                        tmp += ContentIndex == i && SelectIndex == o && isFocused ? Style.Set(contentText, [Color.red]) : Style.Set(contentText, Style.Font);
+                        tmp += ContentIndex == i && SelectIndex == o && isFocused ? Style.Set(contentText, [Color.aquamarine1]) : Style.Set(contentText, Style.Font);
                         tmp += BuildString(" ", (tabWidth - 1 - contentText.Length) / 2);
                         tmp += o == Headers.Count - 1 ? Style.Set(Border(Get.Vertical), Style.Border) : "";
                         Write(new Point(Pos.Absolute.X + (o * tabWidth), Pos.Absolute.Y + currentHeight), tmp);
@@ -132,22 +132,22 @@ namespace sm
             string fName = _content[0];
             string lName = _content[1];
             string street = _content[2];
-            string eduEnd = ConvertDate(_content[3]);
-            string jobStart = ConvertDate(_content[4]);
-            string jobEnd = ConvertDate(_content[5]);
-            string postal = _content[6];
-
-            string jobIndex = await CDatabase.GetJobIndex(_content[8]);
-            string eduIndex = await CDatabase.GetEducationIndex(_content[7]);
-
+            string postal = _content[3];
+            string eduIndex = await CDatabase.GetEducationIndex(_content[4]);
+            string eduEnd = ConvertDate(_content[5]);
+            string jobIndex = await CDatabase.GetJobIndex(_content[6]);
+            string jobStart = ConvertDate(_content[7]);
+            string jobEnd = ConvertDate(_content[8]);
+            
             List<string[]> result = await CDatabase.Exec("SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'customer';");
             int customerID = Int32.Parse(result[0][0] ?? "0");
 
             await CDatabase.Exec($"INSERT INTO customer (FirstName, LastName, Street, PostalID) VALUES ('{fName}','{lName}','{street}','{postal}');");
             await CDatabase.Exec($"INSERT INTO education (customerid, educationName, educationEnd) VALUES ('{customerID}','{eduIndex}','{eduEnd}');");
             await CDatabase.Exec($"INSERT INTO employment (customerid, EmploymentName, EmploymentStart, EmploymentEnd) VALUES ('{customerID}','{jobIndex}','{jobStart}', '{jobEnd}')");
-
+            
             Fetch();
+
         }
 
         internal async void Edit(List<string> _content)
@@ -155,13 +155,12 @@ namespace sm
             string fName = _content[0];
             string lName = _content[1];
             string street = _content[2];
-            string eduEnd = ConvertDate(_content[3]);
-            string jobStart = ConvertDate(_content[4]);
-            string jobEnd = ConvertDate(_content[5]);
-            string postal = _content[6];
-
-            string jobIndex = await CDatabase.GetJobIndex(_content[8]);
-            string eduIndex = await CDatabase.GetEducationIndex(_content[7]);
+            string postal = _content[3];
+            string eduIndex = await CDatabase.GetEducationIndex(_content[4]);
+            string eduEnd = ConvertDate(_content[5]);
+            string jobIndex = await CDatabase.GetJobIndex(_content[6]);
+            string jobStart = ConvertDate(_content[7]);
+            string jobEnd = ConvertDate(_content[8]);
 
             string oldFName = Content[ContentIndex][0];
             string oldLName = Content[ContentIndex][1];
@@ -248,7 +247,7 @@ namespace sm
 
                     string tmp = Border(Get.Vertical);
                     tmp += BuildString(" ", (tabWidth - contentText.Length) / 2);
-                    tmp += o == SelectIndex ? Style.Set(contentText, [Color.red]) : Style.Set(contentText, [Color.white]);
+                    tmp += o == SelectIndex ? Style.Set(contentText, [Color.aquamarine1]) : Style.Set(contentText, [Color.white]);
                     tmp += BuildString(" ", (tabWidth - 1 - contentText.Length) / 2);
                     tmp += Border(Get.Vertical);
                     tmp = Style.Set(tmp, [Color.white]);

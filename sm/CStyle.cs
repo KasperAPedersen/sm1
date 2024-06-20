@@ -34,7 +34,7 @@ namespace sm
 
     internal class CStyleBuilder
     {
-        private CStyle Style = new();
+        private readonly CStyle Style = new();
 
         public CStyleBuilder AddBorder(object _style)
         {

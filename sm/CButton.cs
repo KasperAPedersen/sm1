@@ -57,7 +57,7 @@ namespace sm
         internal override ControllerState Init()
         {
             CStyle OldStyling = Style;
-            ChangeStyling(new CStyleBuilder().AddFont(Color.red).Build());
+            ChangeStyling(new CStyleBuilder().AddFont(Color.aquamarine1).Build());
             Console.CursorVisible = false;
             bool keepRunning = true;
             while (keepRunning)
