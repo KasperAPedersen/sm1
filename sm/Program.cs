@@ -14,7 +14,7 @@ CForm form;
 CBox outerBox = new(screen, new Point(0, 0), new Dimensions(Console.WindowWidth, Console.WindowHeight), new CStyleBuilder().AddBorder(Color.white).Build(), Align.None);
 CBox innerBox = new(outerBox, new Point(0, 0), new Dimensions(Console.WindowWidth, Console.WindowHeight), new CStyleBuilder().AddBorder(Color.white).Build(), Align.None);
 _ = new CLabel(innerBox, new Point(0, 0), Align.Left, "CRUDapp", new CStyleBuilder().Build());
-CButton btnAddUser = new(innerBox, new Point(0, 2), new Dimensions(20, 0), Align.None, "Create User", new CStyleBuilder().AddBorder(Color.aquamarine1).AddFont(Color.aquamarine1).Build());
+CButton btnAddUser = new(innerBox, new Point(0, 2), new Dimensions(20, 0), Align.None, "Create User", new CStyleBuilder().AddBorder(CRender.ActiveColor).AddFont(CRender.ActiveColor).Build());
 CButton btnAddPostal = new(innerBox, new Point(22, 2), new Dimensions(20, 0), Align.None, "Add Postal", new CStyleBuilder().AddBorder(Color.white).AddFont(Color.white).Build());
 CButton btnAddJob = new(innerBox, new Point(42, 2), new Dimensions(20, 0), Align.None, "Add Job", new CStyleBuilder().AddBorder(Color.white).AddFont(Color.white).Build());
 CButton btnAddEducation = new(innerBox, new Point(62, 2), new Dimensions(20, 0), Align.None, "Add Education", new CStyleBuilder().AddBorder(Color.white).AddFont(Color.white).Build());
@@ -40,7 +40,6 @@ while (keepRunning)
                 {
                     case 10:
                         List<string> values = table.Content[table.ContentIndex];
-                        //form = new(innerBox, "User Editor", ["First", "Last", "Adresse", "Udd. Slut (DD/MM/YYYY)", "Job Start (DD/MM/YYYY)", "Job Slut (DD/MM/YYYY)"], [values[0], values[1], values[2], values[6], values[8], values[9]], [await CDatabase.GetPostalCodes(), await CDatabase.GetSchools(), await CDatabase.GetJobs()]);
                         form = new(innerBox, "User Editor", 
                             ["Fornavn", "Efternavn", "Adresse", "Postnr", "Udd.", "Udd. Slut", "Job", "Job Start", "Job Slut"], 
                             [typeof(CInput), typeof(CInput), typeof(CInput), typeof(CComboBox), typeof(CComboBox), typeof(CInput), typeof(CComboBox), typeof(CInput), typeof(CInput)], 
@@ -60,48 +59,44 @@ while (keepRunning)
                 switch(btnIndex)
                 {
                     case 0:
-                        btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorders([Color.aquamarine1, Styling.Blink]).AddFonts([Color.aquamarine1, Styling.Blink]).Build());
-                        //form = new(innerBox, "User Creation", ["First", "Last", "Adresse", "Udd. Slut (DD/MM/YYYY)", "Job Start (DD/MM/YYYY)", "Job Slut (DD/MM/YYYY)"], [], [await CDatabase.GetPostalCodes(), await CDatabase.GetSchools(), await CDatabase.GetJobs()]);
+                        btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorders([CRender.ActiveColor, Styling.Blink]).AddFonts([CRender.ActiveColor, Styling.Blink]).Build());
                         form = new(innerBox, "User Creation",
                             ["Fornavn", "Efternavn", "Adresse", "Postnr", "Udd.", "Udd. Slut", "Job", "Job Start", "Job Slut"], // Field names
                             [typeof(CInput), typeof(CInput), typeof(CInput), typeof(CComboBox), typeof(CComboBox), typeof(CInput), typeof(CComboBox), typeof(CInput), typeof(CInput)], // Field types
                             [], [await CDatabase.GetPostalCodes(), await CDatabase.GetSchools(), await CDatabase.GetJobs()]); // CInput values, CCombobox values
                         if (form.IsFinished) table.Add(form.GetValues());
 
-                        btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorder(Color.aquamarine1).AddFont(Color.aquamarine1).Build());
+                        btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorder(CRender.ActiveColor).AddFont(CRender.ActiveColor).Build());
                         break;
                     case 1:
-                        btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorders([Color.aquamarine1, Styling.Blink]).AddFonts([Color.aquamarine1, Styling.Blink]).Build());
-                        //form = new(innerBox, "Add Postal", ["Postal Code", "City"], [], []);
+                        btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorders([CRender.ActiveColor, Styling.Blink]).AddFonts([CRender.ActiveColor, Styling.Blink]).Build());
                         form = new(innerBox, "Add Postal",
                             ["Postal Code", "City"], // Field names
                             [typeof(CInput), typeof(CInput)], // Field types
                             [], []); // CInput values, CCombobox values
                         if (form.IsFinished) CDatabase.AddPostal(form.GetValues()[0], form.GetValues()[1]);
 
-                        btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorder(Color.aquamarine1).AddFont(Color.aquamarine1).Build());
+                        btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorder(CRender.ActiveColor).AddFont(CRender.ActiveColor).Build());
                         break;
                     case 2:
-                        btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorders([Color.aquamarine1, Styling.Blink]).AddFonts([Color.aquamarine1, Styling.Blink]).Build());
-                        //form = new(innerBox, "Add Job", ["Job"], [], []);
+                        btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorders([CRender.ActiveColor, Styling.Blink]).AddFonts([CRender.ActiveColor, Styling.Blink]).Build());
                         form = new(innerBox, "Add Job",
                             ["Job"], // Field names
                             [typeof(CInput)], // Field types
                             [], []);  // CInput values, CCombobox values
                         if (form.IsFinished) CDatabase.AddJob(form.GetValues()[0]);
 
-                        btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorder(Color.aquamarine1).AddFont(Color.aquamarine1).Build());
+                        btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorder(CRender.ActiveColor).AddFont(CRender.ActiveColor).Build());
                         break;
                     case 3:
-                        btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorders([Color.aquamarine1, Styling.Blink]).AddFonts([Color.aquamarine1, Styling.Blink]).Build());
-                        //form = new(innerBox, "Add Education", ["Education"], [], []);
+                        btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorders([CRender.ActiveColor, Styling.Blink]).AddFonts([CRender.ActiveColor, Styling.Blink]).Build());
                         form = new(innerBox, "Add Education",
                              ["Education"], // Field names
                              [typeof(CInput)], // Field types
                              [], []); // CInput values, CCombobox values
                         if (form.IsFinished) CDatabase.AddEducation(form.GetValues()[0]);
 
-                        btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorder(Color.aquamarine1).AddFont(Color.aquamarine1).Build());
+                        btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorder(CRender.ActiveColor).AddFont(CRender.ActiveColor).Build());
                         break;
                     default:
                         break;
@@ -121,7 +116,7 @@ while (keepRunning)
 
                 for(int i = 0; i < btns.Count; i++)
                 {
-                    btns[i].ChangeStyling(new CStyleBuilder().AddBorder(i == btnIndex ? Color.aquamarine1 : Color.white).AddFont(i == btnIndex ? Color.aquamarine1 : Color.white).Build());
+                    btns[i].ChangeStyling(new CStyleBuilder().AddBorder(i == btnIndex ? CRender.ActiveColor : Color.white).AddFont(i == btnIndex ? CRender.ActiveColor : Color.white).Build());
                 }
             }
             break;
@@ -137,7 +132,7 @@ while (keepRunning)
                 if(btnIndex < 0) btnIndex = btns.Count - 1;
                 for (int i = 0; i < btns.Count; i++)
                 {
-                    btns[i].ChangeStyling(new CStyleBuilder().AddBorder(i == btnIndex ? Color.aquamarine1 : Color.white).AddFont(i == btnIndex ? Color.aquamarine1 : Color.white).Build());
+                    btns[i].ChangeStyling(new CStyleBuilder().AddBorder(i == btnIndex ? CRender.ActiveColor : Color.white).AddFont(i == btnIndex ? CRender.ActiveColor : Color.white).Build());
                 }
             }
             break;
@@ -151,7 +146,7 @@ while (keepRunning)
             foreach(CButton btn in btns) btn.ChangeStyling(new CStyleBuilder().AddBorder(Color.white).AddFont(Color.white).Build());
             table.isFocused = !table.isFocused;
 
-            if (!table.isFocused) btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorder(Color.aquamarine1).AddFont(Color.aquamarine1).Build());
+            if (!table.isFocused) btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorder(CRender.ActiveColor).AddFont(CRender.ActiveColor).Build());
             table.Render();
             break;
         default:

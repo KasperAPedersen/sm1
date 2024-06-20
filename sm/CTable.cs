@@ -95,7 +95,7 @@ namespace sm
                         tmp = Border(Get.Vertical);
                         tmp = Style.Set(tmp, Style.Border);
                         tmp += BuildString(" ", (tabWidth - contentText.Length) / 2);
-                        tmp += ContentIndex == i && SelectIndex == o && isFocused ? Style.Set(contentText, [Color.aquamarine1]) : Style.Set(contentText, Style.Font);
+                        tmp += ContentIndex == i && SelectIndex == o && isFocused ? Style.Set(contentText, [CRender.ActiveColor]) : Style.Set(contentText, Style.Font);
                         tmp += BuildString(" ", (tabWidth - 1 - contentText.Length) / 2);
                         tmp += o == Headers.Count - 1 ? Style.Set(Border(Get.Vertical), Style.Border) : "";
                         Write(new Point(Pos.Absolute.X + (o * tabWidth), Pos.Absolute.Y + currentHeight), tmp);
@@ -129,11 +129,12 @@ namespace sm
 
         internal async void Add(List<string> _content)
         {
+            
             string fName = _content[0];
             string lName = _content[1];
             string street = _content[2];
             string postal = _content[3];
-            string eduIndex = await CDatabase.GetEducationIndex(_content[4]);
+            string eduIndex = await CDatabase.GetEducationIndex(_content[4].Split(' ')[0]);
             string eduEnd = ConvertDate(_content[5]);
             string jobIndex = await CDatabase.GetJobIndex(_content[6]);
             string jobStart = ConvertDate(_content[7]);
@@ -156,7 +157,7 @@ namespace sm
             string lName = _content[1];
             string street = _content[2];
             string postal = _content[3];
-            string eduIndex = await CDatabase.GetEducationIndex(_content[4]);
+            string eduIndex = await CDatabase.GetEducationIndex(_content[4].Split(' ')[0]);
             string eduEnd = ConvertDate(_content[5]);
             string jobIndex = await CDatabase.GetJobIndex(_content[6]);
             string jobStart = ConvertDate(_content[7]);
@@ -247,7 +248,7 @@ namespace sm
 
                     string tmp = Border(Get.Vertical);
                     tmp += BuildString(" ", (tabWidth - contentText.Length) / 2);
-                    tmp += o == SelectIndex ? Style.Set(contentText, [Color.aquamarine1]) : Style.Set(contentText, [Color.white]);
+                    tmp += o == SelectIndex ? Style.Set(contentText, [CRender.ActiveColor]) : Style.Set(contentText, [Color.white]);
                     tmp += BuildString(" ", (tabWidth - 1 - contentText.Length) / 2);
                     tmp += Border(Get.Vertical);
                     tmp = Style.Set(tmp, [Color.white]);

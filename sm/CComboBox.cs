@@ -69,7 +69,7 @@ namespace sm
                 pad = BuildString(" ", ((Dim.Width - 2) - Content[i].Length) / 2);
                 padRem = ((Dim.Width - 2) - Content[i].Length) % 2;
                 tmp = $"{Style.Set(Border(Get.Vertical), Style.Border)}";
-                tmp += $"{pad}{(selectIndex == i ? Style.Set(Content[i], [Color.aquamarine1]) : Content[i])}{pad}{(padRem > 0 ? BuildString(" ", padRem) : "")}";
+                tmp += $"{pad}{(selectIndex == i ? Style.Set(Content[i], [CRender.ActiveColor]) : Content[i])}{pad}{(padRem > 0 ? BuildString(" ", padRem) : "")}";
                 tmp += $"{Style.Set(Border(Get.Vertical), Style.Border)}";
                 Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
             }
@@ -156,42 +156,39 @@ namespace sm
 
         internal override void Render()
         {
-            Text = "";
+            
             Remove(Pos.Absolute, Dim);
 
-            if (Text.Length > Dim.Width - 8) Text = Text[..(Dim.Width - 8)];
+            
 
             if (selectIndex < 0) selectIndex = Content.Count - 1;
             if (selectIndex > Content.Count - 1) selectIndex = 0;
+
+            Text = Content[selectIndex];
+
+            if (Text.Length > Dim.Width - 8) Text = Text[..(Dim.Width - 8)];
 
             int currentHeight = 0;
             string tmp;
 
             tmp = $"{Border(Get.TopLeft)}{BuildString(Border(Get.Horizontal), Dim.Width - 7)}{Border(Get.HorizontalDown)}";
             tmp += $"{BuildString(Border(Get.Horizontal), 4)}{Border(Get.TopRight)}";
-            tmp = isActive ? Style.Set(tmp, [Color.aquamarine1]) : Style.Set(tmp, Style.Border);
+            tmp = isActive ? Style.Set(tmp, [CRender.ActiveColor]) : Style.Set(tmp, Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
 
-            string pad = BuildString(" ", ((Dim.Width - 6) - Text.Length) / 2);
-            int padRem = ((Dim.Width - 7) - Text.Length) % 2;
-            tmp = $"{Border(Get.Vertical)}{pad}{Text}{pad}{(padRem > 0 ? BuildString(" ", padRem) : "")}{Border(Get.Vertical)}";
+
+            tmp = $"{Border(Get.Vertical)}";
+            tmp += $" {Text}{new string(' ', Dim.Width - 8 - Text.Length)}";
+            tmp += $"{Border(Get.Vertical)}";
             tmp += $" {Border(Get.ArrowLeft)}{Border(Get.ArrowRight)} {Border(Get.Vertical)}";
-            tmp = isActive ? Style.Set(tmp, [Color.aquamarine1]) : Style.Set(tmp, Style.Border);
+            tmp = isActive ? Style.Set(tmp, [CRender.ActiveColor]) : Style.Set(tmp, Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
 
             tmp = $"{Border(Get.BottomLeft)}{BuildString(Border(Get.Horizontal), Dim.Width - 7)}{Border(Get.HorizontalUp)}";
             tmp += $"{BuildString(Border(Get.Horizontal), 4)}{Border(Get.BottomRight)}";
-            tmp = isActive ? Style.Set(tmp, [Color.aquamarine1]) : Style.Set(tmp, Style.Border);
+            tmp = isActive ? Style.Set(tmp, [CRender.ActiveColor]) : Style.Set(tmp, Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight), tmp);
 
-            tmp = Content[selectIndex];
-
-            if (tmp.Length > 22)
-            {
-                tmp = tmp[..22];
-            }
-
-            Write(new Point(Pos.Absolute.X + Text.Length + 2, Pos.Absolute.Y + 1), tmp);
 
             Dim = new Dimensions(Dim.Width, currentHeight);
         }

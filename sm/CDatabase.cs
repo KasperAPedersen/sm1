@@ -69,6 +69,7 @@ namespace sm
 
         public static async Task<string> GetEducationIndex(string edu)
         {
+            Console.Title = edu;
             List<string[]> results = await Exec($"SELECT educationID FROM schools WHERE schoolsName = '{edu}'");
             return results[0][0] ?? "0";
         }

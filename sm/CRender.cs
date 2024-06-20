@@ -11,6 +11,7 @@ namespace sm
     {
         internal static int CWidth = Console.WindowWidth;
         internal static int CHeight = Console.WindowHeight;
+        internal static Color ActiveColor = Color.red;
 
         internal static void Write(Point _pos, string _text)
         {

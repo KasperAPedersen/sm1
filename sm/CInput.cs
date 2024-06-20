@@ -32,11 +32,11 @@ namespace sm
             string tmp;
 
             tmp = Border(Get.TopLeft) + BuildString(Border(Get.Horizontal), Dim.Width - 2) + Border(Get.TopRight);
-            tmp = isActive ? Style.Set(tmp, [Color.aquamarine1]) : Style.Set(tmp, Style.Border);
+            tmp = isActive ? Style.Set(tmp, [CRender.ActiveColor]) : Style.Set(tmp, Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
 
             tmp = Border(Get.Vertical) + BuildString(" ", Dim.Width - 2) + Border(Get.Vertical);
-            tmp = isActive ? Style.Set(tmp, [Color.aquamarine1]) : Style.Set(tmp, Style.Border);
+            tmp = isActive ? Style.Set(tmp, [CRender.ActiveColor]) : Style.Set(tmp, Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight), tmp);
 
             tmp = (Label != "" && Text == "") ? Style.Set(Label, [Color.grey]) : Text;
@@ -44,7 +44,7 @@ namespace sm
             Write(new Point(Pos.Absolute.X + 2, Pos.Absolute.Y + currentHeight++), tmp);
 
             tmp = Border(Get.BottomLeft) + BuildString(Border(Get.Horizontal), Dim.Width - 2) + Border(Get.BottomRight);
-            tmp = isActive ? Style.Set(tmp, [Color.aquamarine1]) : Style.Set(tmp, Style.Border);
+            tmp = isActive ? Style.Set(tmp, [CRender.ActiveColor]) : Style.Set(tmp, Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
         }
 
