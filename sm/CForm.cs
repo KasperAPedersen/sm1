@@ -129,6 +129,12 @@ namespace sm
             IsFinished = false;
         }
 
+        internal void ReDrawBtns()
+        {
+            new CButton(formBox, new Point(0, formBox.Dim.Height - 4), new Dimensions(formBox.Dim.Width / 2 - 2, 3), Align.Left, "Confirm", new CStyleBuilder().Build());
+            new CButton(formBox, new Point(0, formBox.Dim.Height - 4), new Dimensions(formBox.Dim.Width / 2 - 2, 3), Align.Right, "Cancel", new CStyleBuilder().Build());
+        }
+
         internal List<string> GetValues()
         {
             return Values;

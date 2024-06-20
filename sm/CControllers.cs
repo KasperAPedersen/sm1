@@ -30,6 +30,7 @@ namespace sm
             switch (result)
             {
                 case ControllerState.Next:
+                    _form.ReDrawBtns();
                     Run(_form, ++_index);
                     break;
                 case ControllerState.Previous:

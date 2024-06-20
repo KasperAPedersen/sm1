@@ -226,7 +226,7 @@ namespace sm
                 "AND schools.educationID = education.educationName AND employment.customerid = customer.id " +
                 "AND jobs.JobID = employment.EmploymentName");
 
-            foreach (string[] s in res) Content.Add([..s]);
+            foreach (string[] s in res) Content.Add([.. s]);
 
             Render();
         }
