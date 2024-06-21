@@ -205,6 +205,17 @@ namespace sm
                 ConsoleKeyInfo key = Console.ReadKey();
                 switch (key.Key)
                 {
+                    case ConsoleKey.Tab:
+                        Text = Content[selectIndex];
+                        switch (key.Modifiers)
+                        {
+                            case ConsoleModifiers.Shift:
+                                updateActiveField(false);
+                                return ControllerState.Previous;
+                            default:
+                                updateActiveField(false);
+                                return ControllerState.Next;
+                        }
                     case ConsoleKey.RightArrow:
                         selectIndex++;
                         Render();
@@ -214,7 +225,6 @@ namespace sm
                         Render();
                         break;
                     case ConsoleKey.Enter:
-                    case ConsoleKey.Tab:
                     case ConsoleKey.DownArrow:
                         Text = Content[selectIndex];
                         updateActiveField(false);

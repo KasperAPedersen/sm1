@@ -64,6 +64,15 @@ namespace sm
                 switch (key.Key)
                 {
                     case ConsoleKey.Tab:
+                        switch(key.Modifiers)
+                        {
+                            case ConsoleModifiers.Shift:
+                                updateActiveField(false);
+                                return ControllerState.Previous;
+                            default:
+                                updateActiveField(false);
+                                return ControllerState.Next;
+                        }
                     case ConsoleKey.DownArrow:
                     case ConsoleKey.Enter:
                         updateActiveField(false);

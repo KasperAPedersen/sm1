@@ -67,6 +67,14 @@ namespace sm
                 switch (key.Key)
                 {
                     case ConsoleKey.Tab:
+                        ChangeStyling(OldStyling);
+                        switch (key.Modifiers)
+                        {
+                            case ConsoleModifiers.Shift:
+                                return ControllerState.Previous;
+                            default:
+                                return ControllerState.Next;
+                        }
                     case ConsoleKey.DownArrow:
                     case ConsoleKey.RightArrow:
                         ChangeStyling(OldStyling);
