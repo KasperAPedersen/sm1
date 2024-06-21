@@ -31,6 +31,8 @@ namespace sm
             int currentHeight = 0;
             string tmp;
 
+            if (Text.Length > Dim.Width - 4) Text = Text[..(Dim.Width - 4)]; 
+
             tmp = Border(Get.TopLeft) + BuildString(Border(Get.Horizontal), Dim.Width - 2) + Border(Get.TopRight);
             tmp = isActive ? Style.Set(tmp, [CRender.ActiveColor]) : Style.Set(tmp, Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
@@ -67,9 +69,10 @@ namespace sm
                         updateActiveField(false);
                         return ControllerState.Next;
                     case ConsoleKey.UpArrow:
-                    case ConsoleKey.Escape:
                         updateActiveField(false);
                         return ControllerState.Previous;
+                    case ConsoleKey.Escape:
+                        return ControllerState.Cancel;
                     case ConsoleKey.Backspace:
                         Text = Text != "" ? Text.Remove(Text.Length - 1, 1) : "";
                         break;

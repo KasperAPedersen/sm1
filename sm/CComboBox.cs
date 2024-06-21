@@ -213,6 +213,7 @@ namespace sm
                         selectIndex--;
                         Render();
                         break;
+                    case ConsoleKey.Enter:
                     case ConsoleKey.Tab:
                     case ConsoleKey.DownArrow:
                         Text = Content[selectIndex];
@@ -225,10 +226,6 @@ namespace sm
                     case ConsoleKey.Escape:
                         updateActiveField(false);
                         return ControllerState.Cancel;
-                    case ConsoleKey.Enter:
-                        updateActiveField(false);
-                        Text = Content[selectIndex];
-                        return ControllerState.Next;
                     default:
                         break;
                 }

@@ -69,24 +69,47 @@ namespace sm
 
         public static async Task<string> GetEducationIndex(string edu)
         {
-            Console.Title = edu;
             List<string[]> results = await Exec($"SELECT educationID FROM schools WHERE schoolsName = '{edu}'");
             return results[0][0] ?? "0";
         }
 
         public static async void AddPostal(string postal, string city)
         {
-            await Exec($"INSERT INTO city (PostalCode, CityName) VALUES ('{postal}', '{city}');");
+            List<string[]> results = await Exec($"SELECT PostalCode FROM city;");
+
+            bool alreadyExists = false;
+            foreach (string[] s in results)
+            {
+                for(int i = 0; i <  s.Length; i++) if (s[i] == postal) alreadyExists = true;
+            }
+
+            if(!alreadyExists) await Exec($"INSERT INTO city (PostalCode, CityName) VALUES ('{postal}', '{city}');");
         }
 
         public static async void AddJob(string job)
         {
-            await Exec($"INSERT INTO jobs (JobName) VALUES ('{job}');");
+            List<string[]> results = await Exec($"SELECT JobName FROM jobs;");
+
+            bool alreadyExists = false;
+            foreach (string[] s in results)
+            {
+                for (int i = 0; i < s.Length; i++) if (s[i] == job) alreadyExists = true;
+            }
+
+            if(!alreadyExists) await Exec($"INSERT INTO jobs (JobName) VALUES ('{job}');");
         }
 
         public static async void AddEducation(string edu)
         {
-            await Exec($"INSERT INTO schools (schoolsName) VALUES ('{edu}');");
+            List<string[]> results = await Exec($"SELECT schoolsName FROM schools;");
+
+            bool alreadyExists = false;
+            foreach (string[] s in results)
+            {
+                for(int i = 0; i < s.Length; i++) if (s[i] == edu) alreadyExists = true;
+            }
+
+            if(!alreadyExists) await Exec($"INSERT INTO schools (schoolsName) VALUES ('{edu}');");
         }
     }
 }

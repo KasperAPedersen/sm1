@@ -168,8 +168,6 @@ namespace sm
             int labelHeight = 0;
             for(int i = 0; i < _objects.Count; i++)
             {
-                Console.Title = typeof(CInput).ToString();
-
                 if (_types[i].Name == typeof(CInput).Name.ToString())
                 {
                     controller.Add(new CInput(formBox, new Point(0, labelHeight += 3), new Dimensions(formBox.Dim.Width, 3), _objects[i], new CStyleBuilder().AddBorder(Color.white).Build(), Align.Middle));

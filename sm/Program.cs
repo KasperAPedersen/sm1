@@ -10,7 +10,6 @@ CObject screen = new(null, new Point(0, 0), d);
 
 CForm form;
 
-
 CBox outerBox = new(screen, new Point(0, 0), new Dimensions(Console.WindowWidth, Console.WindowHeight), new CStyleBuilder().AddBorder(Color.white).Build(), Align.None);
 CBox innerBox = new(outerBox, new Point(0, 0), new Dimensions(Console.WindowWidth, Console.WindowHeight), new CStyleBuilder().AddBorder(Color.white).Build(), Align.None);
 _ = new CLabel(innerBox, new Point(0, 0), Align.Left, "CRUDapp", new CStyleBuilder().Build());
@@ -18,9 +17,10 @@ CButton btnAddUser = new(innerBox, new Point(0, 2), new Dimensions(20, 0), Align
 CButton btnAddPostal = new(innerBox, new Point(22, 2), new Dimensions(20, 0), Align.None, "Add Postal", new CStyleBuilder().AddBorder(Color.white).AddFont(Color.white).Build());
 CButton btnAddJob = new(innerBox, new Point(42, 2), new Dimensions(20, 0), Align.None, "Add Job", new CStyleBuilder().AddBorder(Color.white).AddFont(Color.white).Build());
 CButton btnAddEducation = new(innerBox, new Point(62, 2), new Dimensions(20, 0), Align.None, "Add Education", new CStyleBuilder().AddBorder(Color.white).AddFont(Color.white).Build());
+CButton btnSettings = new(innerBox, new Point(62, 2), new Dimensions(20, 0), Align.Right, "Settings", new CStyleBuilder().AddBorder(Color.white).AddFont(Color.white).Build());
 CTable table = new(innerBox, new Point(0, 5), new Dimensions(Console.WindowWidth, Console.WindowHeight), new CStyleBuilder().AddBorder(Color.white).AddFont(Color.white).Build(), Align.Middle, ["Fornavn", "Efternavn", "Adresse", "By", "Postnr", "Udd.", "Udd. Slut", "Job", "Job Start", "Job Slut", "Edit", "Slet"], []);
 
-List<CButton> btns = [btnAddUser, btnAddPostal, btnAddJob, btnAddEducation];
+List<CButton> btns = [btnAddUser, btnAddPostal, btnAddJob, btnAddEducation, btnSettings];
 int btnIndex = 0;
 
 bool keepRunning = true;
@@ -93,6 +93,20 @@ while (keepRunning)
                              [], []); // CInput values, CCombobox values
                         if (form.IsFinished) CDatabase.AddEducation(form.GetValues()[0]);
 
+                        btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorder(CRender.ActiveColor).AddFont(CRender.ActiveColor).Build());
+                        break;
+                    case 4:
+                        btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorders([CRender.ActiveColor, Styling.Blink]).AddFonts([CRender.ActiveColor, Styling.Blink]).Build());
+                        form = new(innerBox, "Settings",
+                            ["Console Title", "ActiveColor"], // Field names
+                            [typeof(CInput), typeof(CComboBox)], // Field types
+                            [Console.Title], [Enum.GetNames(typeof(Color)).ToList()]); // CInput values, CCombobox values
+
+                        if (form.IsFinished)
+                        {
+                            Console.Title = form.GetValues()[0];
+                            CRender.ActiveColor = (Color)Enum.Parse(typeof(Color), form.GetValues()[1]);
+                        }
                         btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorder(CRender.ActiveColor).AddFont(CRender.ActiveColor).Build());
                         break;
                     default:

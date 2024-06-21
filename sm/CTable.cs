@@ -186,8 +186,6 @@ namespace sm
             await CDatabase.Exec($"DELETE FROM education WHERE customerid = {customerID};");
             await CDatabase.Exec($"DELETE FROM employment WHERE customerid = {customerID};");
 
-
-
             Content.RemoveAt(ContentIndex);
             UpdateActiveContentRow(ContentIndex);
             Render();

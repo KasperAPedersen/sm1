@@ -88,7 +88,6 @@ namespace sm
 
     public enum Color
     {
-        black = 0,
         maroon = 1,
         green = 2,
         olive = 3,

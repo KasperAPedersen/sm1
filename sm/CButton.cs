@@ -66,16 +66,18 @@ namespace sm
                 ConsoleKeyInfo key = Console.ReadKey();
                 switch (key.Key)
                 {
+                    case ConsoleKey.Tab:
                     case ConsoleKey.DownArrow:
                     case ConsoleKey.RightArrow:
                         ChangeStyling(OldStyling);
                         return ControllerState.Next;
                     case ConsoleKey.UpArrow:
                     case ConsoleKey.LeftArrow:
-                    case ConsoleKey.Escape:
                         ChangeStyling(OldStyling);
                         Render();
                         return ControllerState.Previous;
+                    case ConsoleKey.Escape:
+                        return ControllerState.Cancel;
                     case ConsoleKey.Enter:
                         return Text == "Confirm" ? ControllerState.Finish : ControllerState.Cancel;
                     default:
