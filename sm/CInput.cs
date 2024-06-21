@@ -20,7 +20,7 @@ namespace sm
         {
             ShouldRender = false;
             if (_label != null) Label = _label;
-            maxLength = _dim.Width - 4;
+            maxLength = _dim.Width - 8;
 
             Style = _style;
             if (ShouldRender && NewObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
@@ -60,7 +60,8 @@ namespace sm
                 Console.SetCursorPosition(Pos.Absolute.X + Text.Length + 2, Pos.Absolute.Y + 1);
                 ConsoleKeyInfo key = Console.ReadKey();
                 switch (key.Key)
-                { 
+                {
+                    case ConsoleKey.Tab:
                     case ConsoleKey.DownArrow:
                     case ConsoleKey.Enter:
                         updateActiveField(false);

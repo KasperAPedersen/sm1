@@ -9,6 +9,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace sm
 {
+    // Dropdown combobox
     /*internal class CComboBox : CObject, IController
     {
         CStyle Style { get; set; }
@@ -156,17 +157,16 @@ namespace sm
 
         internal override void Render()
         {
-            
             Remove(Pos.Absolute, Dim);
-
-            
 
             if (selectIndex < 0) selectIndex = Content.Count - 1;
             if (selectIndex > Content.Count - 1) selectIndex = 0;
 
-            Text = Content[selectIndex];
 
-            if (Text.Length > Dim.Width - 8) Text = Text[..(Dim.Width - 8)];
+            Text = Content[selectIndex];
+            string contentText = Content[selectIndex];
+
+            if (contentText.Length > Dim.Width - 8) contentText = contentText[..(Dim.Width - 8)];
 
             int currentHeight = 0;
             string tmp;
@@ -178,7 +178,7 @@ namespace sm
 
 
             tmp = $"{Border(Get.Vertical)}";
-            tmp += $" {Text}{new string(' ', Dim.Width - 8 - Text.Length)}";
+            tmp += $" {contentText}{new string(' ', Dim.Width - 8 - Text.Length)}";
             tmp += $"{Border(Get.Vertical)}";
             tmp += $" {Border(Get.ArrowLeft)}{Border(Get.ArrowRight)} {Border(Get.Vertical)}";
             tmp = isActive ? Style.Set(tmp, [CRender.ActiveColor]) : Style.Set(tmp, Style.Border);
@@ -188,7 +188,7 @@ namespace sm
             tmp += $"{BuildString(Border(Get.Horizontal), 4)}{Border(Get.BottomRight)}";
             tmp = isActive ? Style.Set(tmp, [CRender.ActiveColor]) : Style.Set(tmp, Style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight), tmp);
-
+            
 
             Dim = new Dimensions(Dim.Width, currentHeight);
         }
@@ -213,6 +213,7 @@ namespace sm
                         selectIndex--;
                         Render();
                         break;
+                    case ConsoleKey.Tab:
                     case ConsoleKey.DownArrow:
                         Text = Content[selectIndex];
                         updateActiveField(false);

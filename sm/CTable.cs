@@ -129,12 +129,11 @@ namespace sm
 
         internal async void Add(List<string> _content)
         {
-            
             string fName = _content[0];
             string lName = _content[1];
             string street = _content[2];
             string postal = _content[3];
-            string eduIndex = await CDatabase.GetEducationIndex(_content[4].Split(' ')[0]);
+            string eduIndex = await CDatabase.GetEducationIndex(_content[4]);
             string eduEnd = ConvertDate(_content[5]);
             string jobIndex = await CDatabase.GetJobIndex(_content[6]);
             string jobStart = ConvertDate(_content[7]);
@@ -148,7 +147,6 @@ namespace sm
             await CDatabase.Exec($"INSERT INTO employment (customerid, EmploymentName, EmploymentStart, EmploymentEnd) VALUES ('{customerID}','{jobIndex}','{jobStart}', '{jobEnd}')");
             
             Fetch();
-
         }
 
         internal async void Edit(List<string> _content)
@@ -157,7 +155,7 @@ namespace sm
             string lName = _content[1];
             string street = _content[2];
             string postal = _content[3];
-            string eduIndex = await CDatabase.GetEducationIndex(_content[4].Split(' ')[0]);
+            string eduIndex = await CDatabase.GetEducationIndex(_content[4]);
             string eduEnd = ConvertDate(_content[5]);
             string jobIndex = await CDatabase.GetJobIndex(_content[6]);
             string jobStart = ConvertDate(_content[7]);

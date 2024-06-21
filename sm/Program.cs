@@ -29,9 +29,6 @@ while (keepRunning)
     Console.SetCursorPosition(0, Console.WindowHeight - 1);
     switch (Console.ReadKey().Key)
     {
-        case ConsoleKey.T:
-            
-            break;
         case ConsoleKey.Enter:
             if(table.isFocused)
             {
@@ -41,7 +38,7 @@ while (keepRunning)
                     case 10:
                         List<string> values = table.Content[table.ContentIndex];
                         form = new(innerBox, "User Editor", 
-                            ["Fornavn", "Efternavn", "Adresse", "Postnr", "Udd.", "Udd. Slut", "Job", "Job Start", "Job Slut"], 
+                            ["Fornavn", "Efternavn", "Adresse", "Postnr", "Udd.", "Udd. Slut (DD/MM/YYYY)", "Job", "Job Start (DD/MM/YYYY)", "Job Slut (DD/MM/YYYY)"], 
                             [typeof(CInput), typeof(CInput), typeof(CInput), typeof(CComboBox), typeof(CComboBox), typeof(CInput), typeof(CComboBox), typeof(CInput), typeof(CInput)], 
                             [values[0], values[1], values[2], values[6], values[8], values[9]], [await CDatabase.GetPostalCodes(), await CDatabase.GetSchools(), await CDatabase.GetJobs()]);
 
@@ -61,7 +58,7 @@ while (keepRunning)
                     case 0:
                         btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorders([CRender.ActiveColor, Styling.Blink]).AddFonts([CRender.ActiveColor, Styling.Blink]).Build());
                         form = new(innerBox, "User Creation",
-                            ["Fornavn", "Efternavn", "Adresse", "Postnr", "Udd.", "Udd. Slut", "Job", "Job Start", "Job Slut"], // Field names
+                            ["Fornavn", "Efternavn", "Adresse", "Postnr", "Udd.", "Udd. Slut (DD/MM/YYYY)", "Job", "Job Start (DD/MM/YYYY)", "Job Slut (DD/MM/YYYY)"], // Field names
                             [typeof(CInput), typeof(CInput), typeof(CInput), typeof(CComboBox), typeof(CComboBox), typeof(CInput), typeof(CComboBox), typeof(CInput), typeof(CInput)], // Field types
                             [], [await CDatabase.GetPostalCodes(), await CDatabase.GetSchools(), await CDatabase.GetJobs()]); // CInput values, CCombobox values
                         if (form.IsFinished) table.Add(form.GetValues());
