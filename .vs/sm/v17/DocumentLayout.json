@@ -3,24 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\ctable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\ctable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\cform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\cform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\crender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\crender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\cdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\cdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\cform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\cform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\ccombobox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -31,12 +19,24 @@
       "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\cbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\cinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\cinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\ctable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\ctable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\crender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\crender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\cstyle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\cstyle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\cdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\cdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\cinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|solutionrelative:sm\\cinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5D1D86B1-8AE6-4A4E-B46D-8FCA09517F03}|sm\\sm.csproj|c:\\users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\cbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -50,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -82,7 +82,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "CRender.cs",
               "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CRender.cs",
               "RelativeDocumentMoniker": "sm\\CRender.cs",
@@ -94,7 +94,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 6,
               "Title": "CStyle.cs",
               "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CStyle.cs",
               "RelativeDocumentMoniker": "sm\\CStyle.cs",
@@ -106,19 +106,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "CForm.cs",
               "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CForm.cs",
               "RelativeDocumentMoniker": "sm\\CForm.cs",
               "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CForm.cs",
               "RelativeToolTip": "sm\\CForm.cs",
-              "ViewState": "AQIAAL8AAAAAAAAAAAAUwNIAAAAxAAAA",
+              "ViewState": "AQIAAKoAAAAAAAAAAAAUwMAAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T08:42:42.992Z"
+              "WhenOpened": "2024-06-21T08:42:42.992Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "CDatabase.cs",
               "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CDatabase.cs",
               "RelativeDocumentMoniker": "sm\\CDatabase.cs",
@@ -130,20 +131,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "CTable.cs",
               "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CTable.cs",
               "RelativeDocumentMoniker": "sm\\CTable.cs",
               "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CTable.cs",
               "RelativeToolTip": "sm\\CTable.cs",
-              "ViewState": "AQIAACkBAAAAAAAAAAAiwD0BAAABAAAA",
+              "ViewState": "AQIAACUBAAAAAAAAAAAqwDcBAABIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-21T06:23:32.467Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "CInput.cs",
               "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CInput.cs",
               "RelativeDocumentMoniker": "sm\\CInput.cs",
@@ -155,7 +156,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "CComboBox.cs",
               "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CComboBox.cs",
               "RelativeDocumentMoniker": "sm\\CComboBox.cs",
@@ -163,19 +164,21 @@
               "RelativeToolTip": "sm\\CComboBox.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAJAAAAAxAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T05:56:05.559Z"
+              "WhenOpened": "2024-06-21T05:56:05.559Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
               "Title": "CButton.cs",
               "DocumentMoniker": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CButton.cs",
               "RelativeDocumentMoniker": "sm\\CButton.cs",
               "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CButton.cs",
               "RelativeToolTip": "sm\\CButton.cs",
-              "ViewState": "AQIAADsAAAAAAAAAAAAIwE4AAAAvAAAA",
+              "ViewState": "AQIAADsAAAAAAAAAAAAIwEwAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T05:55:59.272Z"
+              "WhenOpened": "2024-06-21T05:55:59.272Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -197,7 +200,7 @@
               "RelativeDocumentMoniker": "sm\\Program.cs",
               "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\Program.cs",
               "RelativeToolTip": "sm\\Program.cs",
-              "ViewState": "AQIAAFwAAAAAAAAAAAAmwG8AAAAnAAAA",
+              "ViewState": "AQIAADsAAAAAAAAAAAAmwE0AAAAeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-03T10:55:58.254Z",
               "EditorCaption": ""
