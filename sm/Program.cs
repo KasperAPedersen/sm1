@@ -37,10 +37,19 @@ while (keepRunning)
                 {
                     case 10:
                         List<string> values = table.Content[table.ContentIndex];
+                        List<string> PostalCodes = await CDatabase.GetPostalCodes();
+                        List<string> Schools = await CDatabase.GetSchools();
+                        List<string> Jobs = await CDatabase.GetJobs();
+
+                        int postalIndex = PostalCodes.FindIndex(postal => $"{values[4]} {values[3]}" == postal);
+                        int schoolIndex = Schools.FindIndex(school => values[5] == school);
+                        int jobIndex = Jobs.FindIndex(job => values[7] == job);
+
                         form = new(innerBox, "User Editor", 
                             ["Fornavn", "Efternavn", "Adresse", "Postnr", "Udd.", "Udd. Slut (DD/MM/YYYY)", "Job", "Job Start (DD/MM/YYYY)", "Job Slut (DD/MM/YYYY)"], 
                             [typeof(CInput), typeof(CInput), typeof(CInput), typeof(CComboBox), typeof(CComboBox), typeof(CInput), typeof(CComboBox), typeof(CInput), typeof(CInput)], 
-                            [values[0], values[1], values[2], values[6], values[8], values[9]], [await CDatabase.GetPostalCodes(), await CDatabase.GetSchools(), await CDatabase.GetJobs()]);
+                            [values[0], values[1], values[2], values[6], values[8], values[9]], [PostalCodes, Schools, Jobs],
+                            [postalIndex, schoolIndex, jobIndex]);
 
                         if (form.IsFinished) table.Edit(form.GetValues());
                         break;
@@ -53,14 +62,15 @@ while (keepRunning)
             } 
             else
             {
-                switch(btnIndex)
+                switch (btnIndex)
                 {
                     case 0:
                         btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorders([CRender.ActiveColor, Styling.Blink]).AddFonts([CRender.ActiveColor, Styling.Blink]).Build());
                         form = new(innerBox, "User Creation",
                             ["Fornavn", "Efternavn", "Adresse", "Postnr", "Udd.", "Udd. Slut (DD/MM/YYYY)", "Job", "Job Start (DD/MM/YYYY)", "Job Slut (DD/MM/YYYY)"], // Field names
                             [typeof(CInput), typeof(CInput), typeof(CInput), typeof(CComboBox), typeof(CComboBox), typeof(CInput), typeof(CComboBox), typeof(CInput), typeof(CInput)], // Field types
-                            [], [await CDatabase.GetPostalCodes(), await CDatabase.GetSchools(), await CDatabase.GetJobs()]); // CInput values, CCombobox values
+                            [], [await CDatabase.GetPostalCodes(), await CDatabase.GetSchools(), await CDatabase.GetJobs()], // CInput values, CCombobox values
+                            []);
                         if (form.IsFinished) table.Add(form.GetValues());
 
                         btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorder(CRender.ActiveColor).AddFont(CRender.ActiveColor).Build());
@@ -97,10 +107,15 @@ while (keepRunning)
                         break;
                     case 4:
                         btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorders([CRender.ActiveColor, Styling.Blink]).AddFonts([CRender.ActiveColor, Styling.Blink]).Build());
+
+                        int activeColor = (int)CRender.ActiveColor - 1;
+
                         form = new(innerBox, "Settings",
                             ["Console Title", "ActiveColor"], // Field names
                             [typeof(CInput), typeof(CComboBox)], // Field types
-                            [Console.Title], [Enum.GetNames(typeof(Color)).ToList()]); // CInput values, CCombobox values
+                            [Console.Title],
+                            [Enum.GetNames(typeof(Color)).ToList()], // CInput values, CCombobox values
+                            [activeColor]);
 
                         if (form.IsFinished)
                         {

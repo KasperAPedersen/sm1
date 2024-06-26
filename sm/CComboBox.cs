@@ -142,7 +142,7 @@ namespace sm
 
         readonly List<string> Content;
         public string Text { get; set; } = "";
-        int selectIndex = 0;
+        public int selectIndex { get; set; } = 0;
         bool isActive = false;
 
         public CComboBox(CObject _parent, Point _pos, Dimensions _dim, List<string> _content, CStyle _style, Align _align = Align.None) : base(_parent, _pos, _dim)

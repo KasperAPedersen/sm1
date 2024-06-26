@@ -155,7 +155,7 @@ namespace sm
         readonly int currentComboBox = 0, currentInputField = 0;
 
         //
-        public CForm(CObject _parent, string _title, List<string> _objects, List<Type> _types, List<string>? _inputLabelsValue = null, List<List<string>>? _comboLabels = null)
+        public CForm(CObject _parent, string _title, List<string> _objects, List<Type> _types, List<string>? _inputLabelsValue = null, List<List<string>>? _comboLabels = null, List<int>? _comboLabelsValue = null)
         {
             controller = new CControllers();
             Parent = _parent;
@@ -186,6 +186,7 @@ namespace sm
                 }
             }
 
+            currentComboBox = 0;
 
             // Render children & set values to input fields
             for (int i = 0; i < controller.ControllerObjects.Count; i++)
@@ -203,8 +204,15 @@ namespace sm
                         CInput ob = input;
                         ob.Text = tmp;
                     }
+                }
 
-                    
+                if(obj is CComboBox combo)
+                {
+                    if(_comboLabelsValue?.Count > currentComboBox)
+                    {
+                        CComboBox ob = combo;
+                        ob.selectIndex = _comboLabelsValue[currentComboBox++];
+                    }
                 }
             }
 
