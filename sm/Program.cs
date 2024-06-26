@@ -23,6 +23,10 @@ CTable table = new(innerBox, new Point(0, 5), new Dimensions(Console.WindowWidth
 List<CButton> btns = [btnAddUser, btnAddPostal, btnAddJob, btnAddEducation, btnSettings];
 int btnIndex = 0;
 
+List<string> PostalCodes = await CDatabase.GetPostalCodes();
+List<string> Schools = await CDatabase.GetSchools();
+List<string> Jobs = await CDatabase.GetJobs();
+
 bool keepRunning = true;
 while (keepRunning)
 {
@@ -37,9 +41,6 @@ while (keepRunning)
                 {
                     case 10:
                         List<string> values = table.Content[table.ContentIndex];
-                        List<string> PostalCodes = await CDatabase.GetPostalCodes();
-                        List<string> Schools = await CDatabase.GetSchools();
-                        List<string> Jobs = await CDatabase.GetJobs();
 
                         int postalIndex = PostalCodes.FindIndex(postal => $"{values[4]} {values[3]}" == postal);
                         int schoolIndex = Schools.FindIndex(school => values[5] == school);
@@ -69,7 +70,7 @@ while (keepRunning)
                         form = new(innerBox, "User Creation",
                             ["Fornavn", "Efternavn", "Adresse", "Postnr", "Udd.", "Udd. Slut (DD/MM/YYYY)", "Job", "Job Start (DD/MM/YYYY)", "Job Slut (DD/MM/YYYY)"], // Field names
                             [typeof(CInput), typeof(CInput), typeof(CInput), typeof(CComboBox), typeof(CComboBox), typeof(CInput), typeof(CComboBox), typeof(CInput), typeof(CInput)], // Field types
-                            [], [await CDatabase.GetPostalCodes(), await CDatabase.GetSchools(), await CDatabase.GetJobs()], // CInput values, CCombobox values
+                            [], [PostalCodes, Schools, Jobs], // CInput values, CCombobox values
                             []);
                         if (form.IsFinished) table.Add(form.GetValues());
 

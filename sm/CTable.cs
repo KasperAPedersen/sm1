@@ -305,6 +305,7 @@ namespace sm
         internal static string ConvertDate(string date)
         {
             string[] tmp = date.Split('/');
+            tmp[2] = tmp[2].Split(' ')[0];
 
             if (tmp.Length < 3) return date;
             
