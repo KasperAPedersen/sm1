@@ -220,7 +220,6 @@ namespace sm
             controller.Add(new CButton(formBox, new Point(0, formBox.Dim.Height - 4), new Dimensions(formBox.Dim.Width / 2 - 2, 3), Align.Right, "Cancel", new CStyleBuilder().Build()));
 
             formBox.RenderChildren();
-
             controller.Run(this, controller.controllerIndex);
         }
         //

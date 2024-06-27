@@ -112,7 +112,7 @@
               "RelativeDocumentMoniker": "sm\\CForm.cs",
               "ToolTip": "C:\\Users\\zbc23kaped\\source\\repos\\sm\\sm1\\sm\\CForm.cs",
               "RelativeToolTip": "sm\\CForm.cs",
-              "ViewState": "AQIAAKoAAAAAAAAAAAAUwMAAAAANAAAA",
+              "ViewState": "AQIAALAAAAAAAAAAAAAUwMwAAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-21T08:42:42.992Z",
               "EditorCaption": ""
@@ -139,8 +139,7 @@
               "RelativeToolTip": "sm\\CTable.cs",
               "ViewState": "AQIAACUBAAAAAAAAAAAqwDcBAABIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T06:23:32.467Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-21T06:23:32.467Z"
             },
             {
               "$type": "Document",
@@ -164,8 +163,7 @@
               "RelativeToolTip": "sm\\CComboBox.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAJAAAAAxAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T05:56:05.559Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-21T05:56:05.559Z"
             },
             {
               "$type": "Document",
@@ -177,8 +175,7 @@
               "RelativeToolTip": "sm\\CButton.cs",
               "ViewState": "AQIAADsAAAAAAAAAAAAIwEwAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-21T05:55:59.272Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-21T05:55:59.272Z"
             },
             {
               "$type": "Document",
@@ -202,8 +199,7 @@
               "RelativeToolTip": "sm\\Program.cs",
               "ViewState": "AQIAADsAAAAAAAAAAAAmwE0AAAAeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-03T10:55:58.254Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-03T10:55:58.254Z"
             }
           ]
         }
