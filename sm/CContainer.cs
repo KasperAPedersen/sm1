@@ -6,8 +6,8 @@ namespace sm
     {
         public Position Pos { get; set; }
         public Dimensions Dim { get; set; }
-        public CObject? Parent { get; set; }
-        public List<CObject> Children { get; set; } = [];
+        protected CObject? Parent { get; set; }
+        protected List<CObject> Children { get; set; } = [];
         public bool ShouldRender { get; set; } = true;
 
         internal abstract void Render();

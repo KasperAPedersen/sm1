@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace sm
+﻿namespace sm
 {
-    struct Dimensions(int _x, int _y)
+    struct Dimensions(int x, int y)
     {
-        public int Width { get; set; } = _x;
-        public int Height { get; set; } = _y;
+        public int Width { get; set; } = x;
+        public int Height { get; set; } = y;
     }
 
     internal interface IDimensions

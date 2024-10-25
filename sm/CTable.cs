@@ -7,12 +7,12 @@ namespace sm
     {
         public bool IsFocused = false;
         private CStyle _style;
-        readonly List<string> Headers = [];
+        private readonly List<string> _headers = [];
         public List<List<string>> Content { get; } = [];
-        int currentHeight;
+        private int _currentHeight;
 
-        readonly int maxPerPage = 26;
-        int currentPage;
+        private readonly int _maxPerPage = 26;
+        private int _currentPage;
 
         public int ContentIndex { get; private set; }
         public int SelectIndex { get; set; } = 11;
@@ -23,7 +23,7 @@ namespace sm
             if (Parent != null && Dim.Height > Parent.Dim.Height - Pos.Absolute.Y) Dim = new Dimensions(Dim.Width, Parent.Dim.Height - Pos.Absolute.Y + 1);
 
             _style = style;
-            if (headers != null) Headers = headers;
+            if (headers != null) _headers = headers;
             if (content != null) Content = content;
 
             Initialize(parent, pos, align);
@@ -40,45 +40,45 @@ namespace sm
             Remove(Pos.Absolute, new Dimensions(Dim.Width + 1, Dim.Height));
 
             string tmp;
-            int tabWidth = Dim.Width / Headers.Count;
+            int tabWidth = Dim.Width / _headers.Count;
 
             // Header
-            for (int i = 0; i < Headers.Count; i++)
+            for (int i = 0; i < _headers.Count; i++)
             {
-                currentHeight = 0;
+                _currentHeight = 0;
                 tmp = i == 0 ? Border(Get.TopLeft) : Border(Get.HorizontalDown);
                 tmp += BuildString(Border(Get.Horizontal), tabWidth - 1);
-                tmp += i == Headers.Count - 1 ? Border(Get.TopRight) : "";
+                tmp += i == _headers.Count - 1 ? Border(Get.TopRight) : "";
                 tmp = _style.Set(tmp, _style.Border);
-                Write(new Point(Pos.Absolute.X + (i * tabWidth), Pos.Absolute.Y + currentHeight++), tmp);
+                Write(new Point(Pos.Absolute.X + (i * tabWidth), Pos.Absolute.Y + _currentHeight++), tmp);
 
                 tmp = Border(Get.Vertical);
-                tmp += BuildString(" ", (tabWidth - Headers[i].Length) / 2);
-                tmp += _style.Set(Headers[i], _style.Font);
-                tmp += BuildString(" ", (tabWidth - 1 - Headers[i].Length) / 2);
-                tmp += i == Headers.Count - 1 ? _style.Set(Border(Get.Vertical), _style.Border) : "";
+                tmp += BuildString(" ", (tabWidth - _headers[i].Length) / 2);
+                tmp += _style.Set(_headers[i], _style.Font);
+                tmp += BuildString(" ", (tabWidth - 1 - _headers[i].Length) / 2);
+                tmp += i == _headers.Count - 1 ? _style.Set(Border(Get.Vertical), _style.Border) : "";
                 tmp = _style.Set(tmp, _style.Border);
-                Write(new Point(Pos.Absolute.X + (i * tabWidth), Pos.Absolute.Y + currentHeight++), tmp);
+                Write(new Point(Pos.Absolute.X + (i * tabWidth), Pos.Absolute.Y + _currentHeight++), tmp);
 
                 tmp = i == 0 ? Border(Get.VerticalLeft) : Border(Get.Cross);
                 tmp += BuildString(Border(Get.Horizontal), tabWidth - 1);
-                tmp += i == Headers.Count - 1 ? _style.Set(Border(Get.VerticalRight), _style.Border) : "";
+                tmp += i == _headers.Count - 1 ? _style.Set(Border(Get.VerticalRight), _style.Border) : "";
                 tmp = _style.Set(tmp, _style.Border);
-                Write(new Point(Pos.Absolute.X + (i * tabWidth), Pos.Absolute.Y + currentHeight++), tmp);
+                Write(new Point(Pos.Absolute.X + (i * tabWidth), Pos.Absolute.Y + _currentHeight++), tmp);
             }
 
             // Content
-            for (int i = (currentPage + 1) * maxPerPage - maxPerPage; i < Content.Count; i++)
+            for (int i = (_currentPage + 1) * _maxPerPage - _maxPerPage; i < Content.Count; i++)
             {
-                if (i > (currentPage + 1) * maxPerPage - 1) break;
+                if (i > (_currentPage + 1) * _maxPerPage - 1) break;
                 if (i > Content.Count || i < 0) break;
 
-                if (currentHeight + 3 < Dim.Height)
+                if (_currentHeight + 3 < Dim.Height)
                 {
-                    for (int o = 0; o < Headers.Count; o++)
+                    for (int o = 0; o < _headers.Count; o++)
                     {
                         string contentText;
-                        contentText = (o > Content[i].Count - 1) ? (Headers.Count - 2).ToString() : Content[i][o];
+                        contentText = (o > Content[i].Count - 1) ? (_headers.Count - 2).ToString() : Content[i][o];
 
                         if (contentText.Length > 10)
                         {
@@ -91,8 +91,8 @@ namespace sm
                             contentText = dt.ToString("d MMM yyyy", CultureInfo.InvariantCulture);
                         }
 
-                        if (o == Headers.Count - 2) contentText = "Edit";
-                        if (o == Headers.Count - 1) contentText = "Slet";
+                        if (o == _headers.Count - 2) contentText = "Edit";
+                        if (o == _headers.Count - 1) contentText = "Slet";
 
                         if (ContentIndex == i && SelectIndex == o && IsFocused) contentText = $"> {contentText}";
 
@@ -101,34 +101,34 @@ namespace sm
                         tmp += BuildString(" ", (tabWidth - contentText.Length) / 2);
                         tmp += ContentIndex == i && SelectIndex == o && IsFocused ? _style.Set(contentText, [CRender.ActiveColor]) : _style.Set(contentText, _style.Font);
                         tmp += BuildString(" ", (tabWidth - 1 - contentText.Length) / 2);
-                        tmp += o == Headers.Count - 1 ? _style.Set(Border(Get.Vertical), _style.Border) : "";
-                        Write(new Point(Pos.Absolute.X + (o * tabWidth), Pos.Absolute.Y + currentHeight), tmp);
+                        tmp += o == _headers.Count - 1 ? _style.Set(Border(Get.Vertical), _style.Border) : "";
+                        Write(new Point(Pos.Absolute.X + (o * tabWidth), Pos.Absolute.Y + _currentHeight), tmp);
                     }
-                    currentHeight++;
+                    _currentHeight++;
                 }
             }
 
             // Footer
-            for (int i = 0; i < Headers.Count; i++)
+            for (int i = 0; i < _headers.Count; i++)
             {
                 tmp = i == 0 ? Border(Get.VerticalLeft) : Border(Get.HorizontalUp);
                 tmp += BuildString(Border(Get.Horizontal), tabWidth - 1);
-                tmp += i == Headers.Count - 1 ? Border(Get.VerticalRight) : "";
+                tmp += i == _headers.Count - 1 ? Border(Get.VerticalRight) : "";
                 tmp = _style.Set(tmp, _style.Border);
-                Write(new Point(Pos.Absolute.X + (i * tabWidth), Pos.Absolute.Y + currentHeight), tmp);
+                Write(new Point(Pos.Absolute.X + (i * tabWidth), Pos.Absolute.Y + _currentHeight), tmp);
             }
 
-            string footerText = $"Page {currentPage + 1}/{((Content.Count / maxPerPage + (Content.Count % maxPerPage == 0 ? 0 : 1)) == 0 ? 1 : Content.Count / maxPerPage + (Content.Count % maxPerPage == 0 ? 0 : 1))}";
-            int footerTextPadRem = (tabWidth * Headers.Count - 1 - footerText.Length) % 2;
-            string footerTextPad = BuildString(" ", (tabWidth * Headers.Count - 1 - footerText.Length) / 2);
+            string footerText = $"Page {_currentPage + 1}/{((Content.Count / _maxPerPage + (Content.Count % _maxPerPage == 0 ? 0 : 1)) == 0 ? 1 : Content.Count / _maxPerPage + (Content.Count % _maxPerPage == 0 ? 0 : 1))}";
+            int footerTextPadRem = (tabWidth * _headers.Count - 1 - footerText.Length) % 2;
+            string footerTextPad = BuildString(" ", (tabWidth * _headers.Count - 1 - footerText.Length) / 2);
             
             tmp = $"{Border(Get.Vertical)}{footerTextPad}{footerText}{footerTextPad}{(footerTextPadRem != 0 ? BuildString(" ", footerTextPadRem) : "")}{Border(Get.Vertical)}";
             tmp = _style.Set(tmp, _style.Border);
-            Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + ++currentHeight), tmp);
+            Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + ++_currentHeight), tmp);
 
-            tmp = $"{Border(Get.BottomLeft)}{BuildString(Border(Get.Horizontal), tabWidth * Headers.Count - 1)}{Border(Get.BottomRight)}";
+            tmp = $"{Border(Get.BottomLeft)}{BuildString(Border(Get.Horizontal), tabWidth * _headers.Count - 1)}{Border(Get.BottomRight)}";
             tmp = _style.Set(tmp, _style.Border);
-            Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + ++currentHeight), tmp);
+            Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + ++_currentHeight), tmp);
         }
 
         internal async void Add(List<string> content)
@@ -144,11 +144,11 @@ namespace sm
             string jobEnd = ConvertDate(content[8]);
             
             List<string[]> result = await CDatabase.Exec("SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'customer';");
-            int customerID = Int32.Parse(result[0][0]);
+            int customerId = Int32.Parse(result[0][0]);
 
             await CDatabase.Exec($"INSERT INTO customer (FirstName, LastName, Street, PostalID) VALUES ('{fName}','{lName}','{street}','{postal}');");
-            await CDatabase.Exec($"INSERT INTO education (customerid, educationName, educationEnd) VALUES ('{customerID}','{eduIndex}','{eduEnd}');");
-            await CDatabase.Exec($"INSERT INTO employment (customerid, EmploymentName, EmploymentStart, EmploymentEnd) VALUES ('{customerID}','{jobIndex}','{jobStart}', '{jobEnd}')");
+            await CDatabase.Exec($"INSERT INTO education (customerid, educationName, educationEnd) VALUES ('{customerId}','{eduIndex}','{eduEnd}');");
+            await CDatabase.Exec($"INSERT INTO employment (customerid, EmploymentName, EmploymentStart, EmploymentEnd) VALUES ('{customerId}','{jobIndex}','{jobStart}', '{jobEnd}')");
             
             Fetch();
         }
@@ -169,11 +169,11 @@ namespace sm
             string oldLName = Content[ContentIndex][1];
 
             List<string[]> result = await CDatabase.Exec($"SELECT id FROM customer WHERE FirstName = '{oldFName}' AND LastName = '{oldLName}'");
-            int customerID = Int32.Parse(result[0][0]);
+            int customerId = Int32.Parse(result[0][0]);
 
-            await CDatabase.Exec($"UPDATE customer SET FirstName = '{fName}', LastName = '{lName}', Street = '{street}', PostalID = '{postal}' WHERE id = {customerID};");
-            await CDatabase.Exec($"UPDATE education SET educationName = {eduIndex}, educationEnd = '{eduEnd}' WHERE customerid = {customerID};");
-            await CDatabase.Exec($"UPDATE employment SET EmploymentName = {jobIndex}, EmploymentStart = '{jobStart}', EmploymentEnd = '{jobEnd}' WHERE customerid = {customerID};");
+            await CDatabase.Exec($"UPDATE customer SET FirstName = '{fName}', LastName = '{lName}', Street = '{street}', PostalID = '{postal}' WHERE id = {customerId};");
+            await CDatabase.Exec($"UPDATE education SET educationName = {eduIndex}, educationEnd = '{eduEnd}' WHERE customerid = {customerId};");
+            await CDatabase.Exec($"UPDATE employment SET EmploymentName = {jobIndex}, EmploymentStart = '{jobStart}', EmploymentEnd = '{jobEnd}' WHERE customerid = {customerId};");
 
             Fetch();
         }
@@ -184,11 +184,11 @@ namespace sm
             string lName = Content[ContentIndex][1];
 
             List<string[]> result = await CDatabase.Exec($"SELECT id FROM customer WHERE FirstName = '{fName}' AND LastName = '{lName}';");
-            int customerID = Int32.Parse(result[0][0]);
+            int customerId = Int32.Parse(result[0][0]);
 
-            await CDatabase.Exec($"DELETE FROM customer WHERE id = {customerID};");
-            await CDatabase.Exec($"DELETE FROM education WHERE customerid = {customerID};");
-            await CDatabase.Exec($"DELETE FROM employment WHERE customerid = {customerID};");
+            await CDatabase.Exec($"DELETE FROM customer WHERE id = {customerId};");
+            await CDatabase.Exec($"DELETE FROM education WHERE customerid = {customerId};");
+            await CDatabase.Exec($"DELETE FROM employment WHERE customerid = {customerId};");
 
             Content.RemoveAt(ContentIndex);
             UpdateActiveContentRow(ContentIndex);
@@ -236,10 +236,10 @@ namespace sm
             if (SelectIndex > 11) SelectIndex = 10;
             if (SelectIndex < 10) SelectIndex = 11;
 
-            int tabWidth = Dim.Width / Headers.Count;
-            for (int i = (currentPage + 1) * maxPerPage - maxPerPage; i < Content.Count; i++)
+            int tabWidth = Dim.Width / _headers.Count;
+            for (int i = (_currentPage + 1) * _maxPerPage - _maxPerPage; i < Content.Count; i++)
             {
-                int cIndex = ContentIndex - (maxPerPage * currentPage);
+                int cIndex = ContentIndex - (_maxPerPage * _currentPage);
 
                 for(int o = 10; o <= 11; o++)
                 {
@@ -260,7 +260,7 @@ namespace sm
 
         internal void UpdateActiveContentRow(int newIndex)
         {
-            int tabWidth = Dim.Width / Headers.Count;
+            int tabWidth = Dim.Width / _headers.Count;
             for (int o = 10; o <= 11; o++)
             {
                 string contentText = o == 10 ? "Edit" : "Slet";
@@ -273,7 +273,7 @@ namespace sm
 
                 tmp = _style.Set(tmp, [Color.white]);
 
-                Write(new Point(Pos.Absolute.X + (o * tabWidth), Pos.Absolute.Y + 3 + (ContentIndex >= maxPerPage ? ContentIndex - (maxPerPage * currentPage) : ContentIndex)), tmp);
+                Write(new Point(Pos.Absolute.X + (o * tabWidth), Pos.Absolute.Y + 3 + (ContentIndex >= _maxPerPage ? ContentIndex - (_maxPerPage * _currentPage) : ContentIndex)), tmp);
             }
 
             ContentIndex = newIndex;
@@ -281,25 +281,25 @@ namespace sm
             if (ContentIndex > Content.Count - 1)
             {
                 ContentIndex = 0;
-                currentPage = 0;
+                _currentPage = 0;
                 Render();
             }
 
             if (ContentIndex < 0)
             {
                 ContentIndex = Content.Count - 1;
-                currentPage = Content.Count / maxPerPage;
+                _currentPage = Content.Count / _maxPerPage;
                 Render();
             }
 
-            if (ContentIndex > (currentPage + 1) * maxPerPage - 1)
+            if (ContentIndex > (_currentPage + 1) * _maxPerPage - 1)
             {
-                currentPage++;
+                _currentPage++;
                 Render();
             }
-            if (ContentIndex < ((currentPage + 1) * maxPerPage) - maxPerPage && currentPage > 0)
+            if (ContentIndex < ((_currentPage + 1) * _maxPerPage) - _maxPerPage && _currentPage > 0)
             {
-                currentPage--;
+                _currentPage--;
                 Render();
             }
 
