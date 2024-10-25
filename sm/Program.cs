@@ -10,8 +10,8 @@ CObject screen = new(null, new Point(0, 0), d);
 
 CForm form;
 
-CBox outerBox = new(screen, new Point(0, 0), new Dimensions(Console.WindowWidth, Console.WindowHeight), new CStyleBuilder().AddBorder(Color.white).Build(), Align.None);
-CBox innerBox = new(outerBox, new Point(0, 0), new Dimensions(Console.WindowWidth, Console.WindowHeight), new CStyleBuilder().AddBorder(Color.white).Build(), Align.None);
+CBox outerBox = new(screen, new Point(0, 0), new Dimensions(Console.WindowWidth, Console.WindowHeight), new CStyleBuilder().AddBorder(Color.white).Build());
+CBox innerBox = new(outerBox, new Point(0, 0), new Dimensions(Console.WindowWidth, Console.WindowHeight), new CStyleBuilder().AddBorder(Color.white).Build());
 _ = new CLabel(innerBox, new Point(0, 0), Align.Left, "CRUDapp", new CStyleBuilder().Build());
 CButton btnAddUser = new(innerBox, new Point(0, 2), new Dimensions(20, 0), Align.None, "Create User", new CStyleBuilder().AddBorder(CRender.ActiveColor).AddFont(CRender.ActiveColor).Build());
 CButton btnAddPostal = new(innerBox, new Point(22, 2), new Dimensions(20, 0), Align.None, "Add Postal", new CStyleBuilder().AddBorder(Color.white).AddFont(Color.white).Build());
@@ -23,18 +23,13 @@ CTable table = new(innerBox, new Point(0, 5), new Dimensions(Console.WindowWidth
 List<CButton> btns = [btnAddUser, btnAddPostal, btnAddJob, btnAddEducation, btnSettings];
 int btnIndex = 0;
 
-List<string> PostalCodes = await CDatabase.GetPostalCodes();
-List<string> Schools = await CDatabase.GetSchools();
-List<string> Jobs = await CDatabase.GetJobs();
-
-bool keepRunning = true;
-while (keepRunning)
+while (true)
 {
     Console.SetCursorPosition(0, Console.WindowHeight - 1);
     switch (Console.ReadKey().Key)
     {
         case ConsoleKey.Enter:
-            if(table.isFocused)
+            if(table.IsFocused)
             {
                 if (table.Content.Count <= 0) continue;
                 switch (table.SelectIndex)
@@ -42,22 +37,24 @@ while (keepRunning)
                     case 10:
                         List<string> values = table.Content[table.ContentIndex];
 
-                        int postalIndex = PostalCodes.FindIndex(postal => $"{values[4]} {values[3]}" == postal);
-                        int schoolIndex = Schools.FindIndex(school => values[5] == school);
-                        int jobIndex = Jobs.FindIndex(job => values[7] == job);
+                        List<string> postalCodes = await CDatabase.GetPostalCodes();
+                        List<string> schools = await CDatabase.GetSchools();
+                        List<string> jobs = await CDatabase.GetJobs();
+                        
+                        int postalIndex = postalCodes.FindIndex(postal => $"{values[4]} {values[3]}" == postal);
+                        int schoolIndex = schools.FindIndex(school => values[5] == school);
+                        int jobIndex = jobs.FindIndex(job => values[7] == job);
 
                         form = new(innerBox, "User Editor", 
                             ["Fornavn", "Efternavn", "Adresse", "Postnr", "Udd.", "Udd. Slut (DD/MM/YYYY)", "Job", "Job Start (DD/MM/YYYY)", "Job Slut (DD/MM/YYYY)"], 
                             [typeof(CInput), typeof(CInput), typeof(CInput), typeof(CComboBox), typeof(CComboBox), typeof(CInput), typeof(CComboBox), typeof(CInput), typeof(CInput)], 
-                            [values[0], values[1], values[2], values[6], values[8], values[9]], [PostalCodes, Schools, Jobs],
+                            [values[0], values[1], values[2], values[6], values[8], values[9]], [postalCodes, schools, jobs],
                             [postalIndex, schoolIndex, jobIndex]);
 
                         if (form.IsFinished) table.Edit(form.GetValues());
                         break;
                     case 11:
                         table.Delete();
-                        break;
-                    default:
                         break;
                 }
             } 
@@ -66,11 +63,15 @@ while (keepRunning)
                 switch (btnIndex)
                 {
                     case 0:
+                        List<string> postalCodes = await CDatabase.GetPostalCodes();
+                        List<string> schools = await CDatabase.GetSchools();
+                        List<string> jobs = await CDatabase.GetJobs();
+                        
                         btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorders([CRender.ActiveColor, Styling.Blink]).AddFonts([CRender.ActiveColor, Styling.Blink]).Build());
                         form = new(innerBox, "User Creation",
                             ["Fornavn", "Efternavn", "Adresse", "Postnr", "Udd.", "Udd. Slut (DD/MM/YYYY)", "Job", "Job Start (DD/MM/YYYY)", "Job Slut (DD/MM/YYYY)"], // Field names
                             [typeof(CInput), typeof(CInput), typeof(CInput), typeof(CComboBox), typeof(CComboBox), typeof(CInput), typeof(CComboBox), typeof(CInput), typeof(CInput)], // Field types
-                            [], [PostalCodes, Schools, Jobs], // CInput values, CCombobox values
+                            [], [postalCodes, schools, jobs], // CInput values, CCombobox values
                             []);
                         if (form.IsFinished) table.Add(form.GetValues());
 
@@ -103,7 +104,6 @@ while (keepRunning)
                              [typeof(CInput)], // Field types
                              [], []); // CInput values, CCombobox values
                         if (form.IsFinished) CDatabase.AddEducation(form.GetValues()[0]);
-
                         btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorder(CRender.ActiveColor).AddFont(CRender.ActiveColor).Build());
                         break;
                     case 4:
@@ -125,13 +125,11 @@ while (keepRunning)
                         }
                         btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorder(CRender.ActiveColor).AddFont(CRender.ActiveColor).Build());
                         break;
-                    default:
-                        break;
                 }
             }
             break;
         case ConsoleKey.RightArrow:
-            if(table.isFocused)
+            if(table.IsFocused)
             {
                 table.SelectIndex++;
                 table.UpdateSelectIndex();
@@ -148,7 +146,7 @@ while (keepRunning)
             }
             break;
         case ConsoleKey.LeftArrow:
-            if(table.isFocused)
+            if(table.IsFocused)
             {
                 table.SelectIndex--;
                 table.UpdateSelectIndex();
@@ -164,19 +162,17 @@ while (keepRunning)
             }
             break;
         case ConsoleKey.UpArrow:
-            if(table.isFocused) table.UpdateActiveContentRow(table.ContentIndex - 1);
+            if(table.IsFocused) table.UpdateActiveContentRow(table.ContentIndex - 1);
             break;
         case ConsoleKey.DownArrow:
-            if(table.isFocused) table.UpdateActiveContentRow(table.ContentIndex + 1);
+            if(table.IsFocused) table.UpdateActiveContentRow(table.ContentIndex + 1);
             break;
         case ConsoleKey.Tab:
             foreach(CButton btn in btns) btn.ChangeStyling(new CStyleBuilder().AddBorder(Color.white).AddFont(Color.white).Build());
-            table.isFocused = !table.isFocused;
+            table.IsFocused = !table.IsFocused;
 
-            if (!table.isFocused) btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorder(CRender.ActiveColor).AddFont(CRender.ActiveColor).Build());
+            if (!table.IsFocused) btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorder(CRender.ActiveColor).AddFont(CRender.ActiveColor).Build());
             table.Render();
-            break;
-        default:
             break;
     }
 }

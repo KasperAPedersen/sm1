@@ -1,73 +1,72 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace sm
 {
     internal class CButton : CObject, IController
     {
-        CStyle Style;
+        private CStyle _style;
         public string Text { get; set; }
 
-        public CButton(CObject _parent, Point _pos, Dimensions _dim, Align _align, string _text, CStyle _style) : base(_parent, _pos, new Dimensions(_dim.Width < _text.Length + 2 ? _text.Length + 2 : _dim.Width, _dim.Height < 3 ? 3 : _dim.Height))
+        public CButton(CObject parent, Point pos, Dimensions dim, Align align, string text, CStyle style) : base(parent, pos, new Dimensions(dim.Width < text.Length + 2 ? text.Length + 2 : dim.Width, dim.Height < 3 ? 3 : dim.Height))
         {
-            Text = _text;
-            Style = _style;
+            Text = text;
+            _style = style;
 
-            if (ShouldRender && NewObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
+            Initialize(parent, pos, align);
+        }
+        
+        private void Initialize(CObject parent, Point pos, Align align)
+        {
+            if (ShouldRender && NewObjPos(parent, Aligner(align, parent, pos), Dim)) Render();
         }
 
         internal override void Render()
         {
             int currentHeight = 0;
-            string tmp;
+            string tmp = "";
 
             tmp = $"{Border(Get.TopLeft)}{BuildString(Border(Get.Horizontal), Dim.Width - 2)}{Border(Get.TopRight)}";
-            tmp = Style.Set(tmp, Style.Border);
+            tmp = _style.Set(tmp, _style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
 
             int maxWidth = Dim.Width - 2;
             int diff = maxWidth - Text.Length;
             int diffRem = diff % 2;
 
-            tmp = Style.Set(Border(Get.Vertical), Style.Border);
+            tmp = _style.Set(Border(Get.Vertical), _style.Border);
             tmp += BuildString(" ", diff / 2);
 
-            tmp += Style.Set(Text, Style.Font);
+            tmp += _style.Set(Text, _style.Font);
             tmp += BuildString(" ", diff / 2 + diffRem);
 
-            tmp += Style.Set(Border(Get.Vertical), Style.Border);
+            tmp += _style.Set(Border(Get.Vertical), _style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
 
             tmp = $"{Border(Get.BottomLeft)}{BuildString(Border(Get.Horizontal), Dim.Width - 2)}{Border(Get.BottomRight)}";
-            tmp = Style.Set(tmp, Style.Border);
+            tmp = _style.Set(tmp, _style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), tmp);
         }
 
-        internal override void ChangeStyling(CStyle _style)
+        internal override void ChangeStyling(CStyle style)
         {
-            Style = _style;
+            _style = style;
             Remove(Pos.Absolute, Dim);
             RenderChildren();
         }
 
         internal override ControllerState Init()
         {
-            CStyle OldStyling = Style;
+            CStyle oldStyling = _style;
             ChangeStyling(new CStyleBuilder().AddFont(CRender.ActiveColor).Build());
             Console.CursorVisible = false;
-            bool keepRunning = true;
-            while (keepRunning)
+            while (true)
             {
                 Console.SetCursorPosition(Pos.Absolute.X + Text.Length + 2, Pos.Absolute.Y + 1);
                 ConsoleKeyInfo key = Console.ReadKey();
                 switch (key.Key)
                 {
                     case ConsoleKey.Tab:
-                        ChangeStyling(OldStyling);
+                        ChangeStyling(oldStyling);
                         switch (key.Modifiers)
                         {
                             case ConsoleModifiers.Shift:
@@ -77,24 +76,21 @@ namespace sm
                         }
                     case ConsoleKey.DownArrow:
                     case ConsoleKey.RightArrow:
-                        ChangeStyling(OldStyling);
+                        ChangeStyling(oldStyling);
                         return ControllerState.Next;
                     case ConsoleKey.UpArrow:
                     case ConsoleKey.LeftArrow:
-                        ChangeStyling(OldStyling);
+                        ChangeStyling(oldStyling);
                         Render();
                         return ControllerState.Previous;
                     case ConsoleKey.Escape:
                         return ControllerState.Cancel;
                     case ConsoleKey.Enter:
                         return Text == "Confirm" ? ControllerState.Finish : ControllerState.Cancel;
-                    default:
-                        break;
                 }
 
                 Render();
             }
-            return ControllerState.Idle;
         }
     }
 }

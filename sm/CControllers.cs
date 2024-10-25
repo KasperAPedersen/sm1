@@ -1,53 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace sm
+﻿namespace sm
 {
     internal class CControllers : CRender
     {
         public List<CObject> ControllerObjects { get; set; } = [];
-        public int controllerIndex = 0;
+        public readonly int ControllerIndex = 0;
 
-        public CControllers() { }
-
-        internal void Add(CObject _obj)
+        internal void Add(CObject obj)
         {
-            ControllerObjects.Add(_obj);
+            ControllerObjects.Add(obj);
         }
 
-        internal void Run(CForm _form, int _index)
+        internal void Run(CForm form, int index)
         {
-            if (_index >= ControllerObjects.Count) _index = ControllerObjects.Count - 1;
-            if (_index < 0) _index = 0;
+            if (index >= ControllerObjects.Count) index = ControllerObjects.Count - 1;
+            if (index < 0) index = 0;
 
-            CObject obj = ControllerObjects[_index];
+            CObject obj = ControllerObjects[index];
             ControllerState result = obj.Init();
 
             switch (result)
             {
                 case ControllerState.Next:
-                    _form.ReDrawBtns();
-                    Run(_form, ++_index);
+                    form.ReDrawBtns();
+                    Run(form, ++index);
                     break;
                 case ControllerState.Previous:
-                    Run(_form, --_index);
+                    Run(form, --index);
                     break;
                 case ControllerState.Finish:
-                    _form.Finished(GetValues());
+                    form.Finished(GetValues());
                     return;
                 case ControllerState.Cancel:
-                    _form.Cancelled();
+                    form.Cancelled();
                     return;
-                default:
-                    break;
             }
         }
 
-        internal List<string> GetValues()
+        private List<string> GetValues()
         {
             List<string> values = [];
             foreach (object obj in ControllerObjects)

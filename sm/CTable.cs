@@ -5,30 +5,34 @@ namespace sm
 {
     internal class CTable : CObject
     {
-        public bool isFocused = false;
-        CStyle Style;
+        public bool IsFocused = false;
+        private CStyle _style;
         readonly List<string> Headers = [];
         public List<List<string>> Content { get; } = [];
-        int currentHeight = 0;
+        int currentHeight;
 
         readonly int maxPerPage = 26;
-        int currentPage = 0;
+        int currentPage;
 
-        public int ContentIndex { get; set; } = 0;
+        public int ContentIndex { get; private set; }
         public int SelectIndex { get; set; } = 11;
 
-        public CTable(CObject _parent, Point _pos, Dimensions _dim, CStyle _style, Align _align = Align.None, List<string>? _headers = null, List<List<string>>? _content = null) : base(_parent, _pos, _dim)
+        public CTable(CObject parent, Point pos, Dimensions dim, CStyle style, Align align = Align.None, List<string>? headers = null, List<List<string>>? content = null) : base(parent, pos, dim)
         {
             if (Dim.Height < 6) Dim = new Dimensions(Dim.Width, 6);
             if (Parent != null && Dim.Height > Parent.Dim.Height - Pos.Absolute.Y) Dim = new Dimensions(Dim.Width, Parent.Dim.Height - Pos.Absolute.Y + 1);
 
-            Style = _style;
-            if (_headers != null) Headers = _headers;
-            if (_content != null) Content = _content;
+            _style = style;
+            if (headers != null) Headers = headers;
+            if (content != null) Content = content;
 
-            if (ShouldRender && NewObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
-
+            Initialize(parent, pos, align);
             Fetch();
+        }
+        
+        private void Initialize(CObject parent, Point pos, Align align)
+        {
+            if (ShouldRender && NewObjPos(parent, Aligner(align, parent, pos), Dim)) Render();
         }
 
         internal override void Render()
@@ -45,21 +49,21 @@ namespace sm
                 tmp = i == 0 ? Border(Get.TopLeft) : Border(Get.HorizontalDown);
                 tmp += BuildString(Border(Get.Horizontal), tabWidth - 1);
                 tmp += i == Headers.Count - 1 ? Border(Get.TopRight) : "";
-                tmp = Style.Set(tmp, Style.Border);
+                tmp = _style.Set(tmp, _style.Border);
                 Write(new Point(Pos.Absolute.X + (i * tabWidth), Pos.Absolute.Y + currentHeight++), tmp);
 
                 tmp = Border(Get.Vertical);
                 tmp += BuildString(" ", (tabWidth - Headers[i].Length) / 2);
-                tmp += Style.Set(Headers[i], Style.Font);
+                tmp += _style.Set(Headers[i], _style.Font);
                 tmp += BuildString(" ", (tabWidth - 1 - Headers[i].Length) / 2);
-                tmp += i == Headers.Count - 1 ? Style.Set(Border(Get.Vertical), Style.Border) : "";
-                tmp = Style.Set(tmp, Style.Border);
+                tmp += i == Headers.Count - 1 ? _style.Set(Border(Get.Vertical), _style.Border) : "";
+                tmp = _style.Set(tmp, _style.Border);
                 Write(new Point(Pos.Absolute.X + (i * tabWidth), Pos.Absolute.Y + currentHeight++), tmp);
 
                 tmp = i == 0 ? Border(Get.VerticalLeft) : Border(Get.Cross);
                 tmp += BuildString(Border(Get.Horizontal), tabWidth - 1);
-                tmp += i == Headers.Count - 1 ? Style.Set(Border(Get.VerticalRight), Style.Border) : "";
-                tmp = Style.Set(tmp, Style.Border);
+                tmp += i == Headers.Count - 1 ? _style.Set(Border(Get.VerticalRight), _style.Border) : "";
+                tmp = _style.Set(tmp, _style.Border);
                 Write(new Point(Pos.Absolute.X + (i * tabWidth), Pos.Absolute.Y + currentHeight++), tmp);
             }
 
@@ -90,14 +94,14 @@ namespace sm
                         if (o == Headers.Count - 2) contentText = "Edit";
                         if (o == Headers.Count - 1) contentText = "Slet";
 
-                        if (ContentIndex == i && SelectIndex == o && isFocused) contentText = $"> {contentText}";
+                        if (ContentIndex == i && SelectIndex == o && IsFocused) contentText = $"> {contentText}";
 
                         tmp = Border(Get.Vertical);
-                        tmp = Style.Set(tmp, Style.Border);
+                        tmp = _style.Set(tmp, _style.Border);
                         tmp += BuildString(" ", (tabWidth - contentText.Length) / 2);
-                        tmp += ContentIndex == i && SelectIndex == o && isFocused ? Style.Set(contentText, [CRender.ActiveColor]) : Style.Set(contentText, Style.Font);
+                        tmp += ContentIndex == i && SelectIndex == o && IsFocused ? _style.Set(contentText, [CRender.ActiveColor]) : _style.Set(contentText, _style.Font);
                         tmp += BuildString(" ", (tabWidth - 1 - contentText.Length) / 2);
-                        tmp += o == Headers.Count - 1 ? Style.Set(Border(Get.Vertical), Style.Border) : "";
+                        tmp += o == Headers.Count - 1 ? _style.Set(Border(Get.Vertical), _style.Border) : "";
                         Write(new Point(Pos.Absolute.X + (o * tabWidth), Pos.Absolute.Y + currentHeight), tmp);
                     }
                     currentHeight++;
@@ -110,7 +114,7 @@ namespace sm
                 tmp = i == 0 ? Border(Get.VerticalLeft) : Border(Get.HorizontalUp);
                 tmp += BuildString(Border(Get.Horizontal), tabWidth - 1);
                 tmp += i == Headers.Count - 1 ? Border(Get.VerticalRight) : "";
-                tmp = Style.Set(tmp, Style.Border);
+                tmp = _style.Set(tmp, _style.Border);
                 Write(new Point(Pos.Absolute.X + (i * tabWidth), Pos.Absolute.Y + currentHeight), tmp);
             }
 
@@ -119,28 +123,28 @@ namespace sm
             string footerTextPad = BuildString(" ", (tabWidth * Headers.Count - 1 - footerText.Length) / 2);
             
             tmp = $"{Border(Get.Vertical)}{footerTextPad}{footerText}{footerTextPad}{(footerTextPadRem != 0 ? BuildString(" ", footerTextPadRem) : "")}{Border(Get.Vertical)}";
-            tmp = Style.Set(tmp, Style.Border);
+            tmp = _style.Set(tmp, _style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + ++currentHeight), tmp);
 
             tmp = $"{Border(Get.BottomLeft)}{BuildString(Border(Get.Horizontal), tabWidth * Headers.Count - 1)}{Border(Get.BottomRight)}";
-            tmp = Style.Set(tmp, Style.Border);
+            tmp = _style.Set(tmp, _style.Border);
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + ++currentHeight), tmp);
         }
 
-        internal async void Add(List<string> _content)
+        internal async void Add(List<string> content)
         {
-            string fName = _content[0];
-            string lName = _content[1];
-            string street = _content[2];
-            string postal = _content[3];
-            string eduIndex = await CDatabase.GetEducationIndex(_content[4]);
-            string eduEnd = ConvertDate(_content[5]);
-            string jobIndex = await CDatabase.GetJobIndex(_content[6]);
-            string jobStart = ConvertDate(_content[7]);
-            string jobEnd = ConvertDate(_content[8]);
+            string fName = content[0];
+            string lName = content[1];
+            string street = content[2];
+            string postal = content[3];
+            string eduIndex = await CDatabase.GetEducationIndex(content[4]);
+            string eduEnd = ConvertDate(content[5]);
+            string jobIndex = await CDatabase.GetJobIndex(content[6]);
+            string jobStart = ConvertDate(content[7]);
+            string jobEnd = ConvertDate(content[8]);
             
             List<string[]> result = await CDatabase.Exec("SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'customer';");
-            int customerID = Int32.Parse(result[0][0] ?? "0");
+            int customerID = Int32.Parse(result[0][0]);
 
             await CDatabase.Exec($"INSERT INTO customer (FirstName, LastName, Street, PostalID) VALUES ('{fName}','{lName}','{street}','{postal}');");
             await CDatabase.Exec($"INSERT INTO education (customerid, educationName, educationEnd) VALUES ('{customerID}','{eduIndex}','{eduEnd}');");
@@ -149,17 +153,17 @@ namespace sm
             Fetch();
         }
 
-        internal async void Edit(List<string> _content)
+        internal async void Edit(List<string> content)
         {
-            string fName = _content[0];
-            string lName = _content[1];
-            string street = _content[2];
-            string postal = _content[3];
-            string eduIndex = await CDatabase.GetEducationIndex(_content[4]);
-            string eduEnd = ConvertDate(_content[5]);
-            string jobIndex = await CDatabase.GetJobIndex(_content[6]);
-            string jobStart = ConvertDate(_content[7]);
-            string jobEnd = ConvertDate(_content[8]);
+            string fName = content[0];
+            string lName = content[1];
+            string street = content[2];
+            string postal = content[3];
+            string eduIndex = await CDatabase.GetEducationIndex(content[4]);
+            string eduEnd = ConvertDate(content[5]);
+            string jobIndex = await CDatabase.GetJobIndex(content[6]);
+            string jobStart = ConvertDate(content[7]);
+            string jobEnd = ConvertDate(content[8]);
 
             string oldFName = Content[ContentIndex][0];
             string oldLName = Content[ContentIndex][1];
@@ -180,7 +184,7 @@ namespace sm
             string lName = Content[ContentIndex][1];
 
             List<string[]> result = await CDatabase.Exec($"SELECT id FROM customer WHERE FirstName = '{fName}' AND LastName = '{lName}';");
-            int customerID = Int32.Parse(result[0][0] ?? "-1");
+            int customerID = Int32.Parse(result[0][0]);
 
             await CDatabase.Exec($"DELETE FROM customer WHERE id = {customerID};");
             await CDatabase.Exec($"DELETE FROM education WHERE customerid = {customerID};");
@@ -191,7 +195,7 @@ namespace sm
             Render();
         }
 
-        internal void Reset()
+        private void Reset()
         {
             Content.Clear();
             Render();
@@ -202,14 +206,14 @@ namespace sm
             return Content[ContentIndex];
         }
 
-        internal override void ChangeStyling(CStyle _style)
+        internal override void ChangeStyling(CStyle style)
         {
-            Style = _style;
+            _style = style;
             Remove(Pos.Absolute, Dim);
             RenderChildren();
         }
 
-        internal async void Fetch()
+        private async void Fetch()
         {
             Reset();
 
@@ -244,10 +248,10 @@ namespace sm
 
                     string tmp = Border(Get.Vertical);
                     tmp += BuildString(" ", (tabWidth - contentText.Length) / 2);
-                    tmp += o == SelectIndex ? Style.Set(contentText, [CRender.ActiveColor]) : Style.Set(contentText, [Color.white]);
+                    tmp += o == SelectIndex ? _style.Set(contentText, [CRender.ActiveColor]) : _style.Set(contentText, [Color.white]);
                     tmp += BuildString(" ", (tabWidth - 1 - contentText.Length) / 2);
                     tmp += Border(Get.Vertical);
-                    tmp = Style.Set(tmp, [Color.white]);
+                    tmp = _style.Set(tmp, [Color.white]);
 
                     Write(new Point(Pos.Absolute.X + (o * tabWidth), Pos.Absolute.Y + cIndex + 3), tmp);
                 }
@@ -267,7 +271,7 @@ namespace sm
                 tmp += BuildString(" ", (tabWidth - 1 - contentText.Length) / 2);
                 tmp += Border(Get.Vertical);
 
-                tmp = Style.Set(tmp, [Color.white]);
+                tmp = _style.Set(tmp, [Color.white]);
 
                 Write(new Point(Pos.Absolute.X + (o * tabWidth), Pos.Absolute.Y + 3 + (ContentIndex >= maxPerPage ? ContentIndex - (maxPerPage * currentPage) : ContentIndex)), tmp);
             }
@@ -302,7 +306,7 @@ namespace sm
             UpdateSelectIndex();
         }
 
-        internal static string ConvertDate(string date)
+        private static string ConvertDate(string date)
         {
             string[] tmp = date.Split('/');
             tmp[2] = tmp[2].Split(' ')[0];

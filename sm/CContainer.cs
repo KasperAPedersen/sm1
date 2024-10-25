@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace sm
 {
@@ -17,9 +12,9 @@ namespace sm
 
         internal abstract void Render();
         internal abstract ControllerState Init();
-        internal abstract bool NewObjPos(CObject? _parent, Point _pos, Dimensions _dim);
-        internal abstract void Update(Point _pos);
-        internal abstract Point Aligner(Align _align, CObject _parent, Point _pos);
-        internal abstract void ChangeStyling(CStyle _style);
+        internal abstract bool NewObjPos(CObject? parent, Point pos, Dimensions dim);
+        internal abstract void Update(Point pos);
+        internal abstract Point Aligner(Align align, CObject parent, Point pos);
+        internal abstract void ChangeStyling(CStyle style);
     }
 }

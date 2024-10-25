@@ -1,30 +1,24 @@
 ﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace sm
 {
     internal static class CDatabase
     {
-        private static readonly string server = "localhost";
-        private static readonly string name = "oop2";
-        private static readonly string user = "root";
-        private static readonly string pword = "";
+        private static readonly string Server = "localhost";
+        private static readonly string Name = "oop2";
+        private static readonly string User = "root";
+        private static readonly string Pword = "";
 
-        private static readonly string conn = $"SERVER={server};DATABASE={name};UID={user};PWD={pword};Convert Zero Datetime=True;Pooling=True;";
+        private static readonly string Conn = $"SERVER={Server};DATABASE={Name};UID={User};PWD={Pword};Convert Zero Datetime=True;Pooling=True;";
 
-        public static async Task<List<string[]>> Exec(string _query)
+        public static async Task<List<string[]>> Exec(string query)
         {
-            using MySqlConnection connection = new(conn);
+            await using MySqlConnection connection = new(Conn);
 
             await connection.OpenAsync();
 
-            using MySqlCommand cmd = new(_query, connection);
+            await using MySqlCommand cmd = new(query, connection);
 
             DbDataReader reader = await cmd.ExecuteReaderAsync();
             List<string[]> result = [];
@@ -64,13 +58,13 @@ namespace sm
         public static async Task<string> GetJobIndex(string job)
         {
             List<string[]> results = await Exec($"SELECT JobID FROM jobs WHERE JobName = '{job}'");
-            return results[0][0] ?? "0";
+            return results[0][0];
         }
 
         public static async Task<string> GetEducationIndex(string edu)
         {
             List<string[]> results = await Exec($"SELECT educationID FROM schools WHERE schoolsName = '{edu}'");
-            return results[0][0] ?? "0";
+            return results[0][0];
         }
 
         public static async void AddPostal(string postal, string city)
@@ -80,7 +74,7 @@ namespace sm
             bool alreadyExists = false;
             foreach (string[] s in results)
             {
-                for(int i = 0; i <  s.Length; i++) if (s[i] == postal) alreadyExists = true;
+                foreach(string item in s) if (item == postal) alreadyExists = true;
             }
 
             if(!alreadyExists) await Exec($"INSERT INTO city (PostalCode, CityName) VALUES ('{postal}', '{city}');");
@@ -93,7 +87,7 @@ namespace sm
             bool alreadyExists = false;
             foreach (string[] s in results)
             {
-                for (int i = 0; i < s.Length; i++) if (s[i] == job) alreadyExists = true;
+                foreach(string item in s) if (item == job) alreadyExists = true;
             }
 
             if(!alreadyExists) await Exec($"INSERT INTO jobs (JobName) VALUES ('{job}');");
@@ -106,7 +100,8 @@ namespace sm
             bool alreadyExists = false;
             foreach (string[] s in results)
             {
-                for(int i = 0; i < s.Length; i++) if (s[i] == edu) alreadyExists = true;
+                foreach(string item in s) if (item == edu) alreadyExists = true;
+                
             }
 
             if(!alreadyExists) await Exec($"INSERT INTO schools (schoolsName) VALUES ('{edu}');");

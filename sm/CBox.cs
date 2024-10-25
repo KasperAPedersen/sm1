@@ -1,24 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace sm
 {
     internal class CBox : CObject
     {
-        public CStyle Style;
-        public CBox(CObject _parent, CStyle _style) : this(_parent, new Point(0, 0), _parent.Dim, _style) { }
-        public CBox(CObject _parent, Point _pos, Dimensions _dim, CStyle _style, Align _align = Align.None) : base(_parent, _pos, _dim)
+        private CStyle _style;
+        public CBox(CObject parent, CStyle style) : this(parent, new Point(0, 0), parent.Dim, style) { }
+        public CBox(CObject parent, Point pos, Dimensions dim, CStyle style, Align align = Align.None) : base(parent, pos, dim)
         {
             if (Dim.Width < 3) Dim = new Dimensions(3, Dim.Height);
             if (Dim.Height < 3) Dim = new Dimensions(Dim.Width, 3);
 
-            Style = _style;
+            _style = style;
 
-            if (ShouldRender && NewObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
+            Initialize(parent, pos, align);
+        }
+        
+        private void Initialize(CObject parent, Point pos, Align align)
+        {
+            if (ShouldRender && NewObjPos(parent, Aligner(align, parent, pos), Dim)) Render();
         }
 
         internal override void Render()
@@ -28,9 +28,9 @@ namespace sm
             string borderMiddle = $"{Border(Get.Vertical)}{BuildString(" ", Dim.Width - 2)}{Border(Get.Vertical)}";
             string borderBottom = $"{Border(Get.BottomLeft)}{BuildString(Border(Get.Horizontal), Dim.Width - 2)}{Border(Get.BottomRight)}";
 
-            string styledBorderTop = Style.Set(borderTop, Style.Border);
-            string styledBorderMiddle = Style.Set(borderMiddle, Style.Border);
-            string styledBorderBottom = Style.Set(borderBottom, Style.Border);
+            string styledBorderTop = _style.Set(borderTop, _style.Border);
+            string styledBorderMiddle = _style.Set(borderMiddle, _style.Border);
+            string styledBorderBottom = _style.Set(borderBottom, _style.Border);
 
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), styledBorderTop);
 
@@ -42,9 +42,9 @@ namespace sm
             Write(new Point(Pos.Absolute.X, Pos.Absolute.Y + currentHeight++), styledBorderBottom);
         }
 
-        internal override void ChangeStyling(CStyle _style)
+        internal override void ChangeStyling(CStyle style)
         {
-            Style = _style;
+            _style = style;
             Remove(Pos.Absolute, Dim);
             RenderChildren();
         }

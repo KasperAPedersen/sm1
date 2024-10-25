@@ -1,47 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace sm
 {
     internal class CRender
     {
-        internal static int CWidth = Console.WindowWidth;
-        internal static int CHeight = Console.WindowHeight;
+        private static int _cWidth = Console.WindowWidth;
+        private static int _cHeight = Console.WindowHeight;
         internal static Color ActiveColor = Color.aquamarine1;
 
-        internal static void Write(Point _pos, string _text)
+        internal static void Write(Point pos, string text)
         {
-            if (_pos.X >= CWidth) _pos.X = CWidth - 1;
-            if (_pos.Y >= CHeight) _pos.Y = CHeight - 1;
+            if (pos.X >= _cWidth) pos.X = _cWidth - 1;
+            if (pos.Y >= _cHeight) pos.Y = _cHeight - 1;
 
-            Console.SetCursorPosition(_pos.X, _pos.Y);
-            Console.Write(_text);
+            Console.SetCursorPosition(pos.X, pos.Y);
+            Console.Write(text);
         }
 
-        internal static void Remove(Point _pos, Dimensions _dim)
+        internal static void Remove(Point pos, Dimensions dim)
         {
-            for (int i = 0; i < _dim.Height; i++)
+            for (int i = 0; i < dim.Height; i++)
             {
-                int y = _pos.Y + i;
-                if (y >= CHeight) y = CHeight - 1;
+                int y = pos.Y + i;
+                if (y >= _cHeight) y = _cHeight - 1;
 
-                Console.SetCursorPosition(_pos.X, y);
-                Console.Write(new string(' ', _dim.Width));
+                Console.SetCursorPosition(pos.X, y);
+                Console.Write(new string(' ', dim.Width));
             }
         }
 
-        internal static string BuildString(string _text, int width)
+        internal static string BuildString(string text, int width)
         {
-            return string.Concat(Enumerable.Repeat(_text, width));
+            return string.Concat(Enumerable.Repeat(text, width));
         }
 
-        internal static string Border(Get _part)
+        internal static string Border(Get part)
         {
-            return _part switch
+            return part switch
             {
                 Get.TopLeft => "┌",
                 Get.TopRight => "┐",

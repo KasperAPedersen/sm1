@@ -1,36 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
+﻿using System.Drawing;
 
 namespace sm
 {
     internal class CLabel : CObject
     {
-        CStyle Style;
-        string Text = "";
+        private CStyle _style;
+        private string _text;
 
-        public CLabel(CObject _parent, Point _pos, Align _align, string _text, CStyle _style) : base(_parent, _pos, new Dimensions(_text.Length, 1))
+        public CLabel(CObject parent, Point pos, Align align, string text, CStyle style) : base(parent, pos, new Dimensions(text.Length, 1))
         {
-            Text = _text;
-            Style = _style;
+            _text = text;
+            _style = style;
 
-            if (ShouldRender && NewObjPos(_parent, Aligner(_align, _parent, _pos), Dim)) Render();
-
+            Initialize(parent, pos, align);
+        }
+        
+        private void Initialize(CObject parent, Point pos, Align align)
+        {
+            if (ShouldRender && NewObjPos(parent, Aligner(align, parent, pos), Dim)) Render();
         }
 
         internal override void Render()
         {
-            Text = Style.Set(Text, Style.Font);
-            Write(Pos.Absolute, Text);
+            _text = _style.Set(_text, _style.Font);
+            Write(Pos.Absolute, _text);
         }
 
-        internal override void ChangeStyling(CStyle _style)
+        internal override void ChangeStyling(CStyle style)
         {
-            Style = _style;
+            _style = style;
             Remove(Pos.Absolute, Dim);
             RenderChildren();
         }

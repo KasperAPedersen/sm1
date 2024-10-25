@@ -1,19 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace sm
 {
-    
-    internal class CObject : CContainer, IPosition, IDimensions
+    internal class CObject : CContainer
     {
-        public CObject(CObject? _parent, Point _pos, Dimensions _dim)
+        public CObject(CObject? parent, Point pos, Dimensions dim)
         {
-            NewObjPos(_parent, _pos, _dim);
+            Initialize(parent, pos, dim);
             Parent?.Children.Add(this);
+        }
+        
+        private void Initialize(CObject parent, Point pos, Dimensions dim)
+        {
+            NewObjPos(parent, pos, dim);
         }
 
         internal override void Render()
@@ -26,19 +25,19 @@ namespace sm
             throw new NotImplementedException();
         }
 
-        internal override void ChangeStyling(CStyle _style)
+        internal override void ChangeStyling(CStyle style)
         {
             throw new NotImplementedException();
         }
 
-        internal override void Update(Point _pos)
+        internal override void Update(Point pos)
         {
             Remove(Pos.Absolute, Dim);
 
-            NewObjPos(Parent, _pos, Dim);
+            NewObjPos(Parent, pos, Dim);
             Render();
 
-            foreach(CObject child in Children) child.Update(_pos);
+            foreach(CObject child in Children) child.Update(pos);
         }
 
         internal void RenderChildren()
@@ -50,50 +49,48 @@ namespace sm
             }
         }
 
-        internal override bool NewObjPos(CObject? _parent, Point _pos, Dimensions _dim)
+        internal override bool NewObjPos(CObject? parent, Point pos, Dimensions dim)
         {
-            if(_parent != null)
+            if(parent != null)
             {
-                if (Dim.Width > _parent.Dim.Width - 4) return false;
-                if (Dim.Height > _parent.Dim.Height - 2) return false;
+                if (Dim.Width > parent.Dim.Width - 4) return false;
+                if (Dim.Height > parent.Dim.Height - 2) return false;
 
                 // Update rel pos if parent exists
-                if (_pos.X < 2) _pos = new Point(2, _pos.Y);
-                if (_pos.Y < 1) _pos = new Point(_pos.X, 1);
+                if (pos.X < 2) pos = new Point(2, pos.Y);
+                if (pos.Y < 1) pos = new Point(pos.X, 1);
 
-                if (_parent.Dim.Width <= _dim.Width) _dim = new Dimensions(_parent.Dim.Width - 4, _parent.Dim.Height);
-                if (_parent.Dim.Height <= _dim.Height) _dim = new Dimensions(_dim.Width, _parent.Dim.Height - 2);
+                if (parent.Dim.Width <= dim.Width) dim = new Dimensions(parent.Dim.Width - 4, parent.Dim.Height);
+                if (parent.Dim.Height <= dim.Height) dim = new Dimensions(dim.Width, parent.Dim.Height - 2);
 
-                Pos = new Position(new Point(_parent.Pos.Absolute.X + _pos.X, _parent.Pos.Absolute.Y + _pos.Y), _pos);
+                Pos = new Position(new Point(parent.Pos.Absolute.X + pos.X, parent.Pos.Absolute.Y + pos.Y), pos);
             } else
             {
-                _dim = new Dimensions(Console.WindowWidth, Console.WindowHeight - 2);
-                Pos = new Position(_pos, _pos);
+                dim = new Dimensions(Console.WindowWidth, Console.WindowHeight - 2);
+                Pos = new Position(pos, pos);
             }
 
-            Parent = _parent;
-            Dim = _dim;
+            Parent = parent;
+            Dim = dim;
             return true;
         }
 
-        internal override Point Aligner(Align _align, CObject _parent, Point _pos)
+        internal override Point Aligner(Align align, CObject parent, Point pos)
         {
-            switch (_align)
+            switch (align)
             {
                 case Align.Left:
-                    _pos = new Point(0, _pos.Y);
+                    pos = new Point(0, pos.Y);
                     break;
                 case Align.Middle:
-                    _pos = new Point((_parent.Dim.Width - Dim.Width) / 2, _pos.Y);
+                    pos = new Point((parent.Dim.Width - Dim.Width) / 2, pos.Y);
                     break;
                 case Align.Right:
-                    _pos = new Point((_parent.Dim.Width - Dim.Width) - 2, _pos.Y);
-                    break;
-                default:
+                    pos = new Point((parent.Dim.Width - Dim.Width) - 2, pos.Y);
                     break;
             }
 
-            return _pos;
+            return pos;
         }
     }
 
