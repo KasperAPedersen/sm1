@@ -34,9 +34,8 @@ while (true)
                 if (table.Content.Count <= 0) continue;
                 switch (table.SelectIndex)
                 {
-                    case 10:
+                    case 10: // Edit
                         List<string> values = table.Content[table.ContentIndex];
-
                         List<string> postalCodes = await CDatabase.GetPostalCodes();
                         List<string> schools = await CDatabase.GetSchools();
                         List<string> jobs = await CDatabase.GetJobs();
@@ -53,7 +52,7 @@ while (true)
 
                         if (form.IsFinished) table.Edit(form.GetValues());
                         break;
-                    case 11:
+                    case 11: // Delete
                         table.Delete();
                         break;
                 }
@@ -62,7 +61,7 @@ while (true)
             {
                 switch (btnIndex)
                 {
-                    case 0:
+                    case 0: // Create user
                         List<string> postalCodes = await CDatabase.GetPostalCodes();
                         List<string> schools = await CDatabase.GetSchools();
                         List<string> jobs = await CDatabase.GetJobs();
@@ -77,7 +76,7 @@ while (true)
 
                         btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorder(CRender.ActiveColor).AddFont(CRender.ActiveColor).Build());
                         break;
-                    case 1:
+                    case 1: // Add postal code
                         btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorders([CRender.ActiveColor, Styling.Blink]).AddFonts([CRender.ActiveColor, Styling.Blink]).Build());
                         form = new(innerBox, "Add Postal",
                             ["Postal Code", "City"], // Field names
@@ -87,7 +86,7 @@ while (true)
 
                         btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorder(CRender.ActiveColor).AddFont(CRender.ActiveColor).Build());
                         break;
-                    case 2:
+                    case 2: // Add job
                         btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorders([CRender.ActiveColor, Styling.Blink]).AddFonts([CRender.ActiveColor, Styling.Blink]).Build());
                         form = new(innerBox, "Add Job",
                             ["Job"], // Field names
@@ -97,7 +96,7 @@ while (true)
 
                         btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorder(CRender.ActiveColor).AddFont(CRender.ActiveColor).Build());
                         break;
-                    case 3:
+                    case 3: // Add education
                         btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorders([CRender.ActiveColor, Styling.Blink]).AddFonts([CRender.ActiveColor, Styling.Blink]).Build());
                         form = new(innerBox, "Add Education",
                              ["Education"], // Field names
@@ -106,7 +105,7 @@ while (true)
                         if (form.IsFinished) CDatabase.AddEducation(form.GetValues()[0]);
                         btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorder(CRender.ActiveColor).AddFont(CRender.ActiveColor).Build());
                         break;
-                    case 4:
+                    case 4: // Settings
                         btns[btnIndex].ChangeStyling(new CStyleBuilder().AddBorders([CRender.ActiveColor, Styling.Blink]).AddFonts([CRender.ActiveColor, Styling.Blink]).Build());
 
                         int activeColor = (int)CRender.ActiveColor - 1;
@@ -136,8 +135,7 @@ while (true)
             } 
             else
             {
-                btnIndex++;
-                if(btnIndex >= btns.Count) btnIndex = 0;
+                if(btnIndex++ >= btns.Count) btnIndex = 0;
 
                 for(int i = 0; i < btns.Count; i++)
                 {
@@ -153,8 +151,7 @@ while (true)
             } 
             else
             {
-                btnIndex--;
-                if(btnIndex < 0) btnIndex = btns.Count - 1;
+                if(btnIndex-- < 0) btnIndex = btns.Count - 1;
                 for (int i = 0; i < btns.Count; i++)
                 {
                     btns[i].ChangeStyling(new CStyleBuilder().AddBorder(i == btnIndex ? CRender.ActiveColor : Color.white).AddFont(i == btnIndex ? CRender.ActiveColor : Color.white).Build());
